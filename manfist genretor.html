@@ -22,7 +22,8 @@
             --source2-bg: #f0964c;
             --source3-bg: #7209b7;
             --online-fix-bg: #108a00;
-            --custom-link-bg: #9d4edd; /* لون جديد للروابط المخصصة */
+            --custom-link-bg: #9d4edd;
+            --glow-color: rgba(76, 201, 240, 0.5);
         }
         
         * {
@@ -42,6 +43,21 @@
             color: var(--text);
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(76, 201, 240, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(247, 37, 133, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
         }
         
         .container {
@@ -50,12 +66,29 @@
             background-color: rgba(0, 0, 0, 0.4); 
             padding: 20px;
             border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--success), var(--accent), var(--warning));
+            z-index: 1;
         }
         
         header {
             text-align: center;
             padding: 30px 0;
             margin-bottom: 20px;
+            position: relative;
         }
         
         .logo {
@@ -69,12 +102,20 @@
         .logo i {
             font-size: 2.8rem;
             color: var(--accent);
+            filter: drop-shadow(0 0 10px var(--glow-color));
+            animation: pulse 3s infinite alternate;
         }
         
         .logo h1 {
             font-size: 2.2rem;
             font-weight: 700;
             color: var(--text);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
         }
 
         @keyframes rainbow {
@@ -92,6 +133,10 @@
             margin-bottom: 15px;
             animation: rainbow 6s ease-in-out infinite;
             display: block; 
+            position: relative;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.2);
         }
 
         header p {
@@ -99,6 +144,7 @@
             color: var(--accent);
             max-width: 600px;
             margin: 0 auto;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
         
         .search-section {
@@ -108,6 +154,14 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
             margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .search-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
         }
         
         .section-title {
@@ -119,10 +173,23 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
         }
         
         .input-group {
             margin-bottom: 25px;
+            position: relative;
         }
         
         .input-group label {
@@ -148,6 +215,7 @@
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(65, 90, 119, 0.3);
+            background: rgba(255, 255, 255, 0.08);
         }
         
         .input-group .example {
@@ -178,12 +246,33 @@
             margin-bottom: 0;
             flex-grow: 1;
             min-width: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
         }
         
         .btn:hover {
             background: linear-gradient(135deg, #4a6fa1, var(--accent));
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
         }
         
         .btn:disabled {
@@ -202,6 +291,18 @@
             padding: 20px;
             margin-top: 25px;
             border-left: 4px solid var(--accent);
+            position: relative;
+        }
+        
+        .info-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76, 201, 240, 0.05), transparent);
+            pointer-events: none;
         }
         
         .info-box p {
@@ -214,10 +315,12 @@
             color: var(--accent);
             text-decoration: none;
             font-weight: 600;
+            transition: color 0.3s;
         }
         
         .info-box a:hover {
             text-decoration: underline;
+            color: var(--success);
         }
         
         .info-box code {
@@ -234,6 +337,12 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
             margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .results-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
         }
         
         .terminal {
@@ -246,11 +355,27 @@
             font-size: 1.1rem;
             margin-bottom: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .terminal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(13, 19, 34, 0.8), rgba(13, 19, 34, 0.8)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0 0L100 100M100 0L0 100" stroke="rgba(76,201,240,0.05)" stroke-width="1"/></svg>');
+            pointer-events: none;
+            border-radius: 8px;
         }
         
         .terminal-line {
             margin-bottom: 10px;
             line-height: 1.5;
+            position: relative;
+            z-index: 1;
         }
         
         .terminal-cmd {
@@ -285,20 +410,17 @@
             background: linear-gradient(135deg, var(--source3-bg), #480ca8);
         }
 
-        /* --- تنسيق زر Online Fix --- */
         .online-fix-btn {
             background: linear-gradient(135deg, var(--online-fix-bg), #0f6e00);
             min-width: 200px !important; 
         }
         
-        /* تنسيق زر FIX */
         .fix-search-btn {
             background: linear-gradient(135deg, #f0964c, #d35400); 
             min-width: 150px;
             margin-top: 15px; 
         }
         
-        /* تنسيق زر SteamDB لنسخ الاسم */
         .steamdb-name-btn {
             background: linear-gradient(135deg, var(--accent), #1b263b);
             margin-bottom: 15px;
@@ -306,7 +428,6 @@
             padding: 10px 15px;
         }
         
-        /* تنسيق زر الروابط المخصصة */
         .custom-link-btn {
             background: linear-gradient(135deg, var(--custom-link-bg), #7b2cbf);
             min-width: 200px !important;
@@ -333,6 +454,18 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
         }
 
         .success-checkmark {
@@ -349,6 +482,13 @@
             box-sizing: content-box;
             border: 4px solid var(--success);
             margin: 0 auto;
+            animation: checkmark-pulse 2s infinite;
+        }
+
+        @keyframes checkmark-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 201, 240, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0); }
         }
 
         .check-icon::after {
@@ -392,6 +532,12 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #gameImage:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         @keyframes fadeIn {
@@ -399,7 +545,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- CSS for History List --- */
         .history-item {
             background: var(--secondary);
             padding: 12px 15px;
@@ -408,15 +553,33 @@
             font-size: 1rem;
             color: var(--text);
             cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .history-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .history-item:hover::before {
+            left: 100%;
         }
 
         .history-item:hover {
             background: var(--accent);
             transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         #historyList {
@@ -424,7 +587,6 @@
             padding: 0;
         }
 
-        /* --- CSS for Toast Notifications --- */
         #toastContainer {
             position: fixed;
             top: 20px;
@@ -450,6 +612,19 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toast::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            pointer-events: none;
         }
 
         .toast.error-toast {
@@ -472,7 +647,6 @@
             to { opacity: 0; transform: translateX(100%); }
         }
         
-        /* --- CSS for Custom Links Indicator --- */
         .custom-link-indicator {
             display: inline-block;
             margin-left: 8px;
@@ -481,10 +655,90 @@
             border-radius: 4px;
             font-size: 0.8rem;
             font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        .link-status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+
+        .link-status.available {
+            background-color: var(--success);
+            box-shadow: 0 0 5px var(--success);
+        }
+
+        .link-status.unavailable {
+            background-color: var(--error);
+            box-shadow: 0 0 5px var(--error);
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(76, 201, 240, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                min-width: 100%;
+            }
+            
+            .terminal {
+                height: 200px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
+    
     <div class="container">
         <header>
             <div class="logo">
@@ -591,15 +845,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // DOM Elements
+            createParticles();
+            
             const generateBtn = document.getElementById('generateBtn');
             const appIdInput = document.getElementById('appId');
             
-            // Online Fix Toggles
-            const onlineFixInputGroup = document.getElementById('onlineFixInputGroup'); // المجموعة المخفية
-            const steamDBNameBtn = document.getElementById('steamDBNameBtn'); // زر SteamDB الجديد
+            const onlineFixInputGroup = document.getElementById('onlineFixInputGroup');
+            const steamDBNameBtn = document.getElementById('steamDBNameBtn');
             const gameNameInput = document.getElementById('gameName'); 
-            const fixSearchBtn = document.getElementById('fixSearchBtn'); // زر FIX الجديد
+            const fixSearchBtn = document.getElementById('fixSearchBtn');
             
             const terminal = document.getElementById('terminal');
             const successCheckmark = document.getElementById('successCheckmark');
@@ -608,25 +862,37 @@
             
             const descriptionBtn = document.getElementById('descriptionBtn');
             
-            // Elements for three buttons + new Online Fix button
             const downloadButtonsGroup = document.getElementById('downloadButtonsGroup');
             const downloadBtn1 = document.getElementById('downloadBtn1');
             const downloadBtn2 = document.getElementById('downloadBtn2');
             const downloadBtn3 = document.getElementById('downloadBtn3');
-            const onlineFixBtn = document.getElementById('onlineFixBtn'); // زر Online Fix
-            const customLinkBtn = document.getElementById('customLinkBtn'); // زر الروابط المخصصة الجديد
+            const onlineFixBtn = document.getElementById('onlineFixBtn');
+            const customLinkBtn = document.getElementById('customLinkBtn');
             
             const historyList = document.getElementById('historyList');
             
-            // متغير لتخزين بيانات الروابط المخصصة
             let customLinksData = {};
 
-            // ------------------------------------------------------------------
-            // ** وظيفة تحميل بيانات الروابط المخصصة من ملف JSON خارجي **
-            // ------------------------------------------------------------------
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = 30;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.animationDelay = `${Math.random() * 15}s`;
+                    particle.style.animationDuration = `${15 + Math.random() * 10}s`;
+                    particle.style.width = `${2 + Math.random() * 3}px`;
+                    particle.style.height = particle.style.width;
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
             async function loadCustomLinks() {
                 try {
-                    // رابط ملف JSON على GitHub
                     const response = await fetch('https://raw.githubusercontent.com/your-username/your-repo/main/custom-links.json');
                     if (!response.ok) {
                         throw new Error('لم يتم العثور على ملف الروابط المخصصة');
@@ -635,7 +901,6 @@
                     console.log('تم تحميل بيانات الروابط المخصصة:', customLinksData);
                 } catch (error) {
                     console.warn('تعذر تحميل ملف الروابط المخصصة:', error.message);
-                    // يمكنك استخدام بيانات افتراضية هنا إذا لزم الأمر
                     customLinksData = {
                         "1030300": "https://drive.usercontent.google.com/download?id=1WIjPYBKruObyMHLf3aaMbJKRv_fFByTB&export=download",
                         "2807960": "https://drive.usercontent.google.com/u/0/uc?id=16GS4ONXQ2Hx-PYXcLyYKRFV8Px4xEvT4&export=download",
@@ -643,10 +908,8 @@
                 }
             }
             
-            // تحميل بيانات الروابط المخصصة عند بدء التشغيل
             loadCustomLinks();
 
-            // Add typewriter effect to the terminal
             function typeWriter(text, className, delay = 0) {
                 return new Promise(resolve => {
                     setTimeout(() => {
@@ -669,9 +932,6 @@
                 });
             }
             
-            // ------------------------------------------------------------------
-            // ** وظيفة عرض الإشعارات العائمة (Toast Notifications) **
-            // ------------------------------------------------------------------
             function showToast(message, type = 'success', duration = 4000) {
                 const container = document.getElementById('toastContainer');
                 const toast = document.createElement('div');
@@ -696,12 +956,7 @@
                     }, 300);
                 }, duration);
             }
-            // ------------------------------------------------------------------
 
-
-            // ------------------------------------------------------------------
-            // ** وظائف التخزين والسجل **
-            // ------------------------------------------------------------------
             const STORAGE_KEY = 'last10AppIDs';
 
             function loadAppIDs() {
@@ -735,7 +990,6 @@
                 appIDs.forEach(item => {
                     const li = document.createElement('li');
                     
-                    // إضافة مؤشر إذا كان AppID موجود في قائمة الروابط المخصصة
                     const customIndicator = customLinksData[item.appId] ? 
                         '<span class="custom-link-indicator" style="margin-right: 8px;">مخصص</span>' : '';
                     
@@ -752,9 +1006,7 @@
                     historyList.appendChild(li);
                 });
             }
-            // ------------------------------------------------------------------
             
-            // دالة توليد روابط المانيفست
             function generateManifest() {
                 const appId = appIdInput.value.trim();
                 const gameName = gameNameInput.value.trim(); 
@@ -770,7 +1022,6 @@
                 generateBtn.innerHTML = '<span class="loading"></span> جاري المعالجة...';
                 generateBtn.disabled = true;
                 
-                // إخفاء حقل Online Fix عند بدء البحث العادي
                 onlineFixInputGroup.style.display = 'none'; 
 
                 terminal.innerHTML = '';
@@ -784,9 +1035,6 @@
                 simulateSearch(appId, gameName);
             }
             
-            // ------------------------------------------------------------------
-            // ** وظيفة البحث عن Online Fix **
-            // ------------------------------------------------------------------
             function searchOnlineFix() {
                 const gameName = gameNameInput.value.trim();
                 
@@ -796,7 +1044,6 @@
                 }
                 
                 const onlineFixUrlBase = 'https://online-fix.me/index.php?do=search&subaction=search&story=';
-                // استخدام encodeURIComponent لضمان أن اسم اللعبة يُعالج بشكل صحيح (مثل المسافات)
                 const onlineFixUrl = `${onlineFixUrlBase}${encodeURIComponent(gameName)}`; 
                 
                 window.open(onlineFixUrl, '_blank');
@@ -805,10 +1052,8 @@
                 onlineFixInputGroup.style.display = 'none';
             }
             
-            // معالج حدث لزر "Fix"
             fixSearchBtn.addEventListener('click', searchOnlineFix);
             
-            // معالج حدث لزر "SteamDB Name" الجديد
             steamDBNameBtn.addEventListener('click', () => {
                 const appId = appIdInput.value.trim();
                 if (!appId || isNaN(appId)) {
@@ -820,33 +1065,26 @@
                 showToast('تم فتح صفحة SteamDB. يرجى نسخ اسم اللعبة ولصقه في المربع.', 'info', 7000);
             });
 
-            // معالج حدث لزر "Online Fix" الرئيسي
             onlineFixBtn.addEventListener('click', () => {
                 const appId = appIdInput.value.trim();
-                // إظهار حقل الإدخال فقط إذا كان هناك AppID مدخل، لأنه ضروري لرابط SteamDB
                 if (!appId || isNaN(appId)) {
                     showToast('الرجاء إدخال AppID أولاً ثم محاولة البحث في Online Fix.', 'error');
                     return;
                 }
                 
-                // تحديث نص زر SteamDB بالـ AppID الحالي
                 steamDBNameBtn.innerHTML = `<i class="fas fa-copy"></i> اضغط لنسخ اسم اللعبة من SteamDB App ${appId}`;
 
-                // إظهار مجموعة أدوات Online Fix
                 onlineFixInputGroup.style.display = 'block';
                 gameNameInput.focus(); 
                 showToast('استخدم زر SteamDB لنسخ اسم اللعبة، ثم اضغط "Fix".', 'info', 7000);
             });
 
-            // معالج حدث للضغط على Enter في حقل اسم اللعبة
             gameNameInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     searchOnlineFix();
                 }
             });
-            // ------------------------------------------------------------------
 
-            // معالج حدث لزر التوليد العادي
             generateBtn.addEventListener('click', generateManifest);
             
             appIdInput.addEventListener('keypress', (e) => {
@@ -855,7 +1093,6 @@
                 }
             });
             
-            // دالة محاكاة عملية البحث
             async function simulateSearch(appId, gameName) {
                 try {
                     await typeWriter('> Generating file', 'terminal-cmd');
@@ -865,7 +1102,6 @@
                     gameImage.src = imageUrl;
                     gameImageContainer.style.display = 'flex'; 
                     
-                    // Show description button
                     descriptionBtn.style.display = 'block';
                     descriptionBtn.onclick = () => {
                         const descriptionUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=us&l=en`;
@@ -875,7 +1111,6 @@
                     successCheckmark.style.display = 'block';
                     downloadButtonsGroup.style.display = 'flex';
                     
-                    // التحقق مما إذا كان AppID موجود في قائمة الروابط المخصصة
                     if (customLinksData[appId]) {
                         customLinkBtn.style.display = 'flex';
                         customLinkBtn.onclick = () => {
@@ -887,12 +1122,10 @@
                         showToast('تم توليد الروابط بنجاح! الرجاء تجربة المصادر.', 'success');
                     }
                     
-                    // Define the three download URLs
                     let downloadUrl_1 = `https://raw.githubusercontent.com/ABAID-CODER/crackworld-manifest/main/${appId}.zip`; 
                     const downloadUrl_2 = `https://codeload.github.com/SteamAutoCracks/ManifestHub/zip/refs/heads/${appId}`; 
                     const downloadUrl_3 = `https://pub-5b6d3b7c03fd4ac1afb5bd3017850e20.r2.dev/${appId}.zip`; 
                     
-                    // Link the default buttons to the URLs
                     downloadBtn1.onclick = () => { window.open(downloadUrl_1, '_blank'); };
                     downloadBtn2.onclick = () => { window.open(downloadUrl_2, '_blank'); };
                     downloadBtn3.onclick = () => { window.open(downloadUrl_3, '_blank'); };
@@ -907,10 +1140,10 @@
                 }
             }
 
-            // عرض السجل عند تحميل الصفحة لأول مرة
             displayHistory(); 
 
         });
+		
     </script>
 </body>
 </html>
