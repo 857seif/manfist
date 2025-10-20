@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Steam AppID & Manifest Generator - Seif Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -92,7 +92,7 @@
         .info-box { background: rgba(255, 255, 255, 0.03); border-radius: 8px; padding: 20px; margin-top: 25px; border-left: 4px solid var(--accent); position: relative; }
         .info-box a { color: var(--accent); text-decoration: none; font-weight: 600; transition: color 0.3s; }
         .terminal {
-            background: var(--terminal-bg); border-radius: 8px; padding: 20px; height: 150px; /* تصغير الارتفاع لإضافة مكان لمعلومات API */
+            background: var(--terminal-bg); border-radius: 8px; padding: 20px; height: 150px; 
             overflow-y: auto; font-family: monospace; font-size: 1.1rem; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.1); position: relative;
         }
         .terminal-line { margin-bottom: 10px; line-height: 1.5; position: relative; z-index: 1; }
@@ -133,13 +133,13 @@
         .toast.error-toast { border-right-color: var(--error); }
         .toast.info-toast { border-right-color: var(--accent); }
         
-        /* أنماط API المدمجة (مستوحاة من الكود الثاني) */
+        /* أنماط API المدمجة */
         #apiGameInfo {
             background-color: var(--api-bg);
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
-            display: none; /* يتم إظهاره بعد نجاح البحث */
+            display: none; 
         }
 
         .api-header {
@@ -151,7 +151,7 @@
         }
 
         .api-title {
-            color: var(--light);
+            color: var(--text);
             font-size: 24px;
             margin-right: 15px;
         }
@@ -203,12 +203,12 @@
         <header>
             <div class="logo">
                 <i class="fab fa-steam"></i>
-                <h1></h1>
+                <h1>Steam AppID & Manifest Generator</h1>
             </div>
             
             <p class="seif-credit">By ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨</p>
             
-            <p></p>
+            <p>أداة لتوليد روابط تحميل ملفات Manifest لـ Steam AppIDs، مع جلب معلومات اللعبة من Steam API.</p>
         </header>
         
         <div class="search-section">
@@ -217,11 +217,21 @@
                 <h2>ابحث عن ملفات اللعبة</h2>
             </div>
 
-            <div id="onlineFixInputGroup" style="display: none; margin-bottom: 25px;">
+            <div class="input-group">
+                <label for="appId">أدخل AppID أو اسم اللعبة:</label>
+                <input type="text" id="appId" placeholder="مثال: 271590 أو Cyberpunk 2077" autocomplete="off">
+                <div class="example">أدخل رقم الـ AppID أو اسم اللعبة وسنقوم بالبحث عنه.</div>
+            </div>
+            
+            <button class="btn" id="generateBtn">
+                <i class="fas fa-bolt"></i> توليد روابط التحميل والبحث عن المعلومات
+            </button>
+            
+            <div id="onlineFixInputGroup" style="display: none; margin-top: 25px; padding-top: 15px; border-top: 1px dashed var(--secondary);">
                 <button class="btn steamdb-name-btn" id="steamDBNameBtn">
                     <i class="fas fa-copy"></i> استخدم الاسم المُكتشف تلقائيًا أو انسخ من SteamDB
                 </button>
-                <div class="input-group">
+                <div class="input-group" style="margin-top: 15px;">
                     <label for="gameName">اسم اللعبة للبحث في Online Fix (تعبئة تلقائية):</label>
                     <input type="text" id="gameName" placeholder="مثال: Grand Theft Auto V" autocomplete="off">
                     <div class="example">سيتم استخدام الاسم للبحث في موقع Online Fix.</div>
@@ -230,16 +240,6 @@
                     <i class="fas fa-search"></i> بحث في Online Fix
                 </button>
             </div>
-            <div class="input-group">
-                <label for="appId">أدخل Steam AppID:</label>
-                <input type="text" id="appId" placeholder="مثال: 271590" autocomplete="off">
-                <div class="example">AppID هو الرقم الموجود في رابط لعبة ستيم.</div>
-            </div>
-            
-            <button class="btn" id="generateBtn">
-                <i class="fas fa-bolt"></i> توليد روابط التحميل والبحث عن المعلومات
-            </button>
-            
             <div class="info-box">
                 <p>يمكنك العثور على AppID لأي لعبة من خلال زيارة <a href="https://steamdb.info" target="_blank">SteamDB</a> والبحث عن اللعبة.</p>
                 <p>هذه الأداة مخصصة للأغراض التعليمية والإعلامية فقط. يجب أن تمتلك ترخيصًا صحيحًا لأي لعبة تريد الوصول إلى ملفاتها.</p>
@@ -271,11 +271,11 @@
             </div>
 
             <div id="apiGameInfo">
-                </div>
+            </div>
             
             <div class="terminal" id="terminal">
                 <div class="terminal-line">> System initialized. Ready to process requests.</div>
-                <div class="terminal-line">> Enter a valid Steam AppID to generate manifest links.</div>
+                <div class="terminal-line">> Enter a valid Steam AppID or search by name.</div>
             </div>
 
             <div class="success-checkmark" id="successCheckmark">
@@ -303,8 +303,8 @@
         </div>
         
         <footer>
-            <p></p>
-            <p></p>
+            <p>أداة مجانية ومفتوحة المصدر لتبسيط عملية الوصول إلى ملفات Manifest. ليست تابعة لـ Steam.</p>
+            <p>استخدمها بمسؤولية واحترام حقوق الملكية الفكرية.</p>
         </footer>
     </div>
     
@@ -314,8 +314,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             
+            // متغيرات الإدخال والتحكم
             const generateBtn = document.getElementById('generateBtn');
-            const appIdInput = document.getElementById('appId');
+            const appIdInput = document.getElementById('appId'); // حقل الإدخال الموحد
             
             const onlineFixInputGroup = document.getElementById('onlineFixInputGroup');
             const steamDBNameBtn = document.getElementById('steamDBNameBtn');
@@ -327,8 +328,8 @@
             const gameImageContainer = document.getElementById('gameImageContainer');
             const gameImage = document.getElementById('gameImage');
             
-            const steamInfoBtn = document.getElementById('steamInfoBtn'); // تم تغيير الاسم
-            const apiGameInfo = document.getElementById('apiGameInfo'); // عنصر جديد لعرض معلومات API
+            const steamInfoBtn = document.getElementById('steamInfoBtn'); 
+            const apiGameInfo = document.getElementById('apiGameInfo'); 
 
             const downloadButtonsGroup = document.getElementById('downloadButtonsGroup');
             const downloadBtn1 = document.getElementById('downloadBtn1');
@@ -341,7 +342,7 @@
             
             let customLinksData = {};
             let currentAppId = '';
-            let currentApiData = null; // لتخزين بيانات API
+            let currentApiData = null; 
 
             function createParticles() {
                 const particlesContainer = document.getElementById('particles');
@@ -349,12 +350,7 @@
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
                     particle.classList.add('particle');
-                    particle.style.left = `${Math.random() * 100}%`;
-                    particle.style.animationDelay = `${Math.random() * 15}s`;
-                    particle.style.animationDuration = `${15 + Math.random() * 10}s`;
-                    particle.style.width = `${2 + Math.random() * 3}px`;
-                    particle.style.height = particle.style.width;
-                    particlesContainer.appendChild(particle);
+                    // (يتم تجاهل إنشاء الجسيمات لعدم وجود CSS الخاص بها، لكن الوظيفة موجودة)
                 }
             }
 
@@ -459,7 +455,8 @@
                     li.addEventListener('click', () => {
                         appIdInput.value = item.appId;     
                         gameNameInput.value = item.gameName === 'غير محدد' ? '' : item.gameName; 
-                        generateManifest();                 
+                        // عند الضغط على السجل، نفترض أنه AppID صالح
+                        generateManifest(true);                 
                     });
                     
                     historyList.appendChild(li);
@@ -467,10 +464,8 @@
             }
             
             async function fetchGameData(appId) {
-                // جلب معلومات اللعبة من Steam API
-                // سنستخدم CORS Proxy مؤقت كما في الكود الثاني، لكن يجب الانتباه أن هذه الخدمة قد تتوقف
                 const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; 
-                const apiUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=us&l=arabic`; // طلب اللغة العربية
+                const apiUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=us&l=arabic`; 
                 
                 const response = await fetch(proxyUrl + apiUrl);
                 if (!response.ok) {
@@ -479,7 +474,6 @@
                 
                 const data = await response.json();
                 
-                // التأكد من نجاح الاستجابة
                 if (data[appId] && data[appId].success) {
                     return data[appId].data;
                 } else {
@@ -527,27 +521,96 @@
                     </div>
                 `;
 
-                // تحسين: استخدم اسم اللعبة المكتشف لتعبئة حقل Online Fix
                 gameNameInput.value = game.name;
             }
 
             steamInfoBtn.addEventListener('click', () => {
-                // تبديل إظهار/إخفاء معلومات API
                 apiGameInfo.style.display = apiGameInfo.style.display === 'block' ? 'none' : 'block';
                 steamInfoBtn.innerHTML = apiGameInfo.style.display === 'block' ? '<i class="fas fa-times-circle"></i> إخفاء معلومات Steam' : '<i class="fas fa-info-circle"></i> عرض معلومات Steam API';
             });
+            
+            // =========================================================
+            // الوظيفة المحدثة: لمعالجة الإدخال كنص (اسم لعبة)
+            // =========================================================
+            async function processInputAsName(gameName) {
+                if (!gameName) {
+                    return; // يجب أن تكون هناك قيمة، وهذا تم التحقق منه مسبقًا
+                }
 
-            async function generateManifest() {
-                const appId = appIdInput.value.trim();
-                currentAppId = appId; // تحديث AppID الحالي
+                generateBtn.innerHTML = '<span class="loading"></span> جاري البحث عن AppID...';
+                generateBtn.disabled = true;
+
+                await typeWriter(`> Detected name: "${gameName}". Searching for AppID...`, 'terminal-cmd', 300);
+
+                const searchUrl = `https://store.steampowered.com/api/storesearch/?cc=us&l=arabic&term=${encodeURIComponent(gameName)}&category1=998&page=1&pageSize=1`;
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; 
                 
-                if (!appId || isNaN(appId)) {
-                    showToast('الرجاء إدخال رقم AppID صحيح.', 'error');
-                    typeWriter('> Error: Please enter a valid numeric AppID', 'terminal-error');
+                try {
+                    const response = await fetch(proxyUrl + searchUrl);
+                    if (!response.ok) {
+                        throw new Error('فشل في جلب بيانات البحث');
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data && data.items && data.items.length > 0) {
+                        const appId = data.items[0].id;
+                        const detectedName = data.items[0].name;
+
+                        appIdInput.value = appId; // تحديث حقل الـ AppID
+                        gameNameInput.value = detectedName; // تحديث حقل اسم Online Fix
+
+                        await typeWriter(`> Success: Found AppID: ${appId} for "${detectedName}".`, 'terminal-msg', 500);
+                        showToast(`تم العثور على AppID: ${appId}. جاري توليد الروابط...`, 'success', 3000);
+
+                        // تشغيل وظيفة توليد المانيفست بالـ AppID الذي تم العثور عليه
+                        generateManifest(true); 
+
+                    } else {
+                        throw new Error('APP_NOT_FOUND');
+                    }
+
+                } catch (error) {
+                    
+                    if (error.message === 'APP_NOT_FOUND') {
+                         await typeWriter('> Error: Game not found. Try a more precise name or use the AppID directly.', 'terminal-error', 500);
+                         showToast('خطأ: لم يتم العثور على لعبة بهذا الاسم. جرب اسماً أدق.', 'error');
+                    } else {
+                         await typeWriter(`> Network Error: Could not reach search API. (CORS Proxy might be down)`, 'terminal-error', 500);
+                         showToast('خطأ في الاتصال أثناء البحث عن الـ AppID.', 'error');
+                    }
+                } finally {
+                    generateBtn.innerHTML = '<i class="fas fa-bolt"></i> توليد روابط التحميل والبحث عن المعلومات';
+                    generateBtn.disabled = false;
+                }
+            }
+            
+            // =========================================================
+            // وظيفة توليد المانيفست الأساسية - (نقطة الدخول الموحدة)
+            // =========================================================
+            async function generateManifest(isAppId = false) {
+                const inputValue = appIdInput.value.trim();
+                
+                if (!inputValue) {
+                    showToast('الرجاء إدخال AppID أو اسم اللعبة.', 'error');
+                    typeWriter('> Error: Input field is empty.', 'terminal-error');
                     return;
                 }
+
+                // فحص ما إذا كان الإدخال رقمًا
+                const isNumeric = /^\d+$/.test(inputValue);
+
+                if (!isAppId && !isNumeric) {
+                    // إذا كان الإدخال نصاً ولم يتم تشغيله كـ AppID (المرور الأول)
+                    terminal.innerHTML = ''; // إعادة ضبط الطرفية
+                    return processInputAsName(inputValue);
+                }
+
+                // هنا نعالج الإدخال كـ AppID (سواء تم إدخاله مباشرة أو تم اكتشافه بواسطة processInputAsName)
+                const appId = inputValue;
+                currentAppId = appId; 
                 
-                // إعادة ضبط الواجهة
+                // إعادة ضبط الواجهة قبل البدء
                 generateBtn.innerHTML = '<span class="loading"></span> جاري المعالجة...';
                 generateBtn.disabled = true;
                 onlineFixInputGroup.style.display = 'none'; 
@@ -561,13 +624,12 @@
 
 
                 try {
-                    await typeWriter('> Generating file and fetching API data...', 'terminal-cmd');
+                    await typeWriter(`> Starting processing for AppID: ${appId}...`, 'terminal-cmd');
                     
                     // 1. جلب بيانات API
                     const gameData = await fetchGameData(appId);
                     
                     if (!gameData) {
-                         // إذا فشل جلب API، نكتفي بالروابط ونعرض رسالة خطأ
                         throw new Error('API_FETCH_FAILED');
                     }
                     
@@ -613,8 +675,7 @@
                          await typeWriter('> Warning: API data could not be retrieved. Proceeding with manifest generation only.', 'terminal-error', 500);
                          await typeWriter(`> Attempting manifest generation for AppID: ${appId}`, 'terminal-cmd', 300);
 
-                         // نعتبر الـ AppID صحيحاً ونقوم بتوليد الروابط فقط
-                         saveAppID(appId, gameNameInput.value.trim() || 'غير محدد'); // حفظ الـ AppID بالاسم الموجود أو "غير محدد"
+                         saveAppID(appId, gameNameInput.value.trim() || 'غير محدد'); 
                          successCheckmark.style.display = 'block';
                          downloadButtonsGroup.style.display = 'flex';
 
@@ -631,7 +692,7 @@
                     } else {
                         await typeWriter('> Error: Invalid AppID or connection failed.', 'terminal-error', 500);
                         await typeWriter('> Please verify the AppID and try again', 'terminal-error', 300);
-                        showToast('خطأ: لم يتم العثور على اللعبة أو خطأ في الاتصال. تحقق من الـ AppID.', 'error');
+                        showToast('خطأ: لم يتم العثور على اللعبة أو خطأ في الاتصال. تحقق من الإدخال.', 'error');
                         apiGameInfo.style.display = 'none'; 
                     }
                 } finally {
@@ -640,7 +701,9 @@
                 }
             }
             
-            // وظائف Online Fix كما هي
+            // =========================================================
+            // وظائف Online Fix
+            // =========================================================
             function searchOnlineFix() {
                 const gameName = gameNameInput.value.trim();
                 if (!gameName) {
@@ -681,6 +744,9 @@
                 if (e.key === 'Enter') { searchOnlineFix(); }
             });
 
+            // =========================================================
+            // ربط الأحداث (باستخدام generateManifest كنقطة دخول موحدة)
+            // =========================================================
             generateBtn.addEventListener('click', generateManifest);
             
             appIdInput.addEventListener('keypress', (e) => {
