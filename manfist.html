@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam Manifest Hub</title>
+    <title>Steam Manifest Hub المُحسَّن</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -24,716 +24,176 @@
             --online-fix-bg: #108a00;
             --custom-link-bg: #9d4edd;
             --glow-color: rgba(76, 201, 240, 0.5);
+            /* ألوان إضافية لبيانات API */
+            --api-bg: #2a475e;
+            --api-text: #c7d5e0;
+            --api-highlight: #66c0f4;
+            --api-price: #5ba32b;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
-        
+
+        /* أنماط الكود الأول الأساسية */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body {
             background-image: url('https://generacionxbox.com/wp-content/uploads/2024/03/steam-juegos-gratis-1200x675.jpeg');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center center;
-            background-color: rgba(0, 0, 0, 0.7); 
-            background-blend-mode: darken; 
-            color: var(--text);
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
+            background-size: cover; background-attachment: fixed; background-position: center center;
+            background-color: rgba(0, 0, 0, 0.7); background-blend-mode: darken; color: var(--text);
+            min-height: 100vh; padding: 20px; position: relative; overflow-x: hidden;
         }
-        
         body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at 20% 80%, rgba(76, 201, 240, 0.1) 0%, transparent 50%),
                         radial-gradient(circle at 80% 20%, rgba(247, 37, 133, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
+            pointer-events: none; z-index: -1;
         }
-        
         .container {
-            max-width: 950px;
-            margin: 0 auto;
-            background-color: rgba(0, 0, 0, 0.4); 
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
+            max-width: 950px; margin: 0 auto; background-color: rgba(0, 0, 0, 0.4);
+            padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.05); position: relative; overflow: hidden;
         }
-        
         .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--success), var(--accent), var(--warning));
-            z-index: 1;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--success), var(--accent), var(--warning)); z-index: 1;
         }
+        header { text-align: center; padding: 30px 0; margin-bottom: 20px; position: relative; }
+        .logo { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px; }
+        .logo i { font-size: 2.8rem; color: var(--accent); filter: drop-shadow(0 0 10px var(--glow-color)); animation: pulse 3s infinite alternate; }
+        .logo h1 { font-size: 2.2rem; font-weight: 700; color: var(--text); text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+        .seif-credit { font-size: 1.2rem; font-weight: 700; margin-top: 10px; margin-bottom: 15px; animation: rainbow 6s ease-in-out infinite; display: block; position: relative; padding: 5px 10px; border-radius: 5px; background: rgba(0, 0, 0, 0.2); }
+        header p { font-size: 1.1rem; color: var(--accent); max-width: 600px; margin: 0 auto; text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); }
+        .search-section, .results-section {
+            background: var(--card-bg); border-radius: 12px; padding: 25px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            margin-bottom: 30px; border: 1px solid rgba(255, 255, 255, 0.05); position: relative; overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .section-title {
+            text-align: center; margin-bottom: 25px; font-size: 1.5rem; color: var(--accent);
+            display: flex; align-items: center; justify-content: center; gap: 10px; position: relative;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 50px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        .input-group { margin-bottom: 25px; position: relative; }
+        .input-group label { display: block; margin-bottom: 10px; font-weight: 600; font-size: 1.1rem; color: var(--text); }
+        .input-group input {
+            width: 100%; padding: 15px; border: 2px solid var(--secondary); background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px; color: white; font-size: 1.1rem; transition: all 0.3s;
+        }
+        .input-group input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(65, 90, 119, 0.3); background: rgba(255, 255, 255, 0.08); }
+        .input-group .example { margin-top: 8px; font-size: 0.9rem; color: var(--accent); }
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .btn {
+            background: linear-gradient(135deg, var(--accent), var(--secondary)); color: white; border: none;
+            padding: 15px 15px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;
+            display: block; width: 100%; font-size: 1rem; margin-bottom: 0; flex-grow: 1; min-width: 180px;
+            position: relative; overflow: hidden;
+        }
+        .btn:hover { background: linear-gradient(135deg, #4a6fa1, var(--accent)); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+        .info-box { background: rgba(255, 255, 255, 0.03); border-radius: 8px; padding: 20px; margin-top: 25px; border-left: 4px solid var(--accent); position: relative; }
+        .info-box a { color: var(--accent); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+        .terminal {
+            background: var(--terminal-bg); border-radius: 8px; padding: 20px; height: 150px; /* تصغير الارتفاع لإضافة مكان لمعلومات API */
+            overflow-y: auto; font-family: monospace; font-size: 1.1rem; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.1); position: relative;
+        }
+        .terminal-line { margin-bottom: 10px; line-height: 1.5; position: relative; z-index: 1; }
+        .terminal-cmd { color: var(--success); }
+        .terminal-msg { color: var(--text); }
+        .terminal-error { color: var(--error); }
+        .online-fix-btn { background: linear-gradient(135deg, var(--online-fix-bg), #0f6e00); min-width: 200px !important; }
+        .custom-link-btn { background: linear-gradient(135deg, var(--custom-link-bg), #7b2cbf); min-width: 200px !important; }
+        .download-btn-1 { background: linear-gradient(135deg, var(--source1-bg), #2a9d8f); }
+        .download-btn-2 { background: linear-gradient(135deg, var(--source2-bg), #d35400); }
+        .download-btn-3 { background: linear-gradient(135deg, var(--source3-bg), #480ca8); }
+        .loading {
+            display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%; border-top-color: white; animation: spin 1s ease-in-out infinite;
+        }
+        #gameImageContainer {
+            text-align: center; margin-bottom: 20px; display: none; animation: fadeIn 0.5s ease-in-out;
+            flex-direction: column; align-items: center;
+        }
+        #gameImage {
+            width: 100%; max-width: 460px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .history-item {
+            background: var(--secondary); padding: 12px 15px; margin-bottom: 8px; border-radius: 6px;
+            font-size: 1rem; color: var(--text); cursor: pointer; transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden;
+        }
+        .history-item:hover { background: var(--accent); transform: translateX(5px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+        #historyList { list-style: none; padding: 0; }
+        #toastContainer { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
+        .toast {
+            background-color: var(--card-bg); color: var(--text); padding: 15px 20px; border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); max-width: 300px; min-width: 250px; border-right: 4px solid var(--success);
+            opacity: 0; transform: translateX(100%); animation: slideIn 0.3s forwards, slideOut 0.3s 3.7s forwards;
+            display: flex; align-items: center; gap: 10px; position: relative; overflow: hidden;
+        }
+        .toast.error-toast { border-right-color: var(--error); }
+        .toast.info-toast { border-right-color: var(--accent); }
         
-        header {
-            text-align: center;
-            padding: 30px 0;
+        /* أنماط API المدمجة (مستوحاة من الكود الثاني) */
+        #apiGameInfo {
+            background-color: var(--api-bg);
+            border-radius: 8px;
+            padding: 20px;
             margin-bottom: 20px;
-            position: relative;
+            display: none; /* يتم إظهاره بعد نجاح البحث */
         }
-        
-        .logo {
+
+        .api-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-        
-        .logo i {
-            font-size: 2.8rem;
-            color: var(--accent);
-            filter: drop-shadow(0 0 10px var(--glow-color));
-            animation: pulse 3s infinite alternate;
-        }
-        
-        .logo h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--text);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--secondary);
+            padding-bottom: 15px;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
+        .api-title {
+            color: var(--light);
+            font-size: 24px;
+            margin-right: 15px;
         }
-
-        @keyframes rainbow {
-            0% { color: #f72585; text-shadow: 0 0 5px rgba(247, 37, 133, 0.5); }
-            25% { color: #4cc9f0; text-shadow: 0 0 5px rgba(76, 201, 240, 0.5); }
-            50% { color: #7209b7; text-shadow: 0 0 5px rgba(114, 9, 183, 0.5); }
-            75% { color: #f0964c; text-shadow: 0 0 5px rgba(240, 150, 76, 0.5); }
-            100% { color: #f72585; text-shadow: 0 0 5px rgba(247, 37, 133, 0.5); }
-        }
-
-        .seif-credit {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-top: 10px;
-            margin-bottom: 15px;
-            animation: rainbow 6s ease-in-out infinite;
-            display: block; 
-            position: relative;
+        .api-app-id {
+            background-color: var(--secondary);
             padding: 5px 10px;
             border-radius: 5px;
-            background: rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            margin-top: 5px;
         }
-
-        header p {
-            font-size: 1.1rem;
-            color: var(--accent);
-            max-width: 600px;
-            margin: 0 auto;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        .api-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
-        
-        .search-section {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .search-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.5rem;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-        
-        .input-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-        
-        .input-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--text);
-        }
-        
-        .input-group input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid var(--secondary);
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            color: white;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-        
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(65, 90, 119, 0.3);
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .input-group .example {
-            margin-top: 8px;
-            font-size: 0.9rem;
-            color: var(--accent);
-        }
-        
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
-            color: white;
-            border: none;
-            padding: 15px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: block;
-            width: 100%;
-            font-size: 1rem;
-            margin-bottom: 0;
-            flex-grow: 1;
-            min-width: 180px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn:hover {
-            background: linear-gradient(135deg, #4a6fa1, var(--accent));
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .btn i {
-            margin-left: 8px;
-        }
-        
-        .info-box {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 25px;
-            border-left: 4px solid var(--accent);
-            position: relative;
-        }
-        
-        .info-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(76, 201, 240, 0.05), transparent);
-            pointer-events: none;
-        }
-        
-        .info-box p {
-            margin-bottom: 12px;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-        
-        .info-box a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-        
-        .info-box a:hover {
-            text-decoration: underline;
-            color: var(--success);
-        }
-        
-        .info-box code {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-        
-        .results-section {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .results-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-        }
-        
-        .terminal {
-            background: var(--terminal-bg);
-            border-radius: 8px;
-            padding: 20px;
-            height: 250px;
-            overflow-y: auto;
-            font-family: monospace;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-        }
-        
-        .terminal::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(13, 19, 34, 0.8), rgba(13, 19, 34, 0.8)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0 0L100 100M100 0L0 100" stroke="rgba(76,201,240,0.05)" stroke-width="1"/></svg>');
-            pointer-events: none;
-            border-radius: 8px;
-        }
-        
-        .terminal-line {
-            margin-bottom: 10px;
-            line-height: 1.5;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .terminal-cmd {
-            color: var(--success);
-        }
-        
-        .terminal-msg {
-            color: var(--text);
-        }
-        
-        .terminal-error {
-            color: var(--error);
-        }
-        
-        .download-btn {
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin: 0;
-            display: flex;
-        }
-        
-        .download-btn-1 {
-            background: linear-gradient(135deg, var(--source1-bg), #2a9d8f);
-        }
-
-        .download-btn-2 {
-            background: linear-gradient(135deg, var(--source2-bg), #d35400);
-        }
-
-        .download-btn-3 {
-            background: linear-gradient(135deg, var(--source3-bg), #480ca8);
-        }
-
-        .online-fix-btn {
-            background: linear-gradient(135deg, var(--online-fix-bg), #0f6e00);
-            min-width: 200px !important; 
-        }
-        
-        .fix-search-btn {
-            background: linear-gradient(135deg, #f0964c, #d35400); 
-            min-width: 150px;
-            margin-top: 15px; 
-        }
-        
-        .steamdb-name-btn {
-            background: linear-gradient(135deg, var(--accent), #1b263b);
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-            padding: 10px 15px;
-        }
-        
-        .custom-link-btn {
-            background: linear-gradient(135deg, var(--custom-link-bg), #7b2cbf);
-            min-width: 200px !important;
-        }
-        
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.5);
-            position: relative;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-
-        .success-checkmark {
-            display: none;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .check-icon {
-            width: 70px;
-            height: 70px;
-            position: relative;
-            border-radius: 50%;
-            box-sizing: content-box;
-            border: 4px solid var(--success);
-            margin: 0 auto;
-            animation: checkmark-pulse 2s infinite;
-        }
-
-        @keyframes checkmark-pulse {
-            0% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(76, 201, 240, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0); }
-        }
-
-        .check-icon::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            height: 30px;
-            width: 15px;
-            border-bottom: 4px solid var(--success);
-            border-right: 4px solid var(--success);
-        }
-        
-        .info-btn {
-            background: var(--accent);
-            width: fit-content; 
-            padding: 8px 15px; 
-            font-size: 0.9rem; 
-            margin: 10px auto 0; 
-            display: block !important; 
-        }
-        
-        .info-btn:hover {
-            background: #4a6fa1;
-        }
-
-        #gameImageContainer {
-            text-align: center;
-            margin-bottom: 20px;
-            display: none; 
-            animation: fadeIn 0.5s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #gameImage {
-            width: 100%;
-            max-width: 460px; 
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        #gameImage:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .history-item {
-            background: var(--secondary);
-            padding: 12px 15px;
-            margin-bottom: 8px;
-            border-radius: 6px;
-            font-size: 1rem;
-            color: var(--text);
-            cursor: pointer;
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .history-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .history-item:hover::before {
-            left: 100%;
-        }
-
-        .history-item:hover {
-            background: var(--accent);
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        #historyList {
-            list-style: none; 
-            padding: 0;
-        }
-
-        #toastContainer {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .toast {
+        .api-detail-item {
             background-color: var(--card-bg);
-            color: var(--text);
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            max-width: 300px;
-            min-width: 250px;
-            border-right: 4px solid var(--success);
-            opacity: 0;
-            transform: translateX(100%);
-            animation: slideIn 0.3s forwards, slideOut 0.3s 3.7s forwards;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
+            padding: 10px;
+            border-radius: 5px;
         }
-
-        .toast::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            pointer-events: none;
+        .api-detail-label {
+            color: var(--api-highlight);
+            font-size: 14px;
+            margin-bottom: 5px;
         }
-
-        .toast.error-toast {
-            border-right-color: var(--error);
-        }
-
-        .toast.success-toast {
-            border-right-color: var(--success);
-        }
-
-        .toast.info-toast {
-            border-right-color: var(--accent);
-        }
-        
-        @keyframes slideIn {
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideOut {
-            to { opacity: 0; transform: translateX(100%); }
-        }
-        
-        .custom-link-indicator {
-            display: inline-block;
-            margin-left: 8px;
-            padding: 2px 6px;
-            background: var(--custom-link-bg);
-            border-radius: 4px;
-            font-size: 0.8rem;
+        .api-price {
+            color: var(--api-price);
             font-weight: bold;
-            animation: pulse 2s infinite;
+            font-size: 18px;
+        }
+        .api-description {
+            margin-top: 15px;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
-        .link-status {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-left: 5px;
+        /* تحسين زر الوصف ليصبح زر عرض معلومات Steam */
+        #steamInfoBtn {
+            background: linear-gradient(135deg, var(--api-highlight), var(--accent));
         }
 
-        .link-status.available {
-            background-color: var(--success);
-            box-shadow: 0 0 5px var(--success);
-        }
-
-        .link-status.unavailable {
-            background-color: var(--error);
-            box-shadow: 0 0 5px var(--error);
-        }
-
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(76, 201, 240, 0.5);
-            border-radius: 50%;
-            animation: float 15s infinite linear;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .logo h1 {
-                font-size: 1.8rem;
-            }
-            
-            .btn-group {
-                flex-direction: column;
-            }
-            
-            .btn {
-                min-width: 100%;
-            }
-            
-            .terminal {
-                height: 200px;
-                font-size: 1rem;
-            }
-        }
     </style>
 </head>
 <body>
@@ -743,12 +203,12 @@
         <header>
             <div class="logo">
                 <i class="fab fa-steam"></i>
-                <h1>Steam Manifest Hub</h1>
+                <h1>Steam Manifest Hub المُحسَّن</h1>
             </div>
             
             <p class="seif-credit">By ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨</p>
             
-            <p>أداة لاستعلام ملفات الألعاب على منصة Steam</p>
+            <p>أداة لاستعلام ملفات الألعاب على منصة Steam مع معلومات API حقيقية.</p>
         </header>
         
         <div class="search-section">
@@ -759,15 +219,15 @@
 
             <div id="onlineFixInputGroup" style="display: none; margin-bottom: 25px;">
                 <button class="btn steamdb-name-btn" id="steamDBNameBtn">
-                    <i class="fas fa-copy"></i> اضغط لنسخ اسم اللعبة من SteamDB 
+                    <i class="fas fa-copy"></i> استخدم الاسم المُكتشف تلقائيًا أو انسخ من SteamDB
                 </button>
                 <div class="input-group">
-                    <label for="gameName">أدخل اسم اللعبة (للبحث في Online Fix):</label>
+                    <label for="gameName">اسم اللعبة للبحث في Online Fix (تعبئة تلقائية):</label>
                     <input type="text" id="gameName" placeholder="مثال: Grand Theft Auto V" autocomplete="off">
                     <div class="example">سيتم استخدام الاسم للبحث في موقع Online Fix.</div>
                 </div>
                 <button class="btn fix-search-btn" id="fixSearchBtn">
-                    <i class="fas fa-search"></i> Fix
+                    <i class="fas fa-search"></i> بحث في Online Fix
                 </button>
             </div>
             <div class="input-group">
@@ -777,12 +237,13 @@
             </div>
             
             <button class="btn" id="generateBtn">
-                <i class="fas fa-bolt"></i> توليد روابط التحميل
+                <i class="fas fa-bolt"></i> توليد روابط التحميل والبحث عن المعلومات
             </button>
             
             <div class="info-box">
                 <p>يمكنك العثور على AppID لأي لعبة من خلال زيارة <a href="https://steamdb.info" target="_blank">SteamDB</a> والبحث عن اللعبة.</p>
                 <p>هذه الأداة مخصصة للأغراض التعليمية والإعلامية فقط. يجب أن تمتلك ترخيصًا صحيحًا لأي لعبة تريد الوصول إلى ملفاتها.</p>
+                <p style="color:var(--api-highlight); margin-top:10px;">⚡️ ملاحظة: نقوم الآن بجلب معلومات اللعبة الحقيقية من Steam API.</p>
             </div>
         </div>
         
@@ -792,21 +253,26 @@
                 <h2>سجل البحث (آخر 10)</h2>
             </div>
             <ul id="historyList">
-                </ul>
+                <p style="color:var(--accent); text-align:center; padding:10px;">لا يوجد سجل بحث حالياً.</p>
+            </ul>
         </div>
+
         <div class="results-section">
             <div class="section-title">
                 <i class="fas fa-terminal"></i>
-                <h2>نتيجة البحث</h2>
+                <h2>نتيجة البحث ومعلومات اللعبة</h2>
             </div>
-            
+
             <div id="gameImageContainer" style="display: none; flex-direction: column; align-items: center;">
-                <img id="gameImage" src="" alt="Game Header Image">
-                <button class="btn info-btn" id="descriptionBtn" style="display: none;">
-                    <i class="fas fa-info-circle"></i> الوصف
+                <img id="gameImage" src="" alt="صورة غلاف اللعبة">
+                <button class="btn info-btn" id="steamInfoBtn" style="display: none;">
+                    <i class="fas fa-info-circle"></i> عرض معلومات Steam API
                 </button>
             </div>
 
+            <div id="apiGameInfo">
+                </div>
+            
             <div class="terminal" id="terminal">
                 <div class="terminal-line">> System initialized. Ready to process requests.</div>
                 <div class="terminal-line">> Enter a valid Steam AppID to generate manifest links.</div>
@@ -814,7 +280,7 @@
 
             <div class="success-checkmark" id="successCheckmark">
                 <div class="check-icon"></div>
-                <p>تم إنشاء روابط التحميل بنجاح</p>
+                <p>تم إنشاء روابط التحميل وجلب معلومات اللعبة بنجاح</p>
             </div>
             
             <div class="btn-group" id="downloadButtonsGroup" style="display: none;">
@@ -831,7 +297,8 @@
                     <i class="fas fa-code-branch"></i> تحميل (المصدر 2)
                 </button>
                 <button class="btn download-btn download-btn-3" id="downloadBtn3">
-                    <i class="fas fa-cloud-download-alt"></i> تحميل (المصدر 3) </button>
+                    <i class="fas fa-cloud-download-alt"></i> تحميل (المصدر 3)
+                </button>
             </div>
         </div>
         
@@ -860,8 +327,9 @@
             const gameImageContainer = document.getElementById('gameImageContainer');
             const gameImage = document.getElementById('gameImage');
             
-            const descriptionBtn = document.getElementById('descriptionBtn');
-            
+            const steamInfoBtn = document.getElementById('steamInfoBtn'); // تم تغيير الاسم
+            const apiGameInfo = document.getElementById('apiGameInfo'); // عنصر جديد لعرض معلومات API
+
             const downloadButtonsGroup = document.getElementById('downloadButtonsGroup');
             const downloadBtn1 = document.getElementById('downloadBtn1');
             const downloadBtn2 = document.getElementById('downloadBtn2');
@@ -872,21 +340,20 @@
             const historyList = document.getElementById('historyList');
             
             let customLinksData = {};
+            let currentAppId = '';
+            let currentApiData = null; // لتخزين بيانات API
 
             function createParticles() {
                 const particlesContainer = document.getElementById('particles');
                 const particleCount = 30;
-                
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
                     particle.classList.add('particle');
-                    
                     particle.style.left = `${Math.random() * 100}%`;
                     particle.style.animationDelay = `${Math.random() * 15}s`;
                     particle.style.animationDuration = `${15 + Math.random() * 10}s`;
                     particle.style.width = `${2 + Math.random() * 3}px`;
                     particle.style.height = particle.style.width;
-                    
                     particlesContainer.appendChild(particle);
                 }
             }
@@ -898,9 +365,7 @@
                         throw new Error('لم يتم العثور على ملف الروابط المخصصة');
                     }
                     customLinksData = await response.json();
-                    console.log('تم تحميل بيانات الروابط المخصصة:', customLinksData);
                 } catch (error) {
-                    console.warn('تعذر تحميل ملف الروابط المخصصة:', error.message);
                     customLinksData = {
                         "1030300": "https://drive.usercontent.google.com/download?id=1WIjPYBKruObyMHLf3aaMbJKRv_fFByTB&export=download",
                         "2807960": "https://drive.usercontent.google.com/u/0/uc?id=16GS4ONXQ2Hx-PYXcLyYKRFV8Px4xEvT4&export=download",
@@ -938,22 +403,16 @@
                 toast.classList.add('toast', `${type}-toast`);
                 
                 let icon = '';
-                if (type === 'success') {
-                    icon = '<i class="fas fa-check-circle" style="color:var(--success);"></i>';
-                } else if (type === 'error') {
-                    icon = '<i class="fas fa-times-circle" style="color:var(--error);"></i>';
-                } else if (type === 'info') {
-                    icon = '<i class="fas fa-info-circle" style="color:var(--accent);"></i>';
-                }
+                if (type === 'success') { icon = '<i class="fas fa-check-circle" style="color:var(--success);"></i>'; }
+                else if (type === 'error') { icon = '<i class="fas fa-times-circle" style="color:var(--error);"></i>'; }
+                else if (type === 'info') { icon = '<i class="fas fa-info-circle" style="color:var(--accent);"></i>'; }
 
                 toast.innerHTML = `${icon} <span>${message}</span>`;
                 container.appendChild(toast);
 
                 setTimeout(() => {
                     toast.style.animation = 'slideOut 0.3s forwards';
-                    setTimeout(() => {
-                        container.removeChild(toast);
-                    }, 300);
+                    setTimeout(() => { container.removeChild(toast); }, 300);
                 }, duration);
             }
 
@@ -1007,9 +466,80 @@
                 });
             }
             
-            function generateManifest() {
+            async function fetchGameData(appId) {
+                // جلب معلومات اللعبة من Steam API
+                // سنستخدم CORS Proxy مؤقت كما في الكود الثاني، لكن يجب الانتباه أن هذه الخدمة قد تتوقف
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; 
+                const apiUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=us&l=arabic`; // طلب اللغة العربية
+                
+                const response = await fetch(proxyUrl + apiUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                
+                const data = await response.json();
+                
+                // التأكد من نجاح الاستجابة
+                if (data[appId] && data[appId].success) {
+                    return data[appId].data;
+                } else {
+                    return null;
+                }
+            }
+
+            function displayApiInfo(game) {
+                currentApiData = game;
+                apiGameInfo.style.display = 'block';
+
+                const priceInfo = game.is_free ? "مجانية" : (game.price_overview ? game.price_overview.final_formatted : "غير متوفر");
+                const releaseDate = game.release_date ? game.release_date.date : "غير معروف";
+                const developers = game.developers ? game.developers.join(', ') : "غير معروف";
+                const publishers = game.publishers ? game.publishers.join(', ') : "غير معروف";
+                const description = game.short_description || "لا يوجد وصف متوفر";
+                
+                apiGameInfo.innerHTML = `
+                    <div class="api-header">
+                        <h2 class="api-title">${game.name}</h2>
+                        <div class="api-app-id">App ID: ${currentAppId}</div>
+                    </div>
+                    
+                    <div class="api-details">
+                        <div class="api-detail-item">
+                            <div class="api-detail-label">السعر</div>
+                            <div class="api-price">${priceInfo}</div>
+                        </div>
+                        <div class="api-detail-item">
+                            <div class="api-detail-label">تاريخ الإصدار</div>
+                            <div>${releaseDate}</div>
+                        </div>
+                        <div class="api-detail-item">
+                            <div class="api-detail-label">المطورون</div>
+                            <div>${developers}</div>
+                        </div>
+                        <div class="api-detail-item">
+                            <div class="api-detail-label">الناشرون</div>
+                            <div>${publishers}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="api-description">
+                        <p>${description}</p>
+                    </div>
+                `;
+
+                // تحسين: استخدم اسم اللعبة المكتشف لتعبئة حقل Online Fix
+                gameNameInput.value = game.name;
+            }
+
+            steamInfoBtn.addEventListener('click', () => {
+                // تبديل إظهار/إخفاء معلومات API
+                apiGameInfo.style.display = apiGameInfo.style.display === 'block' ? 'none' : 'block';
+                steamInfoBtn.innerHTML = apiGameInfo.style.display === 'block' ? '<i class="fas fa-times-circle"></i> إخفاء معلومات Steam' : '<i class="fas fa-info-circle"></i> عرض معلومات Steam API';
+            });
+
+            async function generateManifest() {
                 const appId = appIdInput.value.trim();
-                const gameName = gameNameInput.value.trim(); 
+                currentAppId = appId; // تحديث AppID الحالي
                 
                 if (!appId || isNaN(appId)) {
                     showToast('الرجاء إدخال رقم AppID صحيح.', 'error');
@@ -1017,105 +547,53 @@
                     return;
                 }
                 
-                saveAppID(appId, gameName);
-
+                // إعادة ضبط الواجهة
                 generateBtn.innerHTML = '<span class="loading"></span> جاري المعالجة...';
                 generateBtn.disabled = true;
-                
                 onlineFixInputGroup.style.display = 'none'; 
-
                 terminal.innerHTML = '';
                 successCheckmark.style.display = 'none';
                 downloadButtonsGroup.style.display = 'none';
-                descriptionBtn.style.display = 'none'; 
-
                 gameImageContainer.style.display = 'none';
-                gameImage.src = '';
+                apiGameInfo.style.display = 'none';
+                steamInfoBtn.style.display = 'none'; 
+                steamInfoBtn.innerHTML = '<i class="fas fa-info-circle"></i> عرض معلومات Steam API';
 
-                simulateSearch(appId, gameName);
-            }
-            
-            function searchOnlineFix() {
-                const gameName = gameNameInput.value.trim();
-                
-                if (!gameName) {
-                    showToast('الرجاء إدخال اسم اللعبة أولاً.', 'error');
-                    return;
-                }
-                
-                const onlineFixUrlBase = 'https://online-fix.me/index.php?do=search&subaction=search&story=';
-                const onlineFixUrl = `${onlineFixUrlBase}${encodeURIComponent(gameName)}`; 
-                
-                window.open(onlineFixUrl, '_blank');
-                showToast(`تم البحث عن "${gameName}" في Online Fix.`, 'info');
-                
-                onlineFixInputGroup.style.display = 'none';
-            }
-            
-            fixSearchBtn.addEventListener('click', searchOnlineFix);
-            
-            steamDBNameBtn.addEventListener('click', () => {
-                const appId = appIdInput.value.trim();
-                if (!appId || isNaN(appId)) {
-                    showToast('يجب إدخال AppID أولاً.', 'error');
-                    return;
-                }
-                const steamDbUrl = `https://steamdb.info/app/${appId}/`;
-                window.open(steamDbUrl, '_blank');
-                showToast('تم فتح صفحة SteamDB. يرجى نسخ اسم اللعبة ولصقه في المربع.', 'info', 7000);
-            });
 
-            onlineFixBtn.addEventListener('click', () => {
-                const appId = appIdInput.value.trim();
-                if (!appId || isNaN(appId)) {
-                    showToast('الرجاء إدخال AppID أولاً ثم محاولة البحث في Online Fix.', 'error');
-                    return;
-                }
-                
-                steamDBNameBtn.innerHTML = `<i class="fas fa-copy"></i> اضغط لنسخ اسم اللعبة من SteamDB App ${appId}`;
-
-                onlineFixInputGroup.style.display = 'block';
-                gameNameInput.focus(); 
-                showToast('استخدم زر SteamDB لنسخ اسم اللعبة، ثم اضغط "Fix".', 'info', 7000);
-            });
-
-            gameNameInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    searchOnlineFix();
-                }
-            });
-
-            generateBtn.addEventListener('click', generateManifest);
-            
-            appIdInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    generateManifest();
-                }
-            });
-            
-            async function simulateSearch(appId, gameName) {
                 try {
-                    await typeWriter('> Generating file', 'terminal-cmd');
-                    await new Promise(resolve => setTimeout(resolve, 1500)); 
+                    await typeWriter('> Generating file and fetching API data...', 'terminal-cmd');
                     
-                    const imageUrl = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/header.jpg`;
+                    // 1. جلب بيانات API
+                    const gameData = await fetchGameData(appId);
+                    
+                    if (!gameData) {
+                         // إذا فشل جلب API، نكتفي بالروابط ونعرض رسالة خطأ
+                        throw new Error('API_FETCH_FAILED');
+                    }
+                    
+                    // 2. تحديث الواجهة بمعلومات API
+                    displayApiInfo(gameData);
+                    
+                    // 3. تحديث صورة الغلاف
+                    const imageUrl = gameData.header_image || `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/header.jpg`;
                     gameImage.src = imageUrl;
                     gameImageContainer.style.display = 'flex'; 
-                    
-                    descriptionBtn.style.display = 'block';
-                    descriptionBtn.onclick = () => {
-                        const descriptionUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=us&l=en`;
-                        window.open(descriptionUrl, '_blank');
-                    };
 
+                    // 4. تحديث سجل البحث بالاسم الحقيقي
+                    saveAppID(appId, gameData.name);
+                    
+                    // 5. إظهار زر معلومات API
+                    steamInfoBtn.style.display = 'block';
+
+                    await typeWriter(`> Success: Found game "${gameData.name}".`, 'terminal-msg', 500);
+                    
+                    // 6. توليد روابط التحميل
                     successCheckmark.style.display = 'block';
                     downloadButtonsGroup.style.display = 'flex';
                     
                     if (customLinksData[appId]) {
                         customLinkBtn.style.display = 'flex';
-                        customLinkBtn.onclick = () => {
-                            window.open(customLinksData[appId], '_blank');
-                        };
+                        customLinkBtn.onclick = () => { window.open(customLinksData[appId], '_blank'); };
                         showToast('تم العثور على رابط مخصص لهذه اللعبة!', 'success');
                     } else {
                         customLinkBtn.style.display = 'none';
@@ -1131,15 +609,84 @@
                     downloadBtn3.onclick = () => { window.open(downloadUrl_3, '_blank'); };
                     
                 } catch (error) {
-                    await typeWriter('> Error: Unable to retrieve manifest for this AppID', 'terminal-error', 500);
-                    await typeWriter('> Please verify the AppID and try again', 'terminal-error', 300);
-                    showToast('خطأ: لم يتم العثور على ملف Manifest. تحقق من الـ AppID.', 'error');
+                    if (error.message === 'API_FETCH_FAILED') {
+                         await typeWriter('> Warning: API data could not be retrieved. Proceeding with manifest generation only.', 'terminal-error', 500);
+                         await typeWriter(`> Attempting manifest generation for AppID: ${appId}`, 'terminal-cmd', 300);
+
+                         // نعتبر الـ AppID صحيحاً ونقوم بتوليد الروابط فقط
+                         saveAppID(appId, gameNameInput.value.trim() || 'غير محدد'); // حفظ الـ AppID بالاسم الموجود أو "غير محدد"
+                         successCheckmark.style.display = 'block';
+                         downloadButtonsGroup.style.display = 'flex';
+
+                         let downloadUrl_1 = `https://raw.githubusercontent.com/ABAID-CODER/crackworld-manifest/main/${appId}.zip`; 
+                         const downloadUrl_2 = `https://codeload.github.com/SteamAutoCracks/ManifestHub/zip/refs/heads/${appId}`; 
+                         const downloadUrl_3 = `https://pub-5b6d3b7c03fd4ac1afb5bd3017850e20.r2.dev/${appId}.zip`; 
+                         
+                         downloadBtn1.onclick = () => { window.open(downloadUrl_1, '_blank'); };
+                         downloadBtn2.onclick = () => { window.open(downloadUrl_2, '_blank'); };
+                         downloadBtn3.onclick = () => { window.open(downloadUrl_3, '_blank'); };
+                         
+                         showToast('تحذير: لم نتمكن من جلب بيانات اللعبة من Steam API، تم توليد روابط المانيفست.', 'warning');
+
+                    } else {
+                        await typeWriter('> Error: Invalid AppID or connection failed.', 'terminal-error', 500);
+                        await typeWriter('> Please verify the AppID and try again', 'terminal-error', 300);
+                        showToast('خطأ: لم يتم العثور على اللعبة أو خطأ في الاتصال. تحقق من الـ AppID.', 'error');
+                        apiGameInfo.style.display = 'none'; 
+                    }
                 } finally {
-                    generateBtn.innerHTML = '<i class="fas fa-bolt"></i> توليد روابط التحميل';
+                    generateBtn.innerHTML = '<i class="fas fa-bolt"></i> توليد روابط التحميل والبحث عن المعلومات';
                     generateBtn.disabled = false;
                 }
             }
+            
+            // وظائف Online Fix كما هي
+            function searchOnlineFix() {
+                const gameName = gameNameInput.value.trim();
+                if (!gameName) {
+                    showToast('الرجاء إدخال اسم اللعبة أولاً.', 'error');
+                    return;
+                }
+                const onlineFixUrlBase = 'https://online-fix.me/index.php?do=search&subaction=search&story=';
+                const onlineFixUrl = `${onlineFixUrlBase}${encodeURIComponent(gameName)}`; 
+                window.open(onlineFixUrl, '_blank');
+                showToast(`تم البحث عن "${gameName}" في Online Fix.`, 'info');
+                onlineFixInputGroup.style.display = 'none';
+            }
+            
+            fixSearchBtn.addEventListener('click', searchOnlineFix);
+            
+            steamDBNameBtn.addEventListener('click', () => {
+                if (!currentAppId) {
+                    showToast('يجب إدخال AppID أولاً.', 'error');
+                    return;
+                }
+                const steamDbUrl = `https://steamdb.info/app/${currentAppId}/`;
+                window.open(steamDbUrl, '_blank');
+                showToast('تم فتح صفحة SteamDB. يرجى نسخ اسم اللعبة ولصقه في المربع إذا كان الاسم التلقائي غير صحيح.', 'info', 7000);
+            });
 
+            onlineFixBtn.addEventListener('click', () => {
+                if (!currentAppId || isNaN(currentAppId)) {
+                    showToast('الرجاء إدخال AppID أولاً.', 'error');
+                    return;
+                }
+                steamDBNameBtn.innerHTML = `<i class="fas fa-copy"></i> استخدم الاسم المُكتشف أو ابحث في SteamDB App ${currentAppId}`;
+                onlineFixInputGroup.style.display = 'block';
+                gameNameInput.focus(); 
+                showToast('استخدم الاسم التلقائي أو زر SteamDB لتصحيح الاسم، ثم اضغط "بحث في Online Fix".', 'info', 7000);
+            });
+
+            gameNameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') { searchOnlineFix(); }
+            });
+
+            generateBtn.addEventListener('click', generateManifest);
+            
+            appIdInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') { generateManifest(); }
+            });
+            
             displayHistory(); 
 
         });
