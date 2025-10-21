@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Steam AppID & Manifest Generator - Seif Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -203,12 +203,12 @@
         <header>
             <div class="logo">
                 <i class="fab fa-steam"></i>
-                <h1></h1>
+                <h1>Steam AppID & Manifest Generator</h1>
             </div>
             
             <p class="seif-credit">By ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨</p>
             
-            <p></p>
+            <p>أداة لتوليد روابط تحميل ملفات Manifest لـ Steam AppIDs، مع جلب معلومات اللعبة من Steam API.</p>
         </header>
         
         <div class="search-section">
@@ -280,7 +280,7 @@
 
             <div class="success-checkmark" id="successCheckmark">
                 <div class="check-icon"></div>
-                <p></p>
+                <p>تم إنشاء روابط التحميل وجلب معلومات اللعبة بنجاح</p>
             </div>
             
             <div class="btn-group" id="downloadButtonsGroup" style="display: none;">
@@ -303,8 +303,8 @@
         </div>
         
         <footer>
-            <p> </p>
-            <p></p>
+            <p>أداة مجانية ومفتوحة المصدر لتبسيط عملية الوصول إلى ملفات Manifest. ليست تابعة لـ Steam.</p>
+            <p>استخدمها بمسؤولية واحترام حقوق الملكية الفكرية.</p>
         </footer>
     </div>
     
@@ -463,22 +463,50 @@
                 });
             }
             
+            // =========================================================
+            // الوظيفة المحدثة: جلب البيانات مع محاولات متعددة لـ Proxy
+            // =========================================================
             async function fetchGameData(appId) {
-                const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; 
+                // قائمة بخوادم CORS Proxy شائعة الاستخدام
+                const proxyUrls = [
+                    'https://cors-anywhere.herokuapp.com/',
+                    'https://corsproxy.io/?',
+                    'https://api.allorigins.win/raw?url=', // هذا يستخدم تنسيق مختلف
+                ];
+                
                 const apiUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=us&l=arabic`; 
                 
-                const response = await fetch(proxyUrl + apiUrl);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                for (let proxy of proxyUrls) {
+                    try {
+                        let fetchUrl = '';
+                        if (proxy.includes('allorigins')) {
+                            // API AllOrigins يتطلب تمرير الرابط كمعامل
+                            fetchUrl = proxy + encodeURIComponent(apiUrl);
+                        } else {
+                            // الخوادم الأخرى تضيف الرابط مباشرة بعد الـ proxy
+                            fetchUrl = proxy + apiUrl;
+                        }
+                        
+                        const response = await fetch(fetchUrl);
+                        
+                        // إذا نجح الاتصال بالـ Proxy
+                        if (response.ok) {
+                            const data = await response.json();
+                            
+                            if (data[appId] && data[appId].success) {
+                                return data[appId].data; // نجاح واسترجاع البيانات
+                            } 
+                            // إذا كان الاتصال بالـ Proxy ناجحاً لكن API ستيم رد بفشل
+                            // نعود ونستمر في محاولة Proxy آخر
+                        }
+                    } catch (error) {
+                        // فشل الاتصال بهذا الـ Proxy، نحاول التالي
+                        console.warn(`Proxy failed: ${proxy}`, error);
+                    }
                 }
                 
-                const data = await response.json();
-                
-                if (data[appId] && data[appId].success) {
-                    return data[appId].data;
-                } else {
-                    return null;
-                }
+                // إذا لم ينجح أي Proxy بعد المحاولات الثلاث
+                throw new Error('API_FETCH_FAILED_ALL_PROXIES');
             }
 
             function displayApiInfo(game) {
@@ -530,11 +558,11 @@
             });
             
             // =========================================================
-            // الوظيفة المحدثة: لمعالجة الإدخال كنص (اسم لعبة)
+            // الوظيفة المحدثة: لمعالجة الإدخال كنص (اسم لعبة) - مع استخدام Proxy احتياطي
             // =========================================================
             async function processInputAsName(gameName) {
                 if (!gameName) {
-                    return; // يجب أن تكون هناك قيمة، وهذا تم التحقق منه مسبقًا
+                    return; 
                 }
 
                 generateBtn.innerHTML = '<span class="loading"></span> جاري البحث عن AppID...';
@@ -542,28 +570,48 @@
 
                 await typeWriter(`> Detected name: "${gameName}". Searching for AppID...`, 'terminal-cmd', 300);
 
-                const searchUrl = `https://store.steampowered.com/api/storesearch/?cc=us&l=arabic&term=${encodeURIComponent(gameName)}&category1=998&page=1&pageSize=1`;
-                const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; 
+                const searchApiUrl = `https://store.steampowered.com/api/storesearch/?cc=us&l=arabic&term=${encodeURIComponent(gameName)}&category1=998&page=1&pageSize=1`;
+                const proxyUrls = [
+                    'https://cors-anywhere.herokuapp.com/',
+                    'https://corsproxy.io/?',
+                    'https://api.allorigins.win/raw?url=', 
+                ];
                 
                 try {
-                    const response = await fetch(proxyUrl + searchUrl);
-                    if (!response.ok) {
-                        throw new Error('فشل في جلب بيانات البحث');
+                    let data = null;
+                    for(let proxy of proxyUrls) {
+                        try {
+                            let fetchUrl = '';
+                            if (proxy.includes('allorigins')) {
+                                fetchUrl = proxy + encodeURIComponent(searchApiUrl);
+                            } else {
+                                fetchUrl = proxy + searchApiUrl;
+                            }
+                            
+                            const response = await fetch(fetchUrl);
+                            if (response.ok) {
+                                data = await response.json();
+                                break; // تم النجاح في جلب البيانات
+                            }
+                        } catch(e) {
+                            console.warn(`Search Proxy failed: ${proxy}`);
+                        }
                     }
-                    
-                    const data = await response.json();
+
+                    if (!data) {
+                         throw new Error('APP_SEARCH_NETWORK_FAILED');
+                    }
                     
                     if (data && data.items && data.items.length > 0) {
                         const appId = data.items[0].id;
                         const detectedName = data.items[0].name;
 
-                        appIdInput.value = appId; // تحديث حقل الـ AppID
-                        gameNameInput.value = detectedName; // تحديث حقل اسم Online Fix
+                        appIdInput.value = appId; 
+                        gameNameInput.value = detectedName; 
 
                         await typeWriter(`> Success: Found AppID: ${appId} for "${detectedName}".`, 'terminal-msg', 500);
                         showToast(`تم العثور على AppID: ${appId}. جاري توليد الروابط...`, 'success', 3000);
 
-                        // تشغيل وظيفة توليد المانيفست بالـ AppID الذي تم العثور عليه
                         generateManifest(true); 
 
                     } else {
@@ -575,9 +623,12 @@
                     if (error.message === 'APP_NOT_FOUND') {
                          await typeWriter('> Error: Game not found. Try a more precise name or use the AppID directly.', 'terminal-error', 500);
                          showToast('خطأ: لم يتم العثور على لعبة بهذا الاسم. جرب اسماً أدق.', 'error');
+                    } else if (error.message === 'APP_SEARCH_NETWORK_FAILED') {
+                         await typeWriter(`> Critical Error: All Proxy servers failed to reach Steam Search API.`, 'terminal-error', 500);
+                         showToast('خطأ حرج: جميع خوادم Proxy فشلت في البحث بالاسم.', 'error');
                     } else {
-                         await typeWriter(`> Network Error: Could not reach search API. (CORS Proxy might be down)`, 'terminal-error', 500);
-                         showToast('خطأ في الاتصال أثناء البحث عن الـ AppID.', 'error');
+                         await typeWriter(`> Unknown Error: ${error.message}`, 'terminal-error', 500);
+                         showToast('خطأ غير معروف أثناء البحث بالاسم.', 'error');
                     }
                 } finally {
                     generateBtn.innerHTML = '<i class="fas fa-bolt"></i> توليد روابط التحميل والبحث عن المعلومات';
@@ -597,16 +648,13 @@
                     return;
                 }
 
-                // فحص ما إذا كان الإدخال رقمًا
                 const isNumeric = /^\d+$/.test(inputValue);
 
                 if (!isAppId && !isNumeric) {
-                    // إذا كان الإدخال نصاً ولم يتم تشغيله كـ AppID (المرور الأول)
-                    terminal.innerHTML = ''; // إعادة ضبط الطرفية
+                    terminal.innerHTML = ''; 
                     return processInputAsName(inputValue);
                 }
 
-                // هنا نعالج الإدخال كـ AppID (سواء تم إدخاله مباشرة أو تم اكتشافه بواسطة processInputAsName)
                 const appId = inputValue;
                 currentAppId = appId; 
                 
@@ -630,7 +678,7 @@
                     const gameData = await fetchGameData(appId);
                     
                     if (!gameData) {
-                        throw new Error('API_FETCH_FAILED');
+                        throw new Error('API_FETCH_FAILED_NO_DATA');
                     }
                     
                     // 2. تحديث الواجهة بمعلومات API
@@ -671,8 +719,8 @@
                     downloadBtn3.onclick = () => { window.open(downloadUrl_3, '_blank'); };
                     
                 } catch (error) {
-                    if (error.message === 'API_FETCH_FAILED') {
-                         await typeWriter('> Warning: API data could not be retrieved. Proceeding with manifest generation only.', 'terminal-error', 500);
+                    if (error.message.includes('API_FETCH_FAILED')) {
+                         await typeWriter('> Warning: API data could not be retrieved due to connection failure (AppID is still valid). Proceeding with manifest generation only.', 'terminal-error', 500);
                          await typeWriter(`> Attempting manifest generation for AppID: ${appId}`, 'terminal-cmd', 300);
 
                          saveAppID(appId, gameNameInput.value.trim() || 'غير محدد'); 
@@ -687,10 +735,10 @@
                          downloadBtn2.onclick = () => { window.open(downloadUrl_2, '_blank'); };
                          downloadBtn3.onclick = () => { window.open(downloadUrl_3, '_blank'); };
                          
-                         showToast('تحذير: لم نتمكن من جلب بيانات اللعبة من Steam API، تم توليد روابط المانيفست.', 'warning');
+                         showToast('تحذير: فشل الاتصال بخادم Steam API، تم توليد روابط المانيفست الأساسية.', 'warning');
 
                     } else {
-                        await typeWriter('> Error: Invalid AppID or connection failed.', 'terminal-error', 500);
+                        await typeWriter('> Error: Invalid AppID or unknown connection failure.', 'terminal-error', 500);
                         await typeWriter('> Please verify the AppID and try again', 'terminal-error', 300);
                         showToast('خطأ: لم يتم العثور على اللعبة أو خطأ في الاتصال. تحقق من الإدخال.', 'error');
                         apiGameInfo.style.display = 'none'; 
