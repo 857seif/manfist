@@ -208,7 +208,7 @@
             
             <p class="seif-credit">By ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨</p>
             
-            <p>أداة لتوليد روابط تحميل ملفات Manifest لـ Steam AppIDs، مع جلب معلومات اللعبة من Steam API.</p>
+            <p></p>
         </header>
         
         <div class="search-section">
@@ -240,10 +240,11 @@
                     <i class="fas fa-search"></i> بحث في Online Fix
                 </button>
             </div>
+
             <div class="info-box">
                 <p>يمكنك العثور على AppID لأي لعبة من خلال زيارة <a href="https://steamdb.info" target="_blank">SteamDB</a> والبحث عن اللعبة.</p>
-                <p>هذه الأداة مخصصة للأغراض التعليمية والإعلامية فقط. يجب أن تمتلك ترخيصًا صحيحًا لأي لعبة تريد الوصول إلى ملفاتها.</p>
-                <p style="color:var(--api-highlight); margin-top:10px;">⚡️ ملاحظة: نقوم الآن بجلب معلومات اللعبة الحقيقية من Steam API.</p>
+                <p></p>
+                <p style="color:var(--api-highlight); margin-top:10px;"></p>
             </div>
         </div>
         
@@ -280,7 +281,7 @@
 
             <div class="success-checkmark" id="successCheckmark">
                 <div class="check-icon"></div>
-                <p>تم إنشاء روابط التحميل وجلب معلومات اللعبة بنجاح</p>
+                <p></p>
             </div>
             
             <div class="btn-group" id="downloadButtonsGroup" style="display: none;">
@@ -303,8 +304,8 @@
         </div>
         
         <footer>
-            <p>أداة مجانية ومفتوحة المصدر لتبسيط عملية الوصول إلى ملفات Manifest. ليست تابعة لـ Steam.</p>
-            <p>استخدمها بمسؤولية واحترام حقوق الملكية الفكرية.</p>
+            <p></p>
+            <p></p>
         </footer>
     </div>
     
@@ -314,9 +315,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             
-            // متغيرات الإدخال والتحكم
             const generateBtn = document.getElementById('generateBtn');
-            const appIdInput = document.getElementById('appId'); // حقل الإدخال الموحد
+            const appIdInput = document.getElementById('appId');
             
             const onlineFixInputGroup = document.getElementById('onlineFixInputGroup');
             const steamDBNameBtn = document.getElementById('steamDBNameBtn');
@@ -350,7 +350,6 @@
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
                     particle.classList.add('particle');
-                    // (يتم تجاهل إنشاء الجسيمات لعدم وجود CSS الخاص بها، لكن الوظيفة موجودة)
                 }
             }
 
@@ -455,7 +454,6 @@
                     li.addEventListener('click', () => {
                         appIdInput.value = item.appId;     
                         gameNameInput.value = item.gameName === 'غير محدد' ? '' : item.gameName; 
-                        // عند الضغط على السجل، نفترض أنه AppID صالح
                         generateManifest(true);                 
                     });
                     
@@ -463,15 +461,11 @@
                 });
             }
             
-            // =========================================================
-            // الوظيفة المحدثة: جلب البيانات مع محاولات متعددة لـ Proxy
-            // =========================================================
             async function fetchGameData(appId) {
-                // قائمة بخوادم CORS Proxy شائعة الاستخدام
                 const proxyUrls = [
                     'https://cors-anywhere.herokuapp.com/',
                     'https://corsproxy.io/?',
-                    'https://api.allorigins.win/raw?url=', // هذا يستخدم تنسيق مختلف
+                    'https://api.allorigins.win/raw?url=',
                 ];
                 
                 const apiUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=us&l=arabic`; 
@@ -480,32 +474,25 @@
                     try {
                         let fetchUrl = '';
                         if (proxy.includes('allorigins')) {
-                            // API AllOrigins يتطلب تمرير الرابط كمعامل
                             fetchUrl = proxy + encodeURIComponent(apiUrl);
                         } else {
-                            // الخوادم الأخرى تضيف الرابط مباشرة بعد الـ proxy
                             fetchUrl = proxy + apiUrl;
                         }
                         
                         const response = await fetch(fetchUrl);
                         
-                        // إذا نجح الاتصال بالـ Proxy
                         if (response.ok) {
                             const data = await response.json();
                             
                             if (data[appId] && data[appId].success) {
-                                return data[appId].data; // نجاح واسترجاع البيانات
+                                return data[appId].data;
                             } 
-                            // إذا كان الاتصال بالـ Proxy ناجحاً لكن API ستيم رد بفشل
-                            // نعود ونستمر في محاولة Proxy آخر
                         }
                     } catch (error) {
-                        // فشل الاتصال بهذا الـ Proxy، نحاول التالي
                         console.warn(`Proxy failed: ${proxy}`, error);
                     }
                 }
                 
-                // إذا لم ينجح أي Proxy بعد المحاولات الثلاث
                 throw new Error('API_FETCH_FAILED_ALL_PROXIES');
             }
 
@@ -557,9 +544,6 @@
                 steamInfoBtn.innerHTML = apiGameInfo.style.display === 'block' ? '<i class="fas fa-times-circle"></i> إخفاء معلومات Steam' : '<i class="fas fa-info-circle"></i> عرض معلومات Steam API';
             });
             
-            // =========================================================
-            // الوظيفة المحدثة: لمعالجة الإدخال كنص (اسم لعبة) - مع استخدام Proxy احتياطي
-            // =========================================================
             async function processInputAsName(gameName) {
                 if (!gameName) {
                     return; 
@@ -591,7 +575,7 @@
                             const response = await fetch(fetchUrl);
                             if (response.ok) {
                                 data = await response.json();
-                                break; // تم النجاح في جلب البيانات
+                                break; 
                             }
                         } catch(e) {
                             console.warn(`Search Proxy failed: ${proxy}`);
@@ -636,9 +620,6 @@
                 }
             }
             
-            // =========================================================
-            // وظيفة توليد المانيفست الأساسية - (نقطة الدخول الموحدة)
-            // =========================================================
             async function generateManifest(isAppId = false) {
                 const inputValue = appIdInput.value.trim();
                 
@@ -658,7 +639,6 @@
                 const appId = inputValue;
                 currentAppId = appId; 
                 
-                // إعادة ضبط الواجهة قبل البدء
                 generateBtn.innerHTML = '<span class="loading"></span> جاري المعالجة...';
                 generateBtn.disabled = true;
                 onlineFixInputGroup.style.display = 'none'; 
@@ -674,30 +654,24 @@
                 try {
                     await typeWriter(`> Starting processing for AppID: ${appId}...`, 'terminal-cmd');
                     
-                    // 1. جلب بيانات API
                     const gameData = await fetchGameData(appId);
                     
                     if (!gameData) {
                         throw new Error('API_FETCH_FAILED_NO_DATA');
                     }
                     
-                    // 2. تحديث الواجهة بمعلومات API
                     displayApiInfo(gameData);
                     
-                    // 3. تحديث صورة الغلاف
                     const imageUrl = gameData.header_image || `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/header.jpg`;
                     gameImage.src = imageUrl;
                     gameImageContainer.style.display = 'flex'; 
 
-                    // 4. تحديث سجل البحث بالاسم الحقيقي
                     saveAppID(appId, gameData.name);
                     
-                    // 5. إظهار زر معلومات API
                     steamInfoBtn.style.display = 'block';
 
                     await typeWriter(`> Success: Found game "${gameData.name}".`, 'terminal-msg', 500);
                     
-                    // 6. توليد روابط التحميل
                     successCheckmark.style.display = 'block';
                     downloadButtonsGroup.style.display = 'flex';
                     
@@ -749,9 +723,6 @@
                 }
             }
             
-            // =========================================================
-            // وظائف Online Fix
-            // =========================================================
             function searchOnlineFix() {
                 const gameName = gameNameInput.value.trim();
                 if (!gameName) {
@@ -792,9 +763,6 @@
                 if (e.key === 'Enter') { searchOnlineFix(); }
             });
 
-            // =========================================================
-            // ربط الأحداث (باستخدام generateManifest كنقطة دخول موحدة)
-            // =========================================================
             generateBtn.addEventListener('click', generateManifest);
             
             appIdInput.addEventListener('keypress', (e) => {
