@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>games bypass</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: #1a1a2e;
+            color: #e6e6e6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #e94560;
+        }
+        
+        .category-section {
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e94560;
+        }
+        
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .category-title {
+            font-size: 1.8rem;
+            color: #e94560;
+            margin: 0;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .game-card {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        
+        .game-info {
+            padding: 15px;
+        }
+        
+        .game-title {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #e94560;
+        }
+        
+        .bypass-link {
+            display: inline-block;
+            background-color: #0f3460;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .bypass-link:hover {
+            background-color: #1a3a6e;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>safe steam games bypass</h1>
+        </header>
+        
+        <section class="category-section">
+            <div class="category-header">
+                <img src="https://imgs.search.brave.com/eizzciY3UmGJz7GRPXhkWFBE38dZx4VtlMFZJSjs0eA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTE0/ODk4MDg2OS9waG90/by90aGUtdWJpc29m/dC1sb2dvLWlzLXNl/ZW4tYXQtdGhlLXVi/aXNvZnQtZTMtcHJl/c3MtY29uZmVyZW5j/ZS1qdW5lLTEwLTIw/MTktaW4tbG9zLWFu/Z2VsZXMtdGhlLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz14/U29peXhrWXJZZmlf/UVlJel9obFM0ODJt/SXhYNTNMMkxVOHVL/dndMNFVvPQ" alt="Ubisoft" class="company-logo">
+                <h2 class="category-title">ألعاب Ubisoft</h2>
+            </div>
+            <div class="games-grid" id="ubisoftGames">
+            </div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <img src="https://imgs.search.brave.com/c9LmVKrAh_jvOt-CK2YZa1hU8OLQytUOmOuF6Kee0Go/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMud2lraXRpZGUu/bmV0L2F2aWR3aWtp/L3RodW1iLzAvMDkv/Um9ja3N0YXI2LnBu/Zy80NTBweC1Sb2Nr/c3RhcjYucG5n" alt="Rockstar Games" class="company-logo">
+                <h2 class="category-title">ألعاب Rockstar Games</h2>
+            </div>
+            <div class="games-grid" id="rockstarGames">
+            </div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <img src="https://imgs.search.brave.com/d11W8p6HmyI0v8EIqMlN4nDIAyYzQPwpZjeVnjHl93g/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5jb250ZW50YXBp/LmVhLmNvbS9jb250/ZW50L2RhbS9lYWNv/bS9lbi11cy9jb21t/b24vb2N0b2Jlci1l/YS1yaW5nLnBuZw" alt="Electronic Arts" class="company-logo">
+                <h2 class="category-title">ألعاب Electronic Arts</h2>
+            </div>
+            <div class="games-grid" id="eaGames">
+            </div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <img src="https://imgs.search.brave.com/Hzpv1iGXKr7kWT9Fg2e7SNEAJiifncwb8Rcx2s_0z64/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMud2lraXRpZGUu/bmV0L2F2aWR3aWtp/L3RodW1iL2YvZjMv/TVdfSUlfQWN0aXZp/c2lvbl9Mb2dvLnBu/Zy8zNTBweC1NV19J/SV9BY3RpdmlzaW9u/X0xvZ28ucG5n" alt="Activision" class="company-logo">
+                <h2 class="category-title">ألعاب Activision</h2>
+            </div>
+            <div class="games-grid" id="activisionGames">
+            </div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <img src="https://imgs.search.brave.com/5gDVOs5_d4avhI_1DpS9usYZfqcErY0FmQyVKVRK_Us/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Z2lhbnRib21iLmNv/bS9hL3VwbG9hZHMv/c3F1YXJlX3NtYWxs/LzAvNC8xMTg3MC1j/YXBjb20uanBn" alt="Capcom" class="company-logo">
+                <h2 class="category-title">ألعاب Capcom</h2>
+            </div>
+            <div class="games-grid" id="capcomGames">
+            </div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <img src="https://imgs.search.brave.com/qymow8zIsGWdq5RqvU1sov6QOi7y59O3czWIljH-Oos/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNmQ4ZmMwMDdh/OTM3YWEwZWQyZmYw/OWIxMDRlOWQ3MjVi/YTI1MmNjMmEzOWM4/NjRhZDhiZjFkNjFl/OGMzYmMxNy93d3cu/c3F1YXJlLWVuaXgt/Z2FtZXMuY29tLw" alt="Square Enix" class="company-logo">
+                <h2 class="category-title">ألعاب Square Enix</h2>
+            </div>
+            <div class="games-grid" id="squareEnixGames">
+            </div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">ألعاب أخرى</h2>
+            </div>
+            <div class="games-grid" id="otherGames">
+            </div>
+        </section>
+        
+        <footer>
+            <p></p>
+        </footer>
+    </div>
+
+    <script>
+        const ubisoftGames = [
+            {
+                name: "Assassin's Creed Liberation",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/260210/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/5y54a5d5"
+            },
+            {
+                name: "Assassins Creed Revelations",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/201870/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/XoWwmFTy"
+            },
+            {
+                name: "Assassin's Creed Brotherhood",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/48190/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/6rHqvVCd"
+            },
+            {
+                name: "Assassin's Creed Rogue",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/311560/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/wmPQzNRX"
+            },
+            {
+                name: "Assassin's Creed® III Remastered",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/911400/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/AJvP7MZ4"
+            },
+            {
+                name: "Assassins Creed Syndicate",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/368500/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/iazWK8ad"
+            },
+            {
+                name: "Assassin's Creed II",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/33230/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/xqGS9Uus"
+            },
+            {
+                name: "Assassin's Creed - Origins",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/582160/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/9WFbUv2A"
+            },
+            {
+                name: "AC Unity",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/289650/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/A4oEheGr"
+            },
+            {
+                name: "Assassin's Creed IV Black Flag",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/242050/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/FVeBgmGB"
+            },
+            {
+                name: "Assassin's Creed Odyssey",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/812140/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/B16nF29S"
+            },
+            {
+                name: "Assassin's Creed Valhalla",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/2208920/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/dhqF7jFA"
+            },
+            {
+                name: "Assassin's Creed Mirage",
+                image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3035570/header.jpg?t=1753294133",
+                bypassLink: "https://pixeldrain.sriflix.my/mQr19FSK"
+            },
+            {
+                name: "Far Cry Primal",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/371660/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/AjZjyBes"
+            },
+            {
+                name: "Far Cry New Dawn",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/939960/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/JUobc164"
+            },
+            {
+                name: "Far Cry 4",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/298110/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/9ev3nQFp"
+            },
+            {
+                name: "Far Cry 3",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/220240/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/Jtum468F"
+            },
+            {
+                name: "Far Cry 6",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/2369390/header.jpg",
+                bypassLink: "https://drive.usercontent.google.com/download?id=1AnLR9TxK7-nbpYMP-fseXdmvOH2jO9jK&export=download&authuser=0&confirm=t&uuid=f0e30e37-edbe-40a5-a1e7-c15cb0b883e1&at=APcmpoxfh3WqVI0kyW2CPmoAOIEU:1745516938946"
+            },
+            {
+                name: "Far Cry 5",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/552520/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/uyo63Ut4"
+            },
+            {
+                name: "Watch Dogs Legion",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/2239550/header.jpg",
+                bypassLink: "https://drive.usercontent.google.com/download?id=1BU-DS2j0Uo3TG9xOmJyEqqXly1dACIrc&export=download&confirm=t&uuid=c5ed9788-ce8e-4853-9267-adc71509ddb4"
+            },
+            {
+                name: "Watch Dogs",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/243470/header.jpg",
+                bypassLink: "https://gofile.io/d/v3QGfK"
+            },
+            {
+                name: "Watch Dogs 2",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/447040/header.jpg",
+                bypassLink: "https://gofile.io/d/hxTyrQ"
+            },
+            {
+                name: "Tom Clancy's Ghost Recon Wildlands",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/460930/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/2SZhMqZ7"
+            },
+            {
+                name: "Tom Clancy's Splinter Cell Conviction",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/33220/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/ZS6UShMB"
+            },
+            {
+                name: "Prince of Persia The Forgotten Sands",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/33320/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/tb4qMDds"
+            },
+            {
+                name: "Riders Republic",
+                image: "https://imgs.search.brave.com/Na023KgyZNCj8oclBmer_v0QaTAexc0E5u7J7lwFgaM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/OC84ZC9SaWRlcnNf/UmVwdWJsaWNfY292/ZXJfYXJ0LmpwZy81/MTJweC1SaWRlcnNf/UmVwdWJsaWNfY292/ZXJfYXJ0LmpwZw",
+                bypassLink: "https://pixeldrain.sriflix.my/HrHenPFU"
+            }
+        ];
+
+        const rockstarGames = [
+            {
+                name: "Grand Theft Auto V Enhanced",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/271590/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/mV7oHSLZ"
+            },
+            {
+                name: "Grand Theft Auto VC DE",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1546990/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/fW6vAj3J"
+            },
+            {
+                name: "Grand Theft Auto SAN DE",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1547000/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/Uj63oEXr"
+            },
+            {
+                name: "Grand Theft Auto III DE",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1546970/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/2uJtBj83"
+            },
+            {
+                name: "Red Dead Redemption 1",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/3y8bRtAP"
+            },
+            {
+                name: "Rockstar Games Bypass Pack",
+                image: "https://imgs.search.brave.com/c9LmVKrAh_jvOt-CK2YZa1hU8OLQytUOmOuF6Kee0Go/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMud2lraXRpZGUu/bmV0L2F2aWR3aWtp/L3RodW1iLzAvMDkv/Um9ja3N0YXI2LnBu/Zy80NTBweC1Sb2Nr/c3RhcjYucG5n",
+                bypassLink: "https://pixeldrain.sriflix.my/FHCjBX1c"
+            },
+            {
+                name: "Max Payne 3",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/204100/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/k9VRbMtn"
+            }
+        ];
+
+        const eaGames = [
+            {
+                name: "Need For Speed Payback",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1262580/header.jpg",
+                bypassLink: "https://drive.usercontent.google.com/download?id=1ZNMTUY3eHbm2uXaLoJeDdR6ay6wqMrx1&export=download&confirm=t&uuid=cbb74623-435d-4d54-8075-44ec4efd7ebb"
+            },
+            {
+                name: "Need for Speed Rivals",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1262600/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/j3LhgRvW"
+            },
+            {
+                name: "Need for Speed Most Wanted 2012",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1262560/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/VjHNnT9M"
+            },
+            {
+                name: "Battlefield 3",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1238820/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/NwLhPPba"
+            },
+            {
+                name: "Battlefield 4",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1238860/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/eMvYo25X"
+            },
+            {
+                name: "Battlefield 1",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1238840/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/fQBuFULu"
+            },
+            {
+                name: "Star Wars Battlefront II",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1237950/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/K7hGV9v6"
+            },
+            {
+                name: "Star Wars Jedi Fallen Order",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1172380/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/ADxaeVMP"
+            },
+            {
+                name: "Jedi Survivor",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1774580/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/Ag2yk3QX"
+            },
+            {
+                name: "Fc 23",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1811260/header.jpg",
+                bypassLinks: [
+                    { name: "TU 17", link: "https://drive.usercontent.google.com/download?id=1cvp9tfw9pV2Nu21Hr5NghLclKOx4FK7i&export=download&confirm=t&uuid=a990528c-3f99-4d3c-b27a-223b90420be6" },
+                    { name: "FIX", link: "https://drive.usercontent.google.com/download?id=1cvp9tfw9pV2Nu21Hr5NghLclKOx4FK7i&export=download&confirm=t&uuid=a990528c-3f99-4d3c-b27a-223b90420be6" }
+                ]
+            },
+            {
+                name: "FC 26 Showcase",
+                image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3405690/2d96aa1b06e453cd62dae9029d412f19e61932c3/header.jpg?t=1759332156",
+                bypassLink: "https://download2392.mediafire.com/kqvxa1esy0rglIqBYsO0mrvrv5Mw9CKgOOAY9WH8zoinhLCGVObiwQ9hK7pH_r2-N7jzJTgYxItSwoxBguiiNcJlED8FY-m7Y5oxtLRwGyUXGayWRm5nI2yH5kpXRhgsXevjLMe-h0YWZAS35MzH67bWfrtvPbKw9N5JvEAAXkwYWfIC/ijt2llxtgd2zbl1/FC+26+MAGIC+UPDATE.rar"
+            },
+            {
+                name: "FC 25",
+                image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2669320/ec3fb7747fd8080ef53d7686e0d98c5abe1f51f1/header.jpg?t=1752681627",
+                bypassLink: "https://download.safefileku.com/file/jGlhNA9e2cnCXBUt/FC+25+MAGIC+TU14.1.rar/download?hash=Dm7Hoby8Vrd8mnX01Kkdvg&expire=1761376946&v=2"
+            }
+        ];
+
+        const activisionGames = [
+            {
+                name: "Call of Duty Black Ops 3",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/311210/header.jpg",
+                bypassLink: "https://release-assets.githubusercontent.com/github-production-release-asset/631400357/cbbb99b7-b1b5-41de-b080-034a41cd2769?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-10-24T23%3A05%3A17Z&rscd=attachment%3B+filename%3Dboiii.exe&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-10-24T22%3A04%3A32Z&ske=2025-10-24T23%3A05%3A17Z&sks=b&skv=2018-11-09&sig=YimfQSFtXAHgedyYmbmdWN%2FbgCxQjZgZMELmjW1OYWE%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc2MTM0NDYzMiwibmJmIjoxNzYxMzQ0MzMyLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.VFr4r4Z9eS7N3Q8xExgbSSooKY5Kclkc2KlKn42FgCA&response-content-disposition=attachment%3B%20filename%3Dboiii.exe&response-content-type=application%2Foctet-stream"
+            },
+            {
+                name: "Call of Duty Black Ops",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/42700/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/ZdcHeM8H"
+            },
+            {
+                name: "Call of Duty MW2",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1938090/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/Fq7dGXwd"
+            },
+            {
+                name: "ProtoType 2",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/115320/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/QZJc2ByW"
+            }
+        ];
+
+        const capcomGames = [
+            {
+                name: "Resident Evil 4 Remake",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/2050650/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/PP7sQkbp"
+            },
+            {
+                name: "Devil May Cry 5",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/601150/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/Gx6eMpZs"
+            }
+        ];
+
+        const squareEnixGames = [
+            {
+                name: "Guardians Of The Galaxy",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1088850/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/M1vNkxHw"
+            },
+            {
+                name: "Just Cause 4",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/517630/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/46v6kiYJ"
+            },
+            {
+                name: "Just Cause 3",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/225540/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/i2iWyRxr"
+            }
+        ];
+
+        const otherGames = [
+            {
+                name: "God of War Ragnarök",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/2322010/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/cSJRY1RY"
+            },
+            {
+                name: "Metal Gear Solid V The Phantom Pain",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/287700/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/6AmxbWaG"
+            },
+            {
+                name: "Jurassic World Evolution",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/648350/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/j5tBbgFR"
+            },
+            {
+                name: "Mafia II",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/50130/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/H2rYpG1n"
+            },
+            {
+                name: "Deadpool",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/224060/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/MmAxcgtc"
+            },
+            {
+                name: "Mad Max",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/234140/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/CQzLXcSZ"
+            },
+            {
+                name: "Dead Space 3",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1238060/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/b9g5DpaZ"
+            },
+            {
+                name: "Dead Space 2",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/47780/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/vbMU6boe"
+            },
+            {
+                name: "7 Days to Die",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/251570/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/hC7cyPbF"
+            },
+            {
+                name: "HITMAN World Of Assassination",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1659040/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/3Jgqpihj"
+            },
+            {
+                name: "Sleeping Dogs",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/202170/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/QXUb7DYR"
+            },
+            {
+                name: "Hogwarts Legacy",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/990080/header.jpg",
+                bypassLink: "https://pixeldrain.sriflix.my/PMKjJmYa"
+            },
+            {
+                name: "PES 18",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/592580/header.jpg",
+                bypassLink: "https://drive.usercontent.google.com/download?id=1q0NvtpLqprxt0iIh0LC8lORl3hezEWbv&export=download&confirm=t&uuid=d30fba3c-173a-4e46-b0fb-53e205e55688"
+            },
+            {
+                name: "PES 21",
+                image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1259970/header.jpg",
+                bypassLink: "https://drive.usercontent.google.com/download?id=1wUaBi1mVgtT1F7H6j2u6Llh6q0zInWj3&export=download&confirm=t&uuid=d173428a-fe0b-4760-8edc-a917162e9398"
+            }
+        ];
+
+        const ubisoftGamesContainer = document.getElementById('ubisoftGames');
+        const rockstarGamesContainer = document.getElementById('rockstarGames');
+        const eaGamesContainer = document.getElementById('eaGames');
+        const activisionGamesContainer = document.getElementById('activisionGames');
+        const capcomGamesContainer = document.getElementById('capcomGames');
+        const squareEnixGamesContainer = document.getElementById('squareEnixGames');
+        const otherGamesContainer = document.getElementById('otherGames');
+
+        function displayGames(games, container) {
+            container.innerHTML = '';
+            
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                
+                let linksHTML = '';
+                
+                if (game.bypassLinks) {
+                    game.bypassLinks.forEach(link => {
+                        linksHTML += `<a href="${link.link}" class="bypass-link" target="_blank">${link.name}</a>`;
+                    });
+                } else {
+                    linksHTML = `<a href="${game.bypassLink}" class="bypass-link" target="_blank">تحميل Bypass</a>`;
+                }
+                
+                gameCard.innerHTML = `
+                    <img src="${game.image}" alt="${game.name}" class="game-image" onerror="this.style.display='none'">
+                    <div class="game-info">
+                        <h3 class="game-title">${game.name}</h3>
+                        ${linksHTML}
+                    </div>
+                `;
+                
+                container.appendChild(gameCard);
+            });
+        }
+
+        displayGames(ubisoftGames, ubisoftGamesContainer);
+        displayGames(rockstarGames, rockstarGamesContainer);
+        displayGames(eaGames, eaGamesContainer);
+        displayGames(activisionGames, activisionGamesContainer);
+        displayGames(capcomGames, capcomGamesContainer);
+        displayGames(squareEnixGames, squareEnixGamesContainer);
+        displayGames(otherGames, otherGamesContainer);
+    </script>
+</body>
+    </script>
+</body>
+</html>
