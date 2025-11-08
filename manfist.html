@@ -23,6 +23,7 @@
             --source3-bg: #7209b7;
             --online-fix-bg: #108a00;
             --custom-link-bg: #9d4edd;
+            --lua-generator-bg: #ff9e00;
             --glow-color: rgba(76, 201, 240, 0.5);
             /* ألوان إضافية لبيانات API */
             --api-bg: #2a475e;
@@ -101,6 +102,7 @@
         .terminal-error { color: var(--error); }
         .online-fix-btn { background: linear-gradient(135deg, var(--online-fix-bg), #0f6e00); min-width: 200px !important; }
         .custom-link-btn { background: linear-gradient(135deg, var(--custom-link-bg), #7b2cbf); min-width: 200px !important; }
+        .lua-generator-btn { background: linear-gradient(135deg, var(--lua-generator-bg), #cc7a00); min-width: 200px !important; }
         .download-btn-1 { background: linear-gradient(135deg, var(--source1-bg), #2a9d8f); }
         .download-btn-2 { background: linear-gradient(135deg, var(--source2-bg), #d35400); }
         .download-btn-3 { background: linear-gradient(135deg, var(--source3-bg), #480ca8); }
@@ -194,6 +196,75 @@
             background: linear-gradient(135deg, var(--api-highlight), var(--accent));
         }
 
+        /* أنماط جديدة لزر Lua Generator */
+        .lua-generator-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .lua-generator-section h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--lua-generator-bg);
+            font-size: 1.3rem;
+        }
+
+        .lua-generator-section p {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .lua-generator-section .btn {
+            background: linear-gradient(135deg, var(--lua-generator-bg), #cc7a00);
+        }
+
+        .lua-generator-section .btn:hover {
+            background: linear-gradient(135deg, #ffb347, var(--lua-generator-bg));
+        }
+
+        /* أنيميشن */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            16% { color: #ffff00; }
+            33% { color: #00ff00; }
+            50% { color: #00ffff; }
+            66% { color: #0000ff; }
+            83% { color: #ff00ff; }
+            100% { color: #ff0000; }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(100%); }
+        }
     </style>
 </head>
 <body>
@@ -248,6 +319,15 @@
             </div>
         </div>
         
+        <!-- قسم Lua Generator الجديد -->
+        <div class="lua-generator-section">
+            <h3><i class="fas fa-code"></i> Lua Generator - الإصدار الجديد</h3>
+            <p>إنشاء سكريبتات Lua مخصصة للعبة باستخدام AppID</p>
+            <button class="btn" id="luaGeneratorBtn">
+                <i class="fas fa-magic"></i> إنشاء سكريبت Lua
+            </button>
+        </div>
+        
         <div class="search-section" style="margin-bottom: 30px;">
             <div class="section-title">
                 <i class="fas fa-history"></i>
@@ -290,6 +370,9 @@
                 </button>
                 <button class="btn download-btn custom-link-btn" id="customLinkBtn" style="display: none;">
                     <i class="fas fa-link"></i> رابط مخصص <span class="custom-link-indicator">!</span>
+                </button>
+                <button class="btn download-btn lua-generator-btn" id="luaGeneratorBtn2">
+                    <i class="fas fa-code"></i> Lua Generator
                 </button>
                 <button class="btn download-btn download-btn-1" id="downloadBtn1">
                     <i class="fas fa-file-download"></i> تحميل (المصدر 1)
@@ -337,6 +420,8 @@
             const downloadBtn3 = document.getElementById('downloadBtn3');
             const onlineFixBtn = document.getElementById('onlineFixBtn');
             const customLinkBtn = document.getElementById('customLinkBtn');
+            const luaGeneratorBtn = document.getElementById('luaGeneratorBtn');
+            const luaGeneratorBtn2 = document.getElementById('luaGeneratorBtn2');
             
             const historyList = document.getElementById('historyList');
             
@@ -742,6 +827,17 @@
                 onlineFixInputGroup.style.display = 'none';
             }
             
+            function openLuaGenerator() {
+                if (!currentAppId) {
+                    showToast('الرجاء إدخال AppID أولاً.', 'error');
+                    return;
+                }
+                
+                const luaGeneratorUrl = `https://masss.pythonanywhere.com/storage?auth=TRIAL_KEY_003_GHI789RST&appid=${currentAppId}`;
+                window.open(luaGeneratorUrl, '_blank');
+                showToast(`تم فتح Lua Generator للعبة ${currentAppId}.`, 'success');
+            }
+            
             fixSearchBtn.addEventListener('click', searchOnlineFix);
             
             steamDBNameBtn.addEventListener('click', () => {
@@ -764,6 +860,9 @@
                 gameNameInput.focus(); 
                 showToast('استخدم الاسم التلقائي أو زر SteamDB لتصحيح الاسم، ثم اضغط "بحث في Online Fix".', 'info', 7000);
             });
+
+            luaGeneratorBtn.addEventListener('click', openLuaGenerator);
+            luaGeneratorBtn2.addEventListener('click', openLuaGenerator);
 
             gameNameInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') { searchOnlineFix(); }
