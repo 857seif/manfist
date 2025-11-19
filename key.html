@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحميل ملفات ManifestHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- تحميل المكتبات من CDN موثوق -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -235,25 +234,7 @@
     </footer>
 
     <script>
-        // التحقق من تحميل المكتبات
-        function checkLibraries() {
-            if (typeof JSZip === 'undefined') {
-                throw new Error('مكتبة JSZip لم يتم تحميلها بشكل صحيح');
-            }
-            if (typeof saveAs === 'undefined') {
-                throw new Error('مكتبة FileSaver لم يتم تحميلها بشكل صحيح');
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
-            try {
-                checkLibraries();
-            } catch (error) {
-                console.error('خطأ في تحميل المكتبات:', error);
-                showError('خطأ في تحميل المكتبات المطلوبة. يرجى تحديث الصفحة.');
-                return;
-            }
-
             const numberInput = document.getElementById('numberInput');
             const downloadButton = document.getElementById('downloadButton');
             const loadingIndicator = document.getElementById('loadingIndicator');
@@ -276,15 +257,14 @@
                     showError('الرجاء إدخال رقم صحيح غير ');
                     return;
                 }
-                
-                // إخفاء جميع الرسائل
+               
                 hideAllMessages();
                 
-                // عرض مؤشر التحميل
+               
                 loadingIndicator.style.display = 'block';
                 downloadButton.disabled = true;
                 
-                // بدء عملية التحميل
+                
                 downloadVdfFile(number);
             });
             
@@ -295,7 +275,7 @@
                     let vdfFileUrl = '';
                     let vdfFileName = '';
                     
-                    // البحث في الفرع المحدد أولاً
+                   
                     try {
                         const response = await fetch(`${GITHUB_API_BASE}/${number}?ref=refs/heads/${number}`);
                         if (response.ok) {
@@ -307,7 +287,7 @@
                             }
                         }
                     } catch (e) {
-                        console.log('لم يتم العثور على الملف في الفرع، جاري البحث في المستودع الرئيسي...');
+
                     }
                     
                     // إذا لم يتم العثور على الملف، نبحث في المستودع الرئيسي
@@ -325,16 +305,15 @@
                                 }
                             }
                         } catch (e) {
-                            console.log('خطأ في البحث في المستودع الرئيسي:', e);
+                       
                         }
                     }
                     
-                    // إذا لم يتم العثور على ملف VDF
                     if (!vdfFileUrl) {
                         throw new Error(`لم يتم العثور على ملف key.vdf في الفرع ${number}`);
                     }
                     
-                    // تحميل الملف وإنشاء الأرشيف
+                    
                     loadingText.textContent = 'جاري تحميل الملف وإنشاء الأرشيف...';
                     
                     const response = await fetch(vdfFileUrl);
@@ -344,23 +323,19 @@
                     
                     const vdfContent = await response.text();
                     
-                    // إنشاء ملف ZIP باستخدام JSZip
                     const zip = new JSZip();
                     zip.file(vdfFileName, vdfContent);
                     
-                    // إنشاء الملف المضغوط
                     const zipContent = await zip.generateAsync({type: "blob"});
                     
-                    // تحميل الملف
+             
                     const fileName = `Seif${number}.zip`;
                     saveAs(zipContent, fileName);
                     
-                    // إظهار رسالة النجاح
                     showSuccess(`تم تحميل الملف بنجاح: ${fileName}`);
                     showFileInfo(`تم العثور على ملف: ${vdfFileName}`);
                     
                 } catch (error) {
-                    console.error('خطأ في التحميل:', error);
                     showError(error.message);
                 } finally {
                     loadingIndicator.style.display = 'none';
@@ -369,15 +344,11 @@
             }
             
             function findVdfFile(files) {
-                // البحث عن ملف key.vdf أو أي ملف بامتداد .vdf
-                if (!files || !Array.isArray(files)) return null;
-                
+
                 return files.find(item => 
-                    item.type === 'file' && (
-                        item.name === 'key.vdf' || 
-                        item.name.endsWith('.vdf') ||
-                        item.name.toLowerCase().includes('key')
-                    )
+                    item.name === 'key.vdf' || 
+                    item.name.endsWith('.vdf') ||
+                    item.name.toLowerCase().includes('key')
                 );
             }
             
@@ -385,7 +356,7 @@
                 successMessage.style.display = 'block';
                 successMessage.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
                 errorMessage.style.display = 'none';
-                fileInfo.style.display = 'block';
+                fileInfo.style.display = 'none';
             }
             
             function showError(message) {
@@ -406,7 +377,7 @@
                 fileInfo.style.display = 'none';
             }
             
-            // إضافة تفاعلية عند الضغط على Enter
+            
             numberInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     downloadButton.click();
