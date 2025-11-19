@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحميل ملفات ManifestHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
         * {
@@ -323,6 +323,7 @@
                     
                     const vdfContent = await response.text();
                     
+                    // هنا يتم استخدام مكتبة JSZip التي تم تعديل رابطها
                     const zip = new JSZip();
                     zip.file(vdfFileName, vdfContent);
                     
