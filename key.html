@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل ملفات ManifestHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2a5298, #3a7bd5);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .description {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+        
+        .input-section {
+            margin-bottom: 25px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        label {
+            font-weight: 600;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        
+        input {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #219653;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .success {
+            background: #d5f4e6;
+            color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+        
+        .error {
+            background: #fde8e8;
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+        
+        .info {
+            background: #e8f4fc;
+            color: #3498db;
+            border: 1px solid #3498db;
+            margin-top: 20px;
+        }
+        
+        .file-info {
+            background: #fff9e6;
+            color: #f39c12;
+            border: 1px solid #f39c12;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>تحميل ملف key.vdf</h1>
+            <p class="description"></p>
+        </header>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <label for="numberInput">أدخل الرقم:</label>
+                <input type="number" id="numberInput" placeholder="أدخل أي رقم ما عدا " min="1" value="">
+                <button id="downloadButton">
+                    <i class="fas fa-download"></i> تحميل ملف key.vdf
+                </button>
+            </div>
+        </div>
+        
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p id="loadingText">جاري البحث عن ملف key.vdf وتحميله...</p>
+        </div>
+        
+        <div class="message success" id="successMessage">
+            <i class="fas fa-check-circle"></i> تم تحميل الملف بنجاح!
+        </div>
+        
+        <div class="message error" id="errorMessage">
+            <i class="fas fa-exclamation-triangle"></i> حدث خطأ أثناء التحميل
+        </div>
+        
+        <div class="file-info" id="fileInfo">
+            <i class="fas fa-info-circle"></i> <span id="fileInfoText"></span>
+        </div>
+        
+        <div class="message info" id="infoMessage">
+            <i class="fas fa-lightbulb"></i> سيتم تحميل ملف key.vdf مضغوطًا باسم Seif[الرقم].zip
+        </div>
+    </div>
+    
+    <footer>
+        <p>by ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const numberInput = document.getElementById('numberInput');
+            const downloadButton = document.getElementById('downloadButton');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const loadingText = document.getElementById('loadingText');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileInfoText = document.getElementById('fileInfoText');
+            const infoMessage = document.getElementById('infoMessage');
+            
+            // API endpoint للوصول إلى محتويات GitHub
+            const GITHUB_API_BASE = 'https://api.github.com/repos/SteamAutoCracks/ManifestHub/contents';
+            const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/refs/heads';
+            
+            downloadButton.addEventListener('click', function() {
+                const number = numberInput.value.trim();
+                
+                // التحقق من صحة الإدخال
+                if (!number || isNaN(number) || number === '') {
+                    showError('الرجاء إدخال رقم صحيح غير ');
+                    return;
+                }
+                
+                // إخفاء جميع الرسائل
+                hideAllMessages();
+                
+                // عرض مؤشر التحميل
+                loadingIndicator.style.display = 'block';
+                downloadButton.disabled = true;
+                
+                // بدء عملية التحميل
+                downloadVdfFile(number);
+            });
+            
+            async function downloadVdfFile(number) {
+                try {
+                    loadingText.textContent = 'جاري البحث عن ملف key.vdf...';
+                    
+                    let vdfFileUrl = '';
+                    let vdfFileName = '';
+                    
+                    // البحث في الفرع المحدد أولاً
+                    try {
+                        const response = await fetch(`${GITHUB_API_BASE}/${number}?ref=refs/heads/${number}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            const vdfFile = findVdfFile(data);
+                            if (vdfFile) {
+                                vdfFileUrl = `${GITHUB_RAW_BASE}/${number}/${vdfFile.path}`;
+                                vdfFileName = vdfFile.name;
+                            }
+                        }
+                    } catch (e) {
+                        // تجاهل الخطأ والمحاولة في المكان التالي
+                    }
+                    
+                    // إذا لم يتم العثور على الملف، نبحث في المستودع الرئيسي
+                    if (!vdfFileUrl) {
+                        loadingText.textContent = 'جاري البحث في المستودع الرئيسي...';
+                        
+                        try {
+                            const response = await fetch(`${GITHUB_API_BASE}?ref=refs/heads/${number}`);
+                            if (response.ok) {
+                                const data = await response.json();
+                                const vdfFile = findVdfFile(data);
+                                if (vdfFile) {
+                                    vdfFileUrl = `${GITHUB_RAW_BASE}/${number}/${vdfFile.path}`;
+                                    vdfFileName = vdfFile.name;
+                                }
+                            }
+                        } catch (e) {
+                            // تجاهل الخطأ
+                        }
+                    }
+                    
+                    // إذا لم يتم العثور على ملف VDF
+                    if (!vdfFileUrl) {
+                        throw new Error(`لم يتم العثور على ملف key.vdf في الفرع ${number}`);
+                    }
+                    
+                    // تحميل الملف وإنشاء الأرشيف
+                    loadingText.textContent = 'جاري تحميل الملف وإنشاء الأرشيف...';
+                    
+                    const response = await fetch(vdfFileUrl);
+                    if (!response.ok) {
+                        throw new Error('فشل في تحميل ملف VDF');
+                    }
+                    
+                    const vdfContent = await response.text();
+                    
+                    // إنشاء ملف ZIP باستخدام JSZip
+                    const zip = new JSZip();
+                    zip.file(vdfFileName, vdfContent);
+                    
+                    // إنشاء الملف المضغوط
+                    const zipContent = await zip.generateAsync({type: "blob"});
+                    
+                    // تحميل الملف
+                    const fileName = `Seif${number}.zip`;
+                    saveAs(zipContent, fileName);
+                    
+                    // إظهار رسالة النجاح
+                    showSuccess(`تم تحميل الملف بنجاح: ${fileName}`);
+                    showFileInfo(`تم العثور على ملف: ${vdfFileName}`);
+                    
+                } catch (error) {
+                    showError(error.message);
+                } finally {
+                    loadingIndicator.style.display = 'none';
+                    downloadButton.disabled = false;
+                }
+            }
+            
+            function findVdfFile(files) {
+                // البحث عن ملف key.vdf أو أي ملف بامتداد .vdf
+                return files.find(item => 
+                    item.name === 'key.vdf' || 
+                    item.name.endsWith('.vdf') ||
+                    item.name.toLowerCase().includes('key')
+                );
+            }
+            
+            function showSuccess(message) {
+                successMessage.style.display = 'block';
+                successMessage.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+                errorMessage.style.display = 'none';
+                fileInfo.style.display = 'none';
+            }
+            
+            function showError(message) {
+                errorMessage.style.display = 'block';
+                errorMessage.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${message}`;
+                successMessage.style.display = 'none';
+                fileInfo.style.display = 'none';
+            }
+            
+            function showFileInfo(message) {
+                fileInfo.style.display = 'block';
+                fileInfoText.textContent = message;
+            }
+            
+            function hideAllMessages() {
+                successMessage.style.display = 'none';
+                errorMessage.style.display = 'none';
+                fileInfo.style.display = 'none';
+            }
+            
+            // إضافة تفاعلية عند الضغط على Enter
+            numberInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    downloadButton.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
