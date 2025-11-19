@@ -142,7 +142,6 @@
         }
         
         button {
-            background: #27ae60;
             color: white;
             border: none;
             padding: 15px 25px;
@@ -291,6 +290,31 @@
             color: #e74c3c;
         }
         
+        .folder-structure {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: right;
+            display: none;
+        }
+        
+        .folder-item {
+            padding: 5px 0;
+            margin-right: 15px;
+        }
+        
+        .folder-icon {
+            color: #ffc107;
+            margin-left: 5px;
+        }
+        
+        .file-icon {
+            color: #6c757d;
+            margin-left: 5px;
+        }
+        
         footer {
             text-align: center;
             padding: 20px;
@@ -367,8 +391,13 @@
         
         <div class="files-list" id="filesList"></div>
         
+        <div class="folder-structure" id="folderStructure">
+            <h4><i class="fas fa-folder-tree"></i> هيكل المجلدات في ملف ZIP:</h4>
+            <div id="structureContent"></div>
+        </div>
+        
         <div class="message info" id="infoMessage">
-            <i class="fas fa-lightbulb"></i> يمكنك إضافة أي عدد من الأرقام لتحميل ملفات متعددة
+            <i class="fas fa-lightbulb"></i> في ملف ZIP: كل رقم يصبح مجلداً بداخله ملف key.vdf
         </div>
     </div>
     
@@ -391,6 +420,8 @@
             const fileInfo = document.getElementById('fileInfo');
             const fileInfoText = document.getElementById('fileInfoText');
             const filesList = document.getElementById('filesList');
+            const folderStructure = document.getElementById('folderStructure');
+            const structureContent = document.getElementById('structureContent');
             
             downloadAllButton.addEventListener('click', function() {
                 downloadFiles(true);
@@ -411,6 +442,7 @@
                 hideAllMessages();
                 filesList.innerHTML = '';
                 fileResults = [];
+                folderStructure.style.display = 'none';
                 
                 loadingIndicator.style.display = 'block';
                 progressBar.style.display = 'block';
@@ -439,7 +471,10 @@
                         try {
                             const fileData = await downloadSingleFile(number);
                             if (fileData) {
-                                zip.file(`key_${number}.vdf`, fileData);
+                                // إنشاء مجلد للرقم ووضع ملف key.vdf بداخله
+                                const folder = zip.folder(number);
+                                folder.file("key.vdf", fileData);
+                                
                                 fileResults.push({ number, status: 'success' });
                                 updateFilesList();
                             }
@@ -454,15 +489,20 @@
                         await new Promise(resolve => setTimeout(resolve, 500));
                     }
                     
-                    if (zip.file(/\.vdf$/).length > 0) {
+                    const successfulFolders = fileResults.filter(r => r.status === 'success').length;
+                    
+                    if (successfulFolders > 0) {
                         loadingText.textContent = 'جاري إنشاء ملف ZIP...';
                         const zipContent = await zip.generateAsync({
                             type: "blob",
                             compression: "DEFLATE"
                         });
                         
-                        saveAs(zipContent, `keys_${numbers.length}_files.zip`);
-                        showSuccess(`تم تحميل ${zip.file(/\.vdf$/).length} ملف بنجاح في أرشيف ZIP`);
+                        saveAs(zipContent, `keys_${successfulFolders}_folders.zip`);
+                        showSuccess(`تم تحميل ${successfulFolders} مجلد بنجاح في أرشيف ZIP`);
+                        
+                        // عرض هيكل المجلدات
+                        showFolderStructure(numbers);
                     } else {
                         showError('لم يتم تحميل أي ملف بنجاح');
                     }
@@ -544,6 +584,25 @@
                 throw new Error(`لم يتم العثور على ملف key.vdf للرقم ${number}`);
             }
             
+            function showFolderStructure(numbers) {
+                folderStructure.style.display = 'block';
+                structureContent.innerHTML = '';
+                
+                numbers.forEach(number => {
+                    const folderItem = document.createElement('div');
+                    folderItem.className = 'folder-item';
+                    folderItem.innerHTML = `
+                        <div>
+                            <i class="fas fa-folder folder-icon"></i> ${number}/
+                            <div style="margin-right: 20px;">
+                                <i class="fas fa-file file-icon"></i> key.vdf
+                            </div>
+                        </div>
+                    `;
+                    structureContent.appendChild(folderItem);
+                });
+            }
+            
             function getNumbers() {
                 const inputs = document.querySelectorAll('.number-input');
                 const numbers = [];
@@ -565,7 +624,7 @@
                     const statusText = result.status === 'success' ? 'نجح' : 'فشل';
                     
                     fileItem.innerHTML = `
-                        <span>key_${result.number}.vdf</span>
+                        <span>${result.number}/key.vdf</span>
                         <span class="file-status ${statusClass}">${statusText}</span>
                     `;
                     
