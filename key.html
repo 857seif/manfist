@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحميل ملفات ManifestHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
+        /* ... (تنسيقات CSS كما هي بدون تغيير) ... */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -225,7 +227,7 @@
         </div>
         
         <div class="message info" id="infoMessage">
-            <i class="fas fa-lightbulb"></i> سيتم تحميل ملف key.vdf مضغوطًا باسم Seif[الرقم].zip
+            <i class="fas fa-lightbulb"></i> سيتم تحميل ملف key.vdf مضغوطًا بصيغة Gzip باسم Seif[الرقم].**gz**
         </div>
     </div>
     
@@ -314,7 +316,7 @@
                     }
                     
                     
-                    loadingText.textContent = 'جاري تحميل الملف وإنشاء الأرشيف...';
+                    loadingText.textContent = 'جاري تحميل الملف وضغطه بصيغة Gzip...';
                     
                     const response = await fetch(vdfFileUrl);
                     if (!response.ok) {
@@ -323,15 +325,19 @@
                     
                     const vdfContent = await response.text();
                     
-                    // هنا يتم استخدام مكتبة JSZip التي تم تعديل رابطها
-                    const zip = new JSZip();
-                    zip.file(vdfFileName, vdfContent);
+                    // تحويل المحتوى إلى مصفوفة بايت (Uint8Array) ليتوافق مع Pako
+                    const encoder = new TextEncoder();
+                    const uint8Array = encoder.encode(vdfContent);
+
+                    // استخدام Pako لضغط المحتوى بصيغة Gzip
+                    const compressedContent = pako.gzip(uint8Array);
                     
-                    const zipContent = await zip.generateAsync({type: "blob"});
+                    // إنشاء كائن Blob للمحتوى المضغوط
+                    const compressedBlob = new Blob([compressedContent], {type: 'application/gzip'});
                     
              
-                    const fileName = `Seif${number}.zip`;
-                    saveAs(zipContent, fileName);
+                    const fileName = `Seif${number}.gz`; // تم تغيير الامتداد إلى gz
+                    saveAs(compressedBlob, fileName);
                     
                     showSuccess(`تم تحميل الملف بنجاح: ${fileName}`);
                     showFileInfo(`تم العثور على ملف: ${vdfFileName}`);
