@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحميل ملفات ManifestHub</title>
-    <!-- Font Awesome من Google Fonts -->
+    <!-- Material Icons من Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- FileSaver.js من unpkg -->
-    <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
-    <!-- fflate من unpkg -->
-    <script src="https://unpkg.com/fflate@0.8.2/umd/index.js"></script>
+    <!-- UZIP.js من unpkg -->
+    <script src="https://unpkg.com/uzip@0.20220128.0/dist/uzip.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -301,7 +299,7 @@
             font-size: 14px;
         }
         
-        /* رموز Material Icons بدلاً من Font Awesome */
+        /* رموز Material Icons */
         .material-icons {
             font-size: inherit;
             vertical-align: middle;
@@ -388,6 +386,17 @@
 
     <script>
         let fileResults = [];
+        
+        // دالة لحفظ الملف (بدون FileSaver.js)
+        function saveAs(blob, filename) {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        }
         
         document.addEventListener('DOMContentLoaded', function() {
             const downloadAllButton = document.getElementById('downloadAllButton');
@@ -477,8 +486,8 @@
                     if (successfulFolders > 0) {
                         loadingText.textContent = 'جاري إنشاء ملف ZIP...';
                         
-                        // إنشاء الأرشيف باستخدام fflate
-                        const zipped = fflate.zipSync(files);
+                        // إنشاء الأرشيف باستخدام UZIP
+                        const zipped = UZIP.zip(files);
                         
                         // تحويل إلى Blob وحفظ الملف
                         const blob = new Blob([zipped], { type: 'application/zip' });
