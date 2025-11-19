@@ -134,49 +134,30 @@
             background: #2980b9;
         }
         
-        .buttons-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        button {
+        .download-button {
+            background: #27ae60;
             color: white;
             border: none;
-            padding: 15px 25px;
+            padding: 18px 30px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            flex: 1;
+            gap: 12px;
+            width: 100%;
+            margin-top: 20px;
         }
         
-        button:hover {
+        .download-button:hover {
+            background: #219653;
             transform: translateY(-2px);
         }
         
-        .download-all {
-            background: #27ae60;
-        }
-        
-        .download-all:hover {
-            background: #219653;
-        }
-        
-        .download-separate {
-            background: #f39c12;
-        }
-        
-        .download-separate:hover {
-            background: #e67e22;
-        }
-        
-        button:disabled {
+        .download-button:disabled {
             background: #95a5a6;
             cursor: not-allowed;
             transform: none;
@@ -311,10 +292,6 @@
             h1 {
                 font-size: 24px;
             }
-            
-            .buttons-group {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -322,7 +299,7 @@
     <div class="container">
         <header>
             <h1>تحميل ملفات key.vdf</h1>
-            <p class="description">أدخل الأرقام لتحميل عدة ملفات key.vdf معاً أو منفصلة</p>
+            <p class="description">أدخل الأرقام لتحميل عدة ملفات key.vdf معاً في ملف ZIP واحد</p>
         </header>
         
         <div class="input-section">
@@ -340,14 +317,9 @@
                     <span class="material-icons">add</span> إضافة رقم آخر
                 </button>
                 
-                <div class="buttons-group">
-                    <button id="downloadAllButton" class="download-all">
-                        <span class="material-icons">file_download</span> تحميل جميع الملفات معاً (ZIP)
-                    </button>
-                    <button id="downloadSeparateButton" class="download-separate">
-                        <span class="material-icons">download</span> تحميل الملفات منفصلة
-                    </button>
-                </div>
+                <button id="downloadButton" class="download-button">
+                    <span class="material-icons">file_download</span> تحميل جميع الملفات (ZIP)
+                </button>
             </div>
         </div>
         
@@ -374,7 +346,7 @@
         <div class="files-list" id="filesList"></div>
         
         <div class="message info" id="infoMessage">
-            <span class="material-icons">lightbulb</span> في ملف ZIP: كل رقم يصبح مجلداً بداخله ملف key.vdf
+            <span class="material-icons">lightbulb</span> سيتم إنشاء ملف ZIP يحتوي على مجلد لكل رقم بداخله ملف key.vdf
         </div>
     </div>
     
@@ -427,8 +399,7 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
-            const downloadAllButton = document.getElementById('downloadAllButton');
-            const downloadSeparateButton = document.getElementById('downloadSeparateButton');
+            const downloadButton = document.getElementById('downloadButton');
             const loadingIndicator = document.getElementById('loadingIndicator');
             const loadingText = document.getElementById('loadingText');
             const progressBar = document.getElementById('progressBar');
@@ -439,15 +410,11 @@
             const fileInfoText = document.getElementById('fileInfoText');
             const filesList = document.getElementById('filesList');
             
-            downloadAllButton.addEventListener('click', function() {
-                downloadFiles(true);
+            downloadButton.addEventListener('click', function() {
+                downloadFiles();
             });
             
-            downloadSeparateButton.addEventListener('click', function() {
-                downloadFiles(false);
-            });
-            
-            async function downloadFiles(asZip) {
+            async function downloadFiles() {
                 const numbers = getNumbers();
                 
                 if (numbers.length === 0) {
@@ -461,22 +428,16 @@
                 
                 loadingIndicator.style.display = 'block';
                 progressBar.style.display = 'block';
-                downloadAllButton.disabled = true;
-                downloadSeparateButton.disabled = true;
+                downloadButton.disabled = true;
                 
                 try {
-                    if (asZip) {
-                        await downloadAllAsZip(numbers);
-                    } else {
-                        await downloadAllSeparate(numbers);
-                    }
+                    await downloadAllAsZip(numbers);
                 } catch (error) {
                     showError(error.message);
                 } finally {
                     loadingIndicator.style.display = 'none';
                     progressBar.style.display = 'none';
-                    downloadAllButton.disabled = false;
-                    downloadSeparateButton.disabled = false;
+                    downloadButton.disabled = false;
                 }
             }
             
@@ -531,44 +492,6 @@
                         saveAs(blob, "seif Afandi.zip");
                         
                         showSuccess(`تم تحميل ${successfulFolders} مجلد بنجاح في أرشيف ZIP`);
-                    } else {
-                        showError('لم يتم تحميل أي ملف بنجاح');
-                    }
-                    
-                } catch (error) {
-                    throw error;
-                }
-            }
-            
-            async function downloadAllSeparate(numbers) {
-                try {
-                    let successCount = 0;
-                    
-                    for (let i = 0; i < numbers.length; i++) {
-                        const number = numbers[i];
-                        const progressPercent = ((i + 1) / numbers.length) * 100;
-                        progress.style.width = `${progressPercent}%`;
-                        loadingText.textContent = `جاري تحميل الملف ${i + 1} من ${numbers.length} (${number})...`;
-                        
-                        try {
-                            const fileData = await downloadSingleFile(number);
-                            if (fileData) {
-                                saveAs(fileData, `key_${number}.vdf`);
-                                fileResults.push({ number, status: 'success' });
-                                successCount++;
-                            }
-                        } catch (error) {
-                            fileResults.push({ number, status: 'error', error: error.message });
-                        }
-                        
-                        updateFilesList();
-                        
-                        // تأخير بسيط بين الطلبات
-                        await new Promise(resolve => setTimeout(resolve, 500));
-                    }
-                    
-                    if (successCount > 0) {
-                        showSuccess(`تم تحميل ${successCount} ملف بنجاح`);
                     } else {
                         showError('لم يتم تحميل أي ملف بنجاح');
                     }
