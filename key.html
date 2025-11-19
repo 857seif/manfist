@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحميل ملفات ManifestHub</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <!-- Font Awesome من Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- FileSaver.js من unpkg -->
+    <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <!-- fflate من unpkg -->
+    <script src="https://unpkg.com/fflate@0.8.2/umd/index.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -290,37 +293,18 @@
             color: #e74c3c;
         }
         
-        .folder-structure {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            text-align: right;
-            display: none;
-        }
-        
-        .folder-item {
-            padding: 5px 0;
-            margin-right: 15px;
-        }
-        
-        .folder-icon {
-            color: #ffc107;
-            margin-left: 5px;
-        }
-        
-        .file-icon {
-            color: #6c757d;
-            margin-left: 5px;
-        }
-        
         footer {
             text-align: center;
             padding: 20px;
             color: white;
             margin-top: 20px;
             font-size: 14px;
+        }
+        
+        /* رموز Material Icons بدلاً من Font Awesome */
+        .material-icons {
+            font-size: inherit;
+            vertical-align: middle;
         }
         
         @media (max-width: 600px) {
@@ -351,19 +335,21 @@
                 <div class="inputs-container" id="inputsContainer">
                     <div class="number-input-group">
                         <input type="number" class="number-input" placeholder="أدخل الرقم" min="1">
-                        <button class="remove-btn" onclick="removeInput(this)">×</button>
+                        <button class="remove-btn" onclick="removeInput(this)">
+                            <span class="material-icons">close</span>
+                        </button>
                     </div>
                 </div>
                 <button class="add-btn" onclick="addInput()">
-                    <i class="fas fa-plus"></i> إضافة رقم آخر
+                    <span class="material-icons">add</span> إضافة رقم آخر
                 </button>
                 
                 <div class="buttons-group">
                     <button id="downloadAllButton" class="download-all">
-                        <i class="fas fa-download"></i> تحميل جميع الملفات معاً (ZIP)
+                        <span class="material-icons">file_download</span> تحميل جميع الملفات معاً (ZIP)
                     </button>
                     <button id="downloadSeparateButton" class="download-separate">
-                        <i class="fas fa-file-download"></i> تحميل الملفات منفصلة
+                        <span class="material-icons">download</span> تحميل الملفات منفصلة
                     </button>
                 </div>
             </div>
@@ -378,26 +364,21 @@
         </div>
         
         <div class="message success" id="successMessage">
-            <i class="fas fa-check-circle"></i> تم تحميل الملفات بنجاح!
+            <span class="material-icons">check_circle</span> تم تحميل الملفات بنجاح!
         </div>
         
         <div class="message error" id="errorMessage">
-            <i class="fas fa-exclamation-triangle"></i> حدث خطأ أثناء التحميل
+            <span class="material-icons">error</span> حدث خطأ أثناء التحميل
         </div>
         
         <div class="file-info" id="fileInfo">
-            <i class="fas fa-info-circle"></i> <span id="fileInfoText"></span>
+            <span class="material-icons">info</span> <span id="fileInfoText"></span>
         </div>
         
         <div class="files-list" id="filesList"></div>
         
-        <div class="folder-structure" id="folderStructure">
-            <h4><i class="fas fa-folder-tree"></i> هيكل المجلدات في ملف ZIP:</h4>
-            <div id="structureContent"></div>
-        </div>
-        
         <div class="message info" id="infoMessage">
-            <i class="fas fa-lightbulb"></i> في ملف ZIP: كل رقم يصبح مجلداً بداخله ملف key.vdf
+            <span class="material-icons">lightbulb</span> في ملف ZIP: كل رقم يصبح مجلداً بداخله ملف key.vdf
         </div>
     </div>
     
@@ -420,8 +401,6 @@
             const fileInfo = document.getElementById('fileInfo');
             const fileInfoText = document.getElementById('fileInfoText');
             const filesList = document.getElementById('filesList');
-            const folderStructure = document.getElementById('folderStructure');
-            const structureContent = document.getElementById('structureContent');
             
             downloadAllButton.addEventListener('click', function() {
                 downloadFiles(true);
@@ -442,7 +421,6 @@
                 hideAllMessages();
                 filesList.innerHTML = '';
                 fileResults = [];
-                folderStructure.style.display = 'none';
                 
                 loadingIndicator.style.display = 'block';
                 progressBar.style.display = 'block';
@@ -459,7 +437,9 @@
             async function downloadAllAsZip(numbers) {
                 try {
                     loadingText.textContent = `جاري تحميل ${numbers.length} ملف...`;
-                    const zip = new JSZip();
+                    
+                    // كائن لتخزين الملفات
+                    const files = {};
                     let downloadedCount = 0;
                     
                     for (let i = 0; i < numbers.length; i++) {
@@ -471,9 +451,12 @@
                         try {
                             const fileData = await downloadSingleFile(number);
                             if (fileData) {
-                                // إنشاء مجلد للرقم ووضع ملف key.vdf بداخله
-                                const folder = zip.folder(number);
-                                folder.file("key.vdf", fileData);
+                                // تحويل Blob إلى Uint8Array
+                                const arrayBuffer = await fileData.arrayBuffer();
+                                const uint8Array = new Uint8Array(arrayBuffer);
+                                
+                                // إضافة الملف إلى الأرشيف مع مسار المجلد
+                                files[`${number}/key.vdf`] = uint8Array;
                                 
                                 fileResults.push({ number, status: 'success' });
                                 updateFilesList();
@@ -493,16 +476,15 @@
                     
                     if (successfulFolders > 0) {
                         loadingText.textContent = 'جاري إنشاء ملف ZIP...';
-                        const zipContent = await zip.generateAsync({
-                            type: "blob",
-                            compression: "DEFLATE"
-                        });
                         
-                        saveAs(zipContent, `keys_${successfulFolders}_folders.zip`);
+                        // إنشاء الأرشيف باستخدام fflate
+                        const zipped = fflate.zipSync(files);
+                        
+                        // تحويل إلى Blob وحفظ الملف
+                        const blob = new Blob([zipped], { type: 'application/zip' });
+                        saveAs(blob, "seif Afandi.zip");
+                        
                         showSuccess(`تم تحميل ${successfulFolders} مجلد بنجاح في أرشيف ZIP`);
-                        
-                        // عرض هيكل المجلدات
-                        showFolderStructure(numbers);
                     } else {
                         showError('لم يتم تحميل أي ملف بنجاح');
                     }
@@ -584,25 +566,6 @@
                 throw new Error(`لم يتم العثور على ملف key.vdf للرقم ${number}`);
             }
             
-            function showFolderStructure(numbers) {
-                folderStructure.style.display = 'block';
-                structureContent.innerHTML = '';
-                
-                numbers.forEach(number => {
-                    const folderItem = document.createElement('div');
-                    folderItem.className = 'folder-item';
-                    folderItem.innerHTML = `
-                        <div>
-                            <i class="fas fa-folder folder-icon"></i> ${number}/
-                            <div style="margin-right: 20px;">
-                                <i class="fas fa-file file-icon"></i> key.vdf
-                            </div>
-                        </div>
-                    `;
-                    structureContent.appendChild(folderItem);
-                });
-            }
-            
             function getNumbers() {
                 const inputs = document.querySelectorAll('.number-input');
                 const numbers = [];
@@ -634,13 +597,13 @@
             
             function showSuccess(message) {
                 successMessage.style.display = 'block';
-                successMessage.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+                successMessage.innerHTML = `<span class="material-icons">check_circle</span> ${message}`;
                 errorMessage.style.display = 'none';
             }
             
             function showError(message) {
                 errorMessage.style.display = 'block';
-                errorMessage.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${message}`;
+                errorMessage.innerHTML = `<span class="material-icons">error</span> ${message}`;
                 successMessage.style.display = 'none';
             }
             
@@ -657,7 +620,9 @@
             inputGroup.className = 'number-input-group';
             inputGroup.innerHTML = `
                 <input type="number" class="number-input" placeholder="أدخل الرقم" min="1">
-                <button class="remove-btn" onclick="removeInput(this)">×</button>
+                <button class="remove-btn" onclick="removeInput(this)">
+                    <span class="material-icons">close</span>
+                </button>
             `;
             container.appendChild(inputGroup);
             
