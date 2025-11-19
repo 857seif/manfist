@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحميل ملفات ManifestHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- تحميل المكتبات من CDN موثوق -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -234,7 +235,25 @@
     </footer>
 
     <script>
+        // التحقق من تحميل المكتبات
+        function checkLibraries() {
+            if (typeof JSZip === 'undefined') {
+                throw new Error('مكتبة JSZip لم يتم تحميلها بشكل صحيح');
+            }
+            if (typeof saveAs === 'undefined') {
+                throw new Error('مكتبة FileSaver لم يتم تحميلها بشكل صحيح');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            try {
+                checkLibraries();
+            } catch (error) {
+                console.error('خطأ في تحميل المكتبات:', error);
+                showError('خطأ في تحميل المكتبات المطلوبة. يرجى تحديث الصفحة.');
+                return;
+            }
+
             const numberInput = document.getElementById('numberInput');
             const downloadButton = document.getElementById('downloadButton');
             const loadingIndicator = document.getElementById('loadingIndicator');
@@ -288,7 +307,7 @@
                             }
                         }
                     } catch (e) {
-                        // تجاهل الخطأ والمحاولة في المكان التالي
+                        console.log('لم يتم العثور على الملف في الفرع، جاري البحث في المستودع الرئيسي...');
                     }
                     
                     // إذا لم يتم العثور على الملف، نبحث في المستودع الرئيسي
@@ -306,7 +325,7 @@
                                 }
                             }
                         } catch (e) {
-                            // تجاهل الخطأ
+                            console.log('خطأ في البحث في المستودع الرئيسي:', e);
                         }
                     }
                     
@@ -341,6 +360,7 @@
                     showFileInfo(`تم العثور على ملف: ${vdfFileName}`);
                     
                 } catch (error) {
+                    console.error('خطأ في التحميل:', error);
                     showError(error.message);
                 } finally {
                     loadingIndicator.style.display = 'none';
@@ -350,10 +370,14 @@
             
             function findVdfFile(files) {
                 // البحث عن ملف key.vdf أو أي ملف بامتداد .vdf
+                if (!files || !Array.isArray(files)) return null;
+                
                 return files.find(item => 
-                    item.name === 'key.vdf' || 
-                    item.name.endsWith('.vdf') ||
-                    item.name.toLowerCase().includes('key')
+                    item.type === 'file' && (
+                        item.name === 'key.vdf' || 
+                        item.name.endsWith('.vdf') ||
+                        item.name.toLowerCase().includes('key')
+                    )
                 );
             }
             
@@ -361,7 +385,7 @@
                 successMessage.style.display = 'block';
                 successMessage.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
                 errorMessage.style.display = 'none';
-                fileInfo.style.display = 'none';
+                fileInfo.style.display = 'block';
             }
             
             function showError(message) {
