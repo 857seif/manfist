@@ -6,8 +6,6 @@
     <title>تحميل ملفات ManifestHub</title>
     <!-- Material Icons من Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- UZIP.js من unpkg -->
-    <script src="https://unpkg.com/uzip@0.20220128.0/dist/uzip.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -386,8 +384,9 @@
 
     <script>
         let fileResults = [];
+        let zipLibraryLoaded = false;
         
-        // دالة لحفظ الملف (بدون FileSaver.js)
+        // دالة لحفظ الملف
         function saveAs(blob, filename) {
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -396,6 +395,35 @@
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(link.href);
+        }
+        
+        // دالة لتحميل مكتبة ZIP
+        async function loadZipLibrary() {
+            if (zipLibraryLoaded) return;
+            
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.min.js';
+                script.onload = () => {
+                    zipLibraryLoaded = true;
+                    resolve();
+                };
+                script.onerror = () => {
+                    reject(new Error('فشل في تحميل مكتبة الضغط'));
+                };
+                document.head.appendChild(script);
+            });
+        }
+        
+        // دالة لإنشاء ملف ZIP باستخدام fflate
+        async function createZip(files) {
+            await loadZipLibrary();
+            
+            if (typeof fflate === 'undefined') {
+                throw new Error('مكتبة الضغط غير متوفرة');
+            }
+            
+            return fflate.zipSync(files);
         }
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -436,10 +464,19 @@
                 downloadAllButton.disabled = true;
                 downloadSeparateButton.disabled = true;
                 
-                if (asZip) {
-                    await downloadAllAsZip(numbers);
-                } else {
-                    await downloadAllSeparate(numbers);
+                try {
+                    if (asZip) {
+                        await downloadAllAsZip(numbers);
+                    } else {
+                        await downloadAllSeparate(numbers);
+                    }
+                } catch (error) {
+                    showError(error.message);
+                } finally {
+                    loadingIndicator.style.display = 'none';
+                    progressBar.style.display = 'none';
+                    downloadAllButton.disabled = false;
+                    downloadSeparateButton.disabled = false;
                 }
             }
             
@@ -486,8 +523,8 @@
                     if (successfulFolders > 0) {
                         loadingText.textContent = 'جاري إنشاء ملف ZIP...';
                         
-                        // إنشاء الأرشيف باستخدام UZIP
-                        const zipped = UZIP.zip(files);
+                        // إنشاء الأرشيف باستخدام fflate
+                        const zipped = await createZip(files);
                         
                         // تحويل إلى Blob وحفظ الملف
                         const blob = new Blob([zipped], { type: 'application/zip' });
@@ -499,12 +536,7 @@
                     }
                     
                 } catch (error) {
-                    showError(error.message);
-                } finally {
-                    loadingIndicator.style.display = 'none';
-                    progressBar.style.display = 'none';
-                    downloadAllButton.disabled = false;
-                    downloadSeparateButton.disabled = false;
+                    throw error;
                 }
             }
             
@@ -542,12 +574,7 @@
                     }
                     
                 } catch (error) {
-                    showError(error.message);
-                } finally {
-                    loadingIndicator.style.display = 'none';
-                    progressBar.style.display = 'none';
-                    downloadAllButton.disabled = false;
-                    downloadSeparateButton.disabled = false;
+                    throw error;
                 }
             }
             
