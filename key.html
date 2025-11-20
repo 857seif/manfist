@@ -3,370 +3,338 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afandi.keys</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Steam AppID & Lua Downloader - Seif Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary: #0d1b2a;
+            --secondary: #1b263b;
+            --accent: #415a77;
+            --text: #e0e1dd;
+            --background: #0a0f1c; /* خلفية داكنة موحدة للصفحة */
+            --card-bg: #1a2332;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --error: #e63946;
+            --terminal-bg: #0d1322;
+            --source1-bg: #4cc9f0; 
+            --online-fix-bg: #108a00;
+            --custom-link-bg: #9d4edd;
+            --glow-color: rgba(76, 201, 240, 0.5);
+            --api-bg: #2a475e;
+            --api-text: #c7d5e0;
+            --api-highlight: #66c0f4;
+            --api-price: #5ba32b;
         }
-        
+
+        /* أنماط الكود الأساسية */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body {
-            background: linear-gradient(135deg, #1a2a6c, #2a5298, #3a7bd5);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
+            background-color: var(--background); 
+            color: var(--text);
+            min-height: 100vh; 
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: relative; 
+            overflow-x: hidden;
         }
-        
+        body::before {
+            content: '';
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(76, 201, 240, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(247, 37, 133, 0.1) 0%, transparent 50%);
+            pointer-events: none; z-index: -1;
+        }
         .container {
-            max-width: 800px;
-            width: 100%;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 950px;
+            margin: 0 auto; 
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 20px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            position: relative; 
             overflow: hidden;
-            padding: 30px;
-            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--success), var(--accent), var(--warning)); z-index: 1;
         }
         
-        header {
+        /* النمط الجديد لعرض صورة رأس اللعبة */
+        #gameHeaderImageContainer {
+            margin-bottom: 20px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            display: none; /* يتم إظهاره بالـ JavaScript */
+            border: 1px solid var(--accent);
+        }
+        #gameHeaderImage {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        header { 
+            text-align: center; 
+            padding: 30px 0 30px; 
+            margin-bottom: 20px; 
+            position: relative;
+        }
+        .logo { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px;
+        }
+        .logo i { font-size: 2.8rem; color: var(--accent); filter: drop-shadow(0 0 10px var(--glow-color));
+            animation: pulse 3s infinite alternate; }
+        .logo h1 { font-size: 2.2rem; font-weight: 700;
+            color: var(--text); text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        .seif-credit { font-size: 1.2rem; font-weight: 700; margin-top: 10px; margin-bottom: 15px;
+            animation: rainbow 6s ease-in-out infinite; display: block; position: relative; padding: 5px 10px; border-radius: 5px; background: rgba(0, 0, 0, 0.2);
+        }
+        header p { font-size: 1.1rem; color: var(--accent); max-width: 600px; margin: 0 auto;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); }
+        .search-section, .results-section {
+            background: var(--card-bg);
+            border-radius: 12px; padding: 25px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
             margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05); position: relative; overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        
-        h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-        
-        .description {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin-top: 10px;
-        }
-        
-        .input-section {
-            margin-bottom: 25px;
-        }
-        
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        label {
-            font-weight: 600;
-            font-size: 18px;
-            color: #2c3e50;
-        }
-        
-        .inputs-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 10px;
-            border: 2px dashed #ddd;
-            border-radius: 8px;
-        }
-        
-        .number-input-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        
-        .number-input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
+        .section-title {
             text-align: center;
-            transition: border-color 0.3s;
+            margin-bottom: 25px; font-size: 1.5rem; color: var(--accent);
+            display: flex; align-items: center; justify-content: center; gap: 10px; position: relative;
         }
-        
-        .number-input:focus {
-            border-color: #3498db;
-            outline: none;
+        .section-title::after {
+            content: '';
+            position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 50px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
         }
-        
-        .remove-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
+        .input-group { margin-bottom: 25px; position: relative;
         }
-        
-        .remove-btn:hover {
-            background: #c0392b;
-        }
-        
-        .add-btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-        
-        .add-btn:hover {
-            background: #2980b9;
-        }
-        
-        .download-button {
-            background: #27ae60;
-            color: white;
-            border: none;
-            padding: 18px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
+        .input-group label { display: block; margin-bottom: 10px; font-weight: 600; font-size: 1.1rem;
+            color: var(--text); }
+        .input-group input {
             width: 100%;
-            margin-top: 20px;
+            padding: 15px; border: 2px solid var(--secondary); background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px; color: white; font-size: 1.1rem; transition: all 0.3s;
         }
-        
-        .download-button:hover {
-            background: #219653;
-            transform: translateY(-2px);
+        .input-group input:focus { outline: none; border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(65, 90, 119, 0.3); background: rgba(255, 255, 255, 0.08);
         }
-        
-        .download-button:disabled {
-            background: #95a5a6;
-            cursor: not-allowed;
-            transform: none;
+        .input-group .example { margin-top: 8px; font-size: 0.9rem; color: var(--accent);
         }
-        
-        .loading {
-            text-align: center;
-            padding: 20px;
-            display: none;
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;
         }
-        
-        .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+        .btn {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white; border: none;
+            padding: 15px 15px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;
+            display: block; width: 100%;
+            font-size: 1rem; margin-bottom: 0; flex-grow: 1; min-width: 180px;
+            position: relative; overflow: hidden;
         }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .btn:hover { background: linear-gradient(135deg, #4a6fa1, var(--accent)); transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+        .info-box { background: rgba(255, 255, 255, 0.03); border-radius: 8px; padding: 20px;
+            margin-top: 25px; border-left: 4px solid var(--accent); position: relative; }
+        .info-box a { color: var(--accent); text-decoration: none; font-weight: 600;
+            transition: color 0.3s; }
+        .terminal { background: var(--terminal-bg); border-radius: 8px; padding: 20px; height: 150px; overflow-y: auto; font-family: monospace; font-size: 1.1rem;
+            margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.1); position: relative; }
+        .terminal-line { margin-bottom: 10px; line-height: 1.5; position: relative;
+            z-index: 1; }
+        .terminal-cmd { color: var(--success); }
+        .terminal-msg { color: var(--text); }
+        .terminal-error { color: var(--error);
         }
-        
-        .progress-bar {
-            width: 100%;
-            height: 20px;
-            background: #ecf0f1;
-            border-radius: 10px;
-            margin: 15px 0;
-            overflow: hidden;
-            display: none;
+        .online-fix-btn { background: linear-gradient(135deg, var(--online-fix-bg), #0f6e00); min-width: 200px !important; }
+        .lua-download-btn { 
+            background: linear-gradient(135deg, var(--source1-bg), #2a9d8f); 
+            min-width: 200px !important;
         }
-        
-        .progress {
-            height: 100%;
-            background: #27ae60;
-            border-radius: 10px;
-            transition: width 0.3s;
-            width: 0%;
-        }
-        
-        .message {
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-weight: 600;
-            display: none;
-        }
-        
-        .success {
-            background: #d5f4e6;
-            color: #27ae60;
-            border: 1px solid #27ae60;
-        }
-        
-        .error {
-            background: #fde8e8;
-            color: #e74c3c;
-            border: 1px solid #e74c3c;
-        }
-        
-        .info {
-            background: #e8f4fc;
-            color: #3498db;
-            border: 1px solid #3498db;
-            margin-top: 20px;
-        }
-        
-        .file-info {
-            background: #fff9e6;
-            color: #f39c12;
-            border: 1px solid #f39c12;
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 6px;
-            display: none;
-        }
-        
-        .files-list {
-            text-align: right;
-            margin-top: 15px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .file-item {
-            padding: 8px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .file-status {
-            font-size: 12px;
-            padding: 3px 8px;
-            border-radius: 12px;
-        }
-        
-        .status-success {
-            background: #d5f4e6;
-            color: #27ae60;
-        }
-        
-        .status-error {
-            background: #fde8e8;
-            color: #e74c3c;
-        }
-        
-        .game-name {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        
-        .game-id {
-            font-size: 12px;
-            color: #7f8c8d;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: white;
-            margin-top: 20px;
-            font-size: 14px;
-        }
-        
-        .material-icons {
-            font-size: inherit;
-            vertical-align: middle;
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
-        }
+        .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%; border-top-color: white; animation: spin 1s ease-in-out infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* أنماط API */
+        #apiGameInfo { 
+            background-color: var(--api-bg); 
+            border-radius: 8px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            display: none; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        } 
+        .api-header { display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--secondary); padding-bottom: 15px; } 
+        .api-title { color: var(--text); font-size: 24px; margin-right: 15px; } 
+        .api-app-id { background-color: var(--secondary); padding: 5px 10px; border-radius: 5px; font-size: 14px; margin-top: 5px; } 
+        .api-details { display: flex; flex-wrap: wrap; gap: 15px; }
+        .api-detail-item { flex-basis: calc(50% - 7.5px); }
+        .api-detail-label { color: var(--api-highlight); font-weight: 600; margin-bottom: 5px; }
+        .api-price { color: var(--api-price); font-weight: 700; }
+
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
     <div class="container">
+        
         <header>
-            <h1>تحميل ملفات key.vdf</h1>
-            <p class="description"></p>
+            <div class="logo">
+                <i class="fab fa-steam"></i> <h1>Steam AppID & Lua Downloader</h1>
+            </div>
+            <p class="seif-credit">By ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨</p>
+            <p>أدخل AppID للعبة وقم بتوليد رابط تحميل ملف Lua الخاص بها مباشرةً.</p>
         </header>
         
-        <div class="input-section">
+        <div class="search-section">
+            <div class="section-title">
+                <i class="fas fa-search"></i> <h2>البحث والتحميل</h2>
+            </div>
+            
             <div class="input-group">
-                <label for="numbersInput"></label>
-                <div class="inputs-container" id="inputsContainer">
-                    <div class="number-input-group">
-                        <input type="number" class="number-input" placeholder="app id " min="1">
-                        <button class="remove-btn" onclick="removeInput(this)">
-                            <span class="material-icons">close</span>
-                        </button>
+                <label for="appId">أدخل AppID:</label>
+                <input type="text" id="appId" placeholder="مثال: 271590 للعبة Grand Theft Auto V" autocomplete="off">
+                <div class="example">أدخل رقم الـ AppID فقط.</div>
+            </div>
+            
+            <button class="btn" id="generateBtn">
+                <i class="fas fa-bolt"></i> توليد معلومات اللعبة
+            </button>
+        </div>
+        
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="section-title">
+                <i class="fas fa-link"></i> <h2>روابط التحميل المتاحة</h2>
+            </div>
+            
+            <div class="terminal" id="terminal">
+                <div class="terminal-line terminal-cmd"> > $ waiting for AppID...</div>
+            </div>
+
+            <div id="gameHeaderImageContainer">
+                <img id="gameHeaderImage" src="" alt="Game Header Image">
+            </div>
+            <div id="apiGameInfo">
+                <div class="api-header">
+                    <span class="api-title" id="apiGameName">اسم اللعبة</span>
+                    <span class="api-app-id" id="apiAppId">AppID: 0</span>
+                </div>
+                <div class="api-details">
+                    <div class="api-detail-item">
+                        <div class="api-detail-label">السعر:</div>
+                        <div class="api-price" id="apiPrice">N/A</div>
+                    </div>
+                    <div class="api-detail-item">
+                        <div class="api-detail-label">المطور:</div>
+                        <div id="apiDeveloper">N/A</div>
+                    </div>
+                    <div class="api-detail-item">
+                        <div class="api-detail-label">الناشر:</div>
+                        <div id="apiPublisher">N/A</div>
+                    </div>
+                    <div class="api-detail-item">
+                        <div class="api-detail-label">تاريخ الإصدار:</div>
+                        <div id="apiReleaseDate">N/A</div>
                     </div>
                 </div>
-                <button class="add-btn" onclick="addInput()">
-                    <span class="material-icons">add</span> إضافة لعبة أخرى
+            </div>
+            
+            <div class="btn-group" id="downloadButtonsGroup">
+                <button class="btn lua-download-btn" id="luaDownloadBtn">
+                    <i class="fas fa-file-archive"></i> تحميل ملف Lua (بصيغة ZIP)
                 </button>
                 
-                <button id="downloadButton" class="download-button">
-                    <span class="material-icons">file_download</span> تحميل جميع الملفات (ZIP)
+                <button class="btn online-fix-btn" id="onlineFixBtn">
+                    <i class="fas fa-globe"></i> بحث في Online Fix
                 </button>
             </div>
-        </div>
-        
-        <div class="loading" id="loadingIndicator">
-            <div class="spinner"></div>
-            <p id="loadingText" wait...</p>
-            <div class="progress-bar" id="progressBar">
-                <div class="progress" id="progress"></div>
+
+            <div id="onlineFixInputGroup" style="display: none; margin-top: 25px; padding-top: 15px; border-top: 1px dashed var(--secondary);">
+                <button class="btn steamdb-name-btn" id="steamDBNameBtn">
+                    <i class="fas fa-copy"></i> استخدم الاسم المُكتشف أو ابحث في SteamDB
+                </button>
+                <div class="input-group" style="margin-top: 15px;">
+                    <label for="gameName">اسم اللعبة للبحث في Online Fix (تعبئة تلقائية):</label>
+                    <input type="text" id="gameName" placeholder="مثال: Grand Theft Auto V" autocomplete="off">
+                    <div class="example">سيتم استخدام الاسم للبحث في موقع Online Fix.</div>
+                </div>
+                <button class="btn fix-search-btn" id="fixSearchBtn">
+                    <i class="fas fa-search"></i> بحث في Online Fix
+                </button>
             </div>
-        </div>
-        
-        <div class="message success" id="successMessage">
-            <span class="material-icons">check_circle</span> تم تحميل الملفات بنجاح!
-        </div>
-        
-        <div class="message error" id="errorMessage">
-            <span class="material-icons">error</span> حدث خطأ أثناء التحميل
-        </div>
-        
-        <div class="file-info" id="fileInfo">
-            <span class="material-icons">info</span> <span id="fileInfoText"></span>
-        </div>
-        
-        <div class="files-list" id="filesList"></div>
-        
-        <div class="message info" id="infoMessage">
-            <span class="material-icons">lightbulb</span> سيتم إنشاء ملف ZIP يحتوي على مجلد لكل لعبة باسمها الحقيقي من Steam
+            
+            <div class="info-box">
+                <p>تم تحديث هذا الكود بواسطة ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨. وهو يركز الآن على تحميل ملف Lua مباشرةً.</p>
+            </div>
         </div>
     </div>
     
-    <footer>
-        <p>by ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨</p>
-    </footer>
+    <div id="toastContainer"></div>
 
     <script>
-        let fileResults = [];
-        let zipLibraryLoaded = false;
+        let currentAppId = null;
+        let currentGameName = null;
         let gameNamesCache = {};
+        let zipLibraryLoaded = false; // متغير جديد لتتبع حالة تحميل المكتبة
         
+        const appIdInput = document.getElementById('appId');
+        const generateBtn = document.getElementById('generateBtn');
+        const resultsSection = document.getElementById('resultsSection');
+        const terminal = document.getElementById('terminal');
+        const luaDownloadBtn = document.getElementById('luaDownloadBtn');
+        const onlineFixBtn = document.getElementById('onlineFixBtn');
+        const onlineFixInputGroup = document.getElementById('onlineFixInputGroup');
+        const gameNameInput = document.getElementById('gameName');
+        const steamDBNameBtn = document.getElementById('steamDBNameBtn');
+
+        // عناصر عرض بيانات API والصورة
+        const apiGameName = document.getElementById('apiGameName');
+        const apiAppId = document.getElementById('apiAppId');
+        const apiPrice = document.getElementById('apiPrice');
+        const apiDeveloper = document.getElementById('apiDeveloper');
+        const apiPublisher = document.getElementById('apiPublisher');
+        const apiReleaseDate = document.getElementById('apiReleaseDate');
+        const apiGameInfo = document.getElementById('apiGameInfo');
+        const gameHeaderImageContainer = document.getElementById('gameHeaderImageContainer');
+        const gameHeaderImage = document.getElementById('gameHeaderImage');
+
+
+        // --- وظائف مساعدة ---
+        function showToast(message, type = 'info', duration = 4000) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}-toast`;
+            toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i> <span>${message}</span>`;
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateX(0)';
+            }, 10);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        function logToTerminal(message, type = 'msg') {
+            const line = document.createElement('div');
+            line.className = `terminal-line terminal-${type}`;
+            const date = new Date().toLocaleTimeString('en-US', { hour12: false });
+            line.innerHTML = `<span class="terminal-cmd">[${date}]</span> ${message}`;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight; 
+        }
+
         function saveAs(blob, filename) {
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -376,75 +344,7 @@
             document.body.removeChild(link);
             URL.revokeObjectURL(link.href);
         }
-        
-        async function loadZipLibrary() {
-            if (zipLibraryLoaded) return;
-            
-            return new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.min.js';
-                script.onload = () => {
-                    zipLibraryLoaded = true;
-                    resolve();
-                };
-                script.onerror = () => {
-                    reject(new Error('فشل في تحميل مكتبة الضغط'));
-                };
-                document.head.appendChild(script);
-            });
-        }
-        
-        async function createZip(files) {
-            await loadZipLibrary();
-            
-            if (typeof fflate === 'undefined') {
-                throw new Error('مكتبة الضغط غير متوفرة');
-            }
-            
-            return fflate.zipSync(files);
-        }
-        
-        async function getGameName(appId) {
-            if (gameNamesCache[appId]) {
-                return gameNamesCache[appId];
-            }
-            
-            try {
-                const response = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appId}&l=english`);
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data[appId] && data[appId].success && data[appId].data && data[appId].data.name) {
-                        const gameName = sanitizeFileName(data[appId].data.name);
-                        gameNamesCache[appId] = gameName;
-                        return gameName;
-                    }
-                }
-            } catch (error) {
-                console.log(`فشل في الحصول على اسم اللعبة ${appId} من Steam API:`, error);
-            }
-            
-            try {
-                const corsProxy = 'https://api.allorigins.win/raw?url=';
-                const steamUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&l=english`;
-                
-                const response = await fetch(corsProxy + encodeURIComponent(steamUrl));
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data[appId] && data[appId].success && data[appId].data && data[appId].data.name) {
-                        const gameName = sanitizeFileName(data[appId].data.name);
-                        gameNamesCache[appId] = gameName;
-                        return gameName;
-                    }
-                }
-            } catch (error) {
-                console.log(`فشل في الحصول على اسم اللعبة ${appId} من CORS proxy:`, error);
-            }
-            
-            gameNamesCache[appId] = `Game_${appId}`;
-            return `Game_${appId}`;
-        }
-        
+
         function sanitizeFileName(name) {
             return name
                 .replace(/[<>:"/\\|?*]/g, '_')
@@ -452,247 +352,352 @@
                 .trim()
                 .substring(0, 100);
         }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const downloadButton = document.getElementById('downloadButton');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const loadingText = document.getElementById('loadingText');
-            const progressBar = document.getElementById('progressBar');
-            const progress = document.getElementById('progress');
-            const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
-            const fileInfo = document.getElementById('fileInfo');
-            const fileInfoText = document.getElementById('fileInfoText');
-            const filesList = document.getElementById('filesList');
+
+        // -----------------------------------------------------------------
+        // --- الحل: تحميل مكتبة fflate ديناميكياً مع فرض الانتظار (Promise) ---
+        // -----------------------------------------------------------------
+        async function loadZipLibrary() {
+            if (zipLibraryLoaded) return;
             
-            downloadButton.addEventListener('click', function() {
-                downloadFiles();
+            logToTerminal('جاري تحميل مكتبة الضغط (fflate)...');
+
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.min.js';
+                script.onload = () => {
+                    zipLibraryLoaded = true;
+                    logToTerminal('تم تحميل مكتبة الضغط بنجاح.', 'success');
+                    resolve();
+                };
+                script.onerror = () => {
+                    const errorMessage = 'فشل في تحميل مكتبة الضغط (fflate). يرجى التحقق من اتصال الشبكة وإعادة المحاولة.';
+                    logToTerminal(errorMessage, 'error');
+                    reject(new Error(errorMessage));
+                };
+                document.head.appendChild(script);
             });
+        }
+        // -----------------------------------------------------------------
+
+
+        // --- وظائف جلب البيانات المُحسَّنة (لم تتغير) ---
+        async function getGameData(appId) {
+            const steamUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&l=english`;
+            const corsProxyUrl = `https://corsproxy.io/?${encodeURIComponent(steamUrl)}`;
             
-            async function downloadFiles() {
-                const numbers = getNumbers();
-                
-                if (numbers.length === 0) {
-                    showError('الرجاء إدخال رقم لعبة واحد على الأقل');
-                    return;
+            let data = null;
+            let success = false;
+            
+            logToTerminal(`المحاولة 1: جلب البيانات مباشرة من Steam API...`);
+            try {
+                const response = await fetch(steamUrl);
+                if (response.ok) {
+                    data = await response.json();
+                    if (data[appId] && data[appId].success) {
+                        logToTerminal(`نجاح الجلب من Steam API مباشرة.`, 'success');
+                        success = true;
+                    }
                 }
-               
-                hideAllMessages();
-                filesList.innerHTML = '';
-                fileResults = [];
-                
-                loadingIndicator.style.display = 'block';
-                progressBar.style.display = 'block';
-                downloadButton.disabled = true;
-                
-                try {
-                    await downloadAllAsZip(numbers);
-                } catch (error) {
-                    showError(error.message);
-                } finally {
-                    loadingIndicator.style.display = 'none';
-                    progressBar.style.display = 'none';
-                    downloadButton.disabled = false;
-                }
+            } catch (error) {
+                logToTerminal(`فشل في المحاولة 1. السبب: ${error.message}`, 'error');
             }
-            
-            async function downloadAllAsZip(numbers) {
+
+            if (!success) {
+                logToTerminal(`المحاولة 2: جلب البيانات عبر CORS Proxy...`);
                 try {
-                    loadingText.textContent = `جاري الحصول على أسماء الألعاب من Steam...`;
-                    
-                    const gameInfo = {};
-                    for (let i = 0; i < numbers.length; i++) {
-                        const number = numbers[i];
-                        const progressPercent = ((i + 1) / numbers.length) * 50;
-                        progress.style.width = `${progressPercent}%`;
-                        loadingText.textContent = `جاري الحصول على اسم اللعبة ${i + 1} من ${numbers.length}...`;
-                        
-                        try {
-                            const gameName = await getGameName(number);
-                            gameInfo[number] = gameName;
-                        } catch (error) {
-                            gameInfo[number] = `Game_${number}`;
+                    const response = await fetch(corsProxyUrl);
+                    if (response.ok) {
+                        data = await response.json();
+                        if (data[appId] && data[appId].success) {
+                            logToTerminal(`نجاح الجلب عبر CORS Proxy.`, 'success');
+                            success = true;
                         }
-                        
-                        await new Promise(resolve => setTimeout(resolve, 500));
-                    }
-                    
-                    loadingText.textContent = `جاري تحميل ${numbers.length} ملف...`;
-                    
-                    const files = {};
-                    let downloadedCount = 0;
-                    
-                    for (let i = 0; i < numbers.length; i++) {
-                        const number = numbers[i];
-                        const gameName = gameInfo[number];
-                        const progressPercent = 50 + ((i + 1) / numbers.length) * 50;
-                        progress.style.width = `${progressPercent}%`;
-                        loadingText.textContent = `جاري تحميل الملف ${i + 1} من ${numbers.length} (${gameName})...`;
-                        
-                        try {
-                            const fileData = await downloadSingleFile(number);
-                            if (fileData) {
-                                const arrayBuffer = await fileData.arrayBuffer();
-                                const uint8Array = new Uint8Array(arrayBuffer);
-                                
-                                files[`${gameName}/key.vdf`] = uint8Array;
-                                
-                                fileResults.push({ 
-                                    number, 
-                                    gameName,
-                                    status: 'success' 
-                                });
-                                updateFilesList();
-                            }
-                        } catch (error) {
-                            fileResults.push({ 
-                                number, 
-                                gameName: gameInfo[number],
-                                status: 'error', 
-                                error: error.message 
-                            });
-                            updateFilesList();
-                        }
-                        
-                        downloadedCount++;
-                        
-                        await new Promise(resolve => setTimeout(resolve, 500));
-                    }
-                    
-                    const successfulFolders = fileResults.filter(r => r.status === 'success').length;
-                    
-                    if (successfulFolders > 0) {
-                        loadingText.textContent = 'جاري إنشاء ملف ZIP...';
-                        
-                        const zipped = await createZip(files);
-                        
-                        const blob = new Blob([zipped], { type: 'application/zip' });
-                        saveAs(blob, "seif Afandi.zip");
-                        
-                        showSuccess(`تم تحميل ${successfulFolders} لعبة بنجاح في أرشيف ZIP`);
-                        
-                        const gameNames = fileResults
-                            .filter(r => r.status === 'success')
-                            .map(r => r.gameName)
-                            .join(', ');
-                        showFileInfo(`الألعاب المحملة: ${gameNames}`);
                     } else {
-                        showError('لم يتم تحميل أي ملف بنجاح');
+                         logToTerminal(`فشل في المحاولة 2. حالة الخطأ: ${response.status}`, 'error');
                     }
-                    
                 } catch (error) {
-                    throw error;
+                    logToTerminal(`فشل في المحاولة 2. السبب: ${error.message}`, 'error');
                 }
             }
             
-            async function downloadSingleFile(number) {
-                const possiblePaths = [
-                    `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/${number}/key.vdf`,
-                    `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/main/${number}/key.vdf`,
-                    `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/master/${number}/key.vdf`,
-                    `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/${number}/Key.vdf`,
-                    `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/${number}/KEY.vdf`
-                ];
+            if (success && data[appId].data) {
+                const gameData = data[appId].data;
+                const price_overview = gameData.price_overview;
+
+                let price = "N/A";
+                if (price_overview) {
+                    price = price_overview.final_formatted || price_overview.final + " " + price_overview.currency;
+                } else if (gameData.is_free) {
+                    price = "مجانية";
+                }
+
+                return {
+                    name: sanitizeFileName(gameData.name || `Game_${appId}`),
+                    price: price,
+                    developer: (gameData.developers && gameData.developers.length > 0) ? gameData.developers.join(', ') : 'N/A',
+                    publisher: (gameData.publishers && gameData.publishers.length > 0) ? gameData.publishers.join(', ') : 'N/A',
+                    release_date: gameData.release_date ? gameData.release_date.date : 'N/A'
+                };
+            }
+            
+            logToTerminal(`فشل في جلب اسم اللعبة. سيتم استخدام اسم افتراضي.`, 'warning');
+            return {
+                name: `Game_${appId}`,
+                price: "N/A",
+                developer: "N/A",
+                publisher: "N/A",
+                release_date: "N/A"
+            };
+        }
+        
+        // --- وظائف Lua Downloader ---
+        async function extractLuaFromZip(zipUrl, number) {
+            // لم يعد هناك حاجة للتحقق من fflate هنا
+            try {
+                const response = await fetch(zipUrl);
+                if (!response.ok) {
+                    throw new Error('فشل في تحميل الأرشيف');
+                }
                 
-                for (const path of possiblePaths) {
-                    try {
-                        const response = await fetch(path);
+                const zipData = await response.arrayBuffer();
+                const zip = new Uint8Array(zipData);
+                const files = fflate.unzipSync(zip);
+                
+                const luaFilename = `${number}.lua`;
+                if (files[luaFilename]) {
+                    return files[luaFilename];
+                }
+                
+                for (const [filename, fileData] of Object.entries(files)) {
+                    if (filename.endsWith('.lua') && filename.includes(number)) {
+                        return fileData;
+                    }
+                }
+                
+                throw new Error(`لم يتم العثور على ملف ${number}.lua في الأرشيف`);
+            } catch (error) {
+                throw new Error(`فشل في استخراج ملف Lua: ${error.message}`);
+            }
+        }
+        
+        async function downloadSingleFile(number) {
+            const possibleSources = [
+                { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/${number}/${number}.lua` },
+                { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/main/${number}/${number}.lua` },
+                { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/master/${number}/${number}.lua` },
+                { type: 'zip', url: `https://raw.githubusercontent.com/ABAID-CODER/crackworld-manifest/main/${number}.zip` },
+                { type: 'zip', url: `https://pub-5b6d3b7c03fd4ac1afb5bd3017850e20.r2.dev/${number}.zip` },
+                { type: 'zip', url: `https://walftech.com/proxy.php?url=https%3A%2F%2Fsteamgames554.s3.us-east-1.amazonaws.com%2F${number}.zip` },
+                { type: 'zip', url: `https://codeload.github.com/SteamAutoCracks/ManifestHub/zip/refs/heads/${number}` }
+            ];
+            
+            for (const source of possibleSources) {
+                try {
+                    logToTerminal(`جاري محاولة التحميل من المصدر (${source.type})...`);
+                    if (source.type === 'direct') {
+                        const response = await fetch(source.url);
                         if (response.ok) {
                             return await response.blob();
                         }
-                    } catch (e) {
-                        continue;
+                    } else if (source.type === 'zip') {
+                        // هنا يتم التأكد من أن fflate جاهزة قبل الدخول لـ extractLuaFromZip
+                        const luaData = await extractLuaFromZip(source.url, number);
+                        return new Blob([luaData]);
                     }
-                    await new Promise(resolve => setTimeout(resolve, 100));
+                } catch (e) {
+                    logToTerminal(`فشل في التحميل من المصدر. سبب: ${e.message}`, 'error');
+                    continue;
                 }
+                await new Promise(resolve => setTimeout(resolve, 500)); 
+            }
+            
+            throw new Error(`لم يتم العثور على ملف ${number}.lua في أي مصدر`);
+        }
+        
+        // --- وظائف التحكم بالواجهة المُعدلة للتحزيم ---
+        async function generateManifest() {
+            const appIdValue = appIdInput.value.trim();
+            if (!appIdValue || isNaN(appIdValue) || appIdValue <= 0) {
+                showToast('الرجاء إدخال AppID صحيح.', 'error');
+                return;
+            }
+            
+            currentAppId = appIdValue;
+            resultsSection.style.display = 'block';
+            terminal.innerHTML = '';
+            // إخفاء الصورة أثناء البحث الجديد
+            gameHeaderImageContainer.style.display = 'none'; 
+
+            // إعادة تعيين بيانات API للعرض أثناء التحميل
+            apiGameName.textContent = 'جاري البحث...';
+            apiAppId.textContent = `AppID: ${currentAppId}`;
+            apiPrice.textContent = '...';
+            apiDeveloper.textContent = '...';
+            apiPublisher.textContent = '...';
+            apiReleaseDate.textContent = '...';
+            apiGameInfo.style.display = 'block';
+            
+            logToTerminal(`تم تلقي AppID: ${currentAppId}. جاري توليد المعلومات...`);
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري البحث...`;
+
+            try {
+                // 1. جلب بيانات اللعبة المُحسَّنة
+                const gameData = await getGameData(currentAppId);
+                currentGameName = gameData.name;
+                gameNamesCache[currentAppId] = gameData.name;
+
+                // تحديث واجهة API Game Info
+                apiGameName.textContent = gameData.name;
+                apiPrice.textContent = gameData.price;
+                apiDeveloper.textContent = gameData.developer;
+                apiPublisher.textContent = gameData.publisher;
+                apiReleaseDate.textContent = gameData.release_date;
+
+                // ********** تحديث وعرض صورة الرأس **********
+                const imageUrl = `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${currentAppId}/header.jpg`;
+                gameHeaderImage.src = imageUrl;
+                gameHeaderImageContainer.style.display = 'block'; 
+                // *******************************************
+
+                // تحديث حقل اسم اللعبة للبحث في Online Fix
+                gameNameInput.value = gameData.name;
                 
-                throw new Error(`لم يتم العثور على ملف key.vdf للعبة ${number}`);
+                logToTerminal(`تم تحديد اسم اللعبة: ${currentGameName}`);
+                showToast(`تم العثور على معلومات اللعبة: ${currentGameName}`, 'success');
+
+            } catch (error) {
+                logToTerminal(`حدث خطأ في جلب البيانات: ${error.message}`, 'error');
+                showToast(`حدث خطأ في جلب البيانات: ${error.message}`, 'error');
+                
+                // fallback name
+                currentGameName = `Game_${currentAppId}`;
+                gameNameInput.value = currentGameName;
+                apiGameName.textContent = currentGameName;
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = `<i class="fas fa-bolt"></i> توليد معلومات اللعبة`;
+                onlineFixInputGroup.style.display = 'none'; 
+            }
+        }
+        
+        async function startLuaDownload() {
+            if (!currentAppId || isNaN(currentAppId)) {
+                showToast('الرجاء إدخال AppID أولاً.', 'error');
+                return;
             }
             
-            function getNumbers() {
-                const inputs = document.querySelectorAll('.number-input');
-                const numbers = [];
-                inputs.forEach(input => {
-                    if (input.value.trim() !== '') {
-                        numbers.push(input.value.trim());
-                    }
-                });
-                return numbers;
-            }
+            luaDownloadBtn.disabled = true;
+            luaDownloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري التحميل...`;
             
-            function updateFilesList() {
-                filesList.innerHTML = '';
-                fileResults.forEach(result => {
-                    const fileItem = document.createElement('div');
-                    fileItem.className = 'file-item';
-                    
-                    const statusClass = result.status === 'success' ? 'status-success' : 'status-error';
-                    const statusText = result.status === 'success' ? 'نجح' : 'فشل';
-                    
-                    fileItem.innerHTML = `
-                        <div>
-                            <div class="game-name">${result.gameName}</div>
-                            <div class="game-id">AppID: ${result.number}</div>
-                        </div>
-                        <span class="file-status ${statusClass}">${statusText}</span>
-                    `;
-                    
-                    filesList.appendChild(fileItem);
-                });
+            // إذا كان الاسم لا يزال افتراضياً، قم بتغييره للعرض
+            if (!currentGameName || currentGameName.startsWith('Game_')) {
+                currentGameName = gameNamesCache[currentAppId] || `Game_${currentAppId}`;
             }
-            
-            function showSuccess(message) {
-                successMessage.style.display = 'block';
-                successMessage.innerHTML = `<span class="material-icons">check_circle</span> ${message}`;
-                errorMessage.style.display = 'none';
+
+            try {
+                // 1. فرض انتظار تحميل مكتبة fflate
+                await loadZipLibrary(); 
+
+                // 2. تحميل ملف Lua كـ Blob
+                logToTerminal(`بدء تحميل ملف Lua لـ AppID: ${currentAppId}...`);
+                const luaFileBlob = await downloadSingleFile(currentAppId);
+                
+                // 3. قراءة محتوى Lua
+                const luaArrayBuffer = await luaFileBlob.arrayBuffer();
+                const luaUint8Array = new Uint8Array(luaArrayBuffer);
+
+                // 4. إعداد محتوى ملف Seif Afandi.txt
+                const txtContent = `تم إنشاء هذا الملف المضغوط (.zip) بواسطة ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨.
+ملف Lua (المسمى ${currentAppId}.lua) يخص اللعبة: ${currentGameName} (AppID: ${currentAppId}).
+يرجى استخدام هذا الملف في أداة التنزيل الخاصة بك.
+---
+This ZIP file was created by Seif Afandi.
+The Lua file (${currentAppId}.lua) is for the game: ${currentGameName} (AppID: ${currentAppId}).
+Please use this file in your downloader tool.
+`;
+                // استخدام TextEncoder لتحويل النص إلى Uint8Array (ضروري لـ fflate)
+                const txtUint8Array = new TextEncoder().encode(txtContent); 
+
+                // 5. إنشاء هيكل الملفات لملف ZIP
+                const filesToZip = {
+                    [`${currentAppId}.lua`]: luaUint8Array, // [AppID].lua
+                    'Seif Afandi.txt': txtUint8Array       // Seif Afandi.txt
+                };
+
+                // 6. ضغط الملفات
+                logToTerminal('جاري ضغط الملفات في أرشيف ZIP...');
+                // استخدام fflate مضمون هنا لأنه تم انتظار تحميله
+                const zipData = fflate.zipSync(filesToZip);
+
+                // 7. إنشاء Blob لملف ZIP
+                const zipBlob = new Blob([zipData], { type: 'application/zip' });
+                
+                // 8. تحديد اسم الملف النهائي (اسم_اللعبة.zip)
+                const filename = `${currentGameName}.zip`; 
+                
+                // 9. الحفظ
+                saveAs(zipBlob, filename);
+
+                logToTerminal(`تم تحميل الملف المضغوط (${filename}) بنجاح!`, 'success');
+                showToast(`تم تحميل ملف ${filename} بنجاح.`, 'success');
+
+            } catch (error) {
+                logToTerminal(`فشل التحميل والتحزيم: ${error.message}`, 'error');
+                showToast(`فشل في تحميل ملف Lua. سبب: ${error.message}`, 'error');
+            } finally {
+                luaDownloadBtn.disabled = false;
+                luaDownloadBtn.innerHTML = `<i class="fas fa-file-archive"></i> تحميل ملف Lua (بصيغة ZIP)`;
             }
-            
-            function showError(message) {
-                errorMessage.style.display = 'block';
-                errorMessage.innerHTML = `<span class="material-icons">error</span> ${message}`;
-                successMessage.style.display = 'none';
+        }
+
+        // وظائف Online Fix
+        function searchOnlineFix() {
+            const name = gameNameInput.value.trim();
+            if (!name) {
+                showToast('الرجاء إدخال اسم اللعبة للبحث في Online Fix.', 'error');
+                return;
             }
-            
-            function showFileInfo(message) {
-                fileInfo.style.display = 'block';
-                fileInfoText.textContent = message;
-            }
-            
-            function hideAllMessages() {
-                successMessage.style.display = 'none';
-                errorMessage.style.display = 'none';
-                fileInfo.style.display = 'none';
-            }
+            const searchUrl = `https://online-fix.me/index/10-${encodeURIComponent(name)}.html`;
+            window.open(searchUrl, '_blank');
+            logToTerminal(`تم فتح صفحة Online Fix للبحث عن: ${name}`);
+            showToast('تم فتح صفحة Online Fix. يرجى التحقق من النتيجة.', 'info');
+        }
+
+        // --- ربط الأحداث ---
+        document.addEventListener('DOMContentLoaded', function() {
+            generateBtn.addEventListener('click', generateManifest);
+            appIdInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') { generateManifest(); }
+            });
+
+            luaDownloadBtn.addEventListener('click', startLuaDownload);
+
+            onlineFixBtn.addEventListener('click', () => {
+                if (!currentAppId || isNaN(currentAppId)) {
+                    showToast('الرجاء إدخال AppID أولاً.', 'error');
+                    return;
+                }
+                onlineFixInputGroup.style.display = 'block';
+                gameNameInput.focus(); 
+                showToast('تم تعبئة الاسم تلقائيًا. اضغط "بحث في Online Fix" للمتابعة.', 'info', 7000);
+            });
+
+            steamDBNameBtn.addEventListener('click', () => {
+                if (!currentAppId || isNaN(currentAppId)) {
+                    showToast('الرجاء إدخال AppID أولاً.', 'error');
+                    return;
+                }
+                const steamDbUrl = `https://steamdb.info/app/${currentAppId}/`;
+                window.open(steamDbUrl, '_blank');
+                showToast('تم فتح صفحة SteamDB. يرجى نسخ اسم اللعبة ولصقه في المربع إذا كان الاسم التلقائي غير صحيح.', 'info', 7000);
+            });
+
+            document.getElementById('fixSearchBtn').addEventListener('click', searchOnlineFix);
+            gameNameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') { searchOnlineFix(); }
+            });
         });
-        
-        function addInput() {
-            const container = document.getElementById('inputsContainer');
-            const inputGroup = document.createElement('div');
-            inputGroup.className = 'number-input-group';
-            inputGroup.innerHTML = `
-                <input type="number" class="number-input" placeholder="" min="1">
-                <button class="remove-btn" onclick="removeInput(this)">
-                    <span class="material-icons">close</span>
-                </button>
-            `;
-            container.appendChild(inputGroup);
-            
-            const newInput = inputGroup.querySelector('.number-input');
-            newInput.focus();
-        }
-        
-        function removeInput(button) {
-            const container = document.getElementById('inputsContainer');
-            const inputGroups = container.querySelectorAll('.number-input-group');
-            
-            if (inputGroups.length > 1) {
-                button.parentElement.remove();
-            }
-        }
-        
-        window.onload = function() {
-            addInput();
-        };
     </script>
 </body>
 </html>
