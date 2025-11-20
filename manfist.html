@@ -12,7 +12,7 @@
             --secondary: #1b263b;
             --accent: #415a77;
             --text: #e0e1dd;
-            --background: #0a0f1c;
+            --background: #0a0f1c; /* خلفية داكنة موحدة للصفحة */
             --card-bg: #1a2332;
             --success: #4cc9f0;
             --warning: #f72585;
@@ -72,7 +72,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-            display: none;
+            display: none; /* يتم إظهاره بالـ JavaScript */
             border: 1px solid var(--accent);
         }
         #gameHeaderImage {
@@ -179,38 +179,6 @@
         .api-detail-label { color: var(--api-highlight); font-weight: 600; margin-bottom: 5px; }
         .api-price { color: var(--api-price); font-weight: 700; }
 
-        /* أنماط الـ Toast */
-        #toastContainer {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 10000;
-        }
-        .toast {
-            background: var(--card-bg);
-            color: var(--text);
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border-left: 4px solid var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            max-width: 400px;
-            transform: translateX(-100%);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        .success-toast {
-            border-left-color: var(--success);
-        }
-        .error-toast {
-            border-left-color: var(--error);
-        }
-        .warning-toast {
-            border-left-color: var(--warning);
-        }
     </style>
 </head>
 <body>
@@ -310,70 +278,12 @@
     
     <div id="toastContainer"></div>
 
-    <!-- تحميل مكتبة fflate بشكل غير متزامن مع آلية انتظار -->
     <script>
-        // متغيرات عامة
         let currentAppId = null;
         let currentGameName = null;
         let gameNamesCache = {};
-        let fflateLoaded = false;
-        let fflateLoading = false;
+        let zipLibraryLoaded = false; // متغير جديد لتتبع حالة تحميل المكتبة
         
-        // وظيفة تحميل مكتبة fflate مع آلية انتظار وإعادة محاولة
-        function loadFflateLibrary() {
-            return new Promise((resolve, reject) => {
-                // إذا كانت المكتبة محملة بالفعل
-                if (fflateLoaded) {
-                    resolve();
-                    return;
-                }
-                
-                // إذا كانت المكتبة قيد التحميل حالياً
-                if (fflateLoading) {
-                    // الانتظار حتى تنتهي عملية التحميل الحالية
-                    const checkInterval = setInterval(() => {
-                        if (fflateLoaded) {
-                            clearInterval(checkInterval);
-                            resolve();
-                        }
-                    }, 100);
-                    return;
-                }
-                
-                // بدء عملية تحميل المكتبة
-                fflateLoading = true;
-                logToTerminal('جاري تحميل مكتبة الضغط (fflate)...', 'msg');
-                
-                const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.min.js';
-                script.onload = () => {
-                    fflateLoaded = true;
-                    fflateLoading = false;
-                    logToTerminal('تم تحميل مكتبة الضغط (fflate) بنجاح.', 'success');
-                    resolve();
-                };
-                
-                script.onerror = () => {
-                    fflateLoading = false;
-                    logToTerminal('فشل في تحميل مكتبة الضغط (fflate).', 'error');
-                    reject(new Error('فشل في تحميل مكتبة fflate'));
-                };
-                
-                document.head.appendChild(script);
-            });
-        }
-        
-        // محاولة تحميل المكتبة مسبقاً عند تحميل الصفحة
-        window.addEventListener('DOMContentLoaded', () => {
-            loadFflateLibrary().catch(() => {
-                // لا تقلق إذا فشل التحميل المسبق، سنحاول مرة أخرى عند الحاجة
-                logToTerminal('سيتم محاولة تحميل مكتبة fflate مرة أخرى عند الحاجة.', 'warning');
-            });
-        });
-    </script>
-
-    <script>
-        // العناصر الرئيسية
         const appIdInput = document.getElementById('appId');
         const generateBtn = document.getElementById('generateBtn');
         const resultsSection = document.getElementById('resultsSection');
@@ -394,6 +304,7 @@
         const apiGameInfo = document.getElementById('apiGameInfo');
         const gameHeaderImageContainer = document.getElementById('gameHeaderImageContainer');
         const gameHeaderImage = document.getElementById('gameHeaderImage');
+
 
         // --- وظائف مساعدة ---
         function showToast(message, type = 'info', duration = 4000) {
@@ -442,7 +353,34 @@
                 .substring(0, 100);
         }
 
-        // --- وظائف جلب البيانات المُحسَّنة ---
+        // -----------------------------------------------------------------
+        // --- الحل: تحميل مكتبة fflate ديناميكياً مع فرض الانتظار (Promise) ---
+        // -----------------------------------------------------------------
+        async function loadZipLibrary() {
+            if (zipLibraryLoaded) return;
+            
+            logToTerminal('جاري تحميل مكتبة الضغط (fflate)...');
+
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.min.js';
+                script.onload = () => {
+                    zipLibraryLoaded = true;
+                    logToTerminal('تم تحميل مكتبة الضغط بنجاح.', 'success');
+                    resolve();
+                };
+                script.onerror = () => {
+                    const errorMessage = 'فشل في تحميل مكتبة الضغط (fflate). يرجى التحقق من اتصال الشبكة وإعادة المحاولة.';
+                    logToTerminal(errorMessage, 'error');
+                    reject(new Error(errorMessage));
+                };
+                document.head.appendChild(script);
+            });
+        }
+        // -----------------------------------------------------------------
+
+
+        // --- وظائف جلب البيانات المُحسَّنة (لم تتغير) ---
         async function getGameData(appId) {
             const steamUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&l=english`;
             const corsProxyUrl = `https://corsproxy.io/?${encodeURIComponent(steamUrl)}`;
@@ -514,6 +452,7 @@
         
         // --- وظائف Lua Downloader ---
         async function extractLuaFromZip(zipUrl, number) {
+            // لم يعد هناك حاجة للتحقق من fflate هنا
             try {
                 const response = await fetch(zipUrl);
                 if (!response.ok) {
@@ -561,6 +500,7 @@
                             return await response.blob();
                         }
                     } else if (source.type === 'zip') {
+                        // هنا يتم التأكد من أن fflate جاهزة قبل الدخول لـ extractLuaFromZip
                         const luaData = await extractLuaFromZip(source.url, number);
                         return new Blob([luaData]);
                     }
@@ -614,10 +554,11 @@
                 apiPublisher.textContent = gameData.publisher;
                 apiReleaseDate.textContent = gameData.release_date;
 
-                // تحديث وعرض صورة الرأس
+                // ********** تحديث وعرض صورة الرأس **********
                 const imageUrl = `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${currentAppId}/header.jpg`;
                 gameHeaderImage.src = imageUrl;
                 gameHeaderImageContainer.style.display = 'block'; 
+                // *******************************************
 
                 // تحديث حقل اسم اللعبة للبحث في Online Fix
                 gameNameInput.value = gameData.name;
@@ -646,21 +587,20 @@
                 return;
             }
             
+            luaDownloadBtn.disabled = true;
+            luaDownloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري التحميل...`;
+            
             // إذا كان الاسم لا يزال افتراضياً، قم بتغييره للعرض
             if (!currentGameName || currentGameName.startsWith('Game_')) {
                 currentGameName = gameNamesCache[currentAppId] || `Game_${currentAppId}`;
             }
 
-            luaDownloadBtn.disabled = true;
-            luaDownloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري التحميل...`;
-            logToTerminal(`بدء تحميل ملف Lua لـ AppID: ${currentAppId} وتحزيمه...`);
-
             try {
-                // 1. التأكد من تحميل مكتبة fflate
-                logToTerminal('جاري التأكد من تحميل مكتبة الضغط (fflate)...');
-                await loadFflateLibrary();
-                
+                // 1. فرض انتظار تحميل مكتبة fflate
+                await loadZipLibrary(); 
+
                 // 2. تحميل ملف Lua كـ Blob
+                logToTerminal(`بدء تحميل ملف Lua لـ AppID: ${currentAppId}...`);
                 const luaFileBlob = await downloadSingleFile(currentAppId);
                 
                 // 3. قراءة محتوى Lua
@@ -687,6 +627,7 @@ Please use this file in your downloader tool.
 
                 // 6. ضغط الملفات
                 logToTerminal('جاري ضغط الملفات في أرشيف ZIP...');
+                // استخدام fflate مضمون هنا لأنه تم انتظار تحميله
                 const zipData = fflate.zipSync(filesToZip);
 
                 // 7. إنشاء Blob لملف ZIP
