@@ -283,7 +283,6 @@
         let currentAppId = null;
         let currentGameName = null;
         let gameNamesCache = {};
-        let zipLibraryLoaded = typeof fflate !== 'undefined';
         
         const appIdInput = document.getElementById('appId');
         const generateBtn = document.getElementById('generateBtn');
@@ -424,9 +423,11 @@
             };
         }
         
-        // --- وظائف Lua Downloader (لم تتغير) ---
+        // --- وظائف Lua Downloader ---
         async function extractLuaFromZip(zipUrl, number) {
+            // هذا التحقق موجود بالفعل وهو سليم
             if (typeof fflate === 'undefined') {
+                // لن تحدث هذه الحالة عادةً طالما تم التحقق في startLuaDownload
                 throw new Error('مكتبة الضغط غير متوفرة (fflate)');
             }
             // ... (بقية الكود لم يتغير)
@@ -490,7 +491,7 @@
             throw new Error(`لم يتم العثور على ملف ${number}.lua في أي مصدر`);
         }
         
-        // --- وظائف التحكم بالواجهة المُعدلة لتحديث البيانات والصورة والتحزيم ---
+        // --- وظائف التحكم بالواجهة المُعدلة للتحزيم ---
         async function generateManifest() {
             const appIdValue = appIdInput.value.trim();
             if (!appIdValue || isNaN(appIdValue) || appIdValue <= 0) {
@@ -558,6 +559,17 @@
         }
         
         async function startLuaDownload() {
+            // ******************************************************
+            // *** الحل للمشكلة: التحقق من تحميل مكتبة fflate الآن ***
+            // ******************************************************
+            if (typeof fflate === 'undefined') {
+                logToTerminal('خطأ: مكتبة ضغط الملفات (fflate) لم يتم تحميلها بشكل صحيح. قد يكون السبب مشكلة في اتصال الشبكة أو تأخر التحميل. يرجى تحديث الصفحة والمحاولة مجدداً.', 'error');
+                showToast('خطأ حرج: لم يتم تحميل مكتبة الضغط (fflate). الرجاء تحديث الصفحة والمحاولة.', 'error');
+                luaDownloadBtn.disabled = false;
+                luaDownloadBtn.innerHTML = `<i class="fas fa-file-archive"></i> تحميل ملف Lua (بصيغة ZIP)`;
+                return; // إيقاف التنفيذ
+            }
+
             if (!currentAppId || isNaN(currentAppId)) {
                 showToast('الرجاء إدخال AppID أولاً.', 'error');
                 return;
@@ -599,6 +611,7 @@ Please use this file in your downloader tool.
 
                 // 5. ضغط الملفات
                 logToTerminal('جاري ضغط الملفات في أرشيف ZIP...');
+                // هنا يتم استخدام fflate، والتحقق بالأعلى يضمن توفره.
                 const zipData = fflate.zipSync(filesToZip);
 
                 // 6. إنشاء Blob لملف ZIP
