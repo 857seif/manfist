@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -323,7 +322,6 @@
             toast.className = `toast ${type}-toast`;
             toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i> <span>${message}</span>`;
             
-            // إضافة Toast Styles (للتأكد من وجودها)
             const style = document.createElement('style');
             style.textContent = `
                 #toastContainer {
@@ -401,7 +399,8 @@
                 .substring(0, 100);
         }
 
-        // --- تحميل مكتبة fflate ديناميكياً مع فرض الانتظار (Promise) ---
+        // --- وظيفة تحميل مكتبة fflate (مستقلة) ---
+        // تم تغييرها لـ (resolve/reject) لضمان انتهاء التحميل
         async function loadZipLibrary() {
             if (zipLibraryLoaded) return;
             
@@ -416,7 +415,7 @@
                     resolve();
                 };
                 script.onerror = () => {
-                    const errorMessage = 'فشل في تحميل مكتبة الضغط (fflate). يرجى التحقق من اتصال الشبكة وإعادة المحاولة.';
+                    const errorMessage = 'فشل في تحميل مكتبة الضغط (fflate). يرجى التحقق من اتصال الشبكة.';
                     logToTerminal(errorMessage, 'error');
                     reject(new Error(errorMessage));
                 };
@@ -499,18 +498,20 @@
         // --- وظائف Lua Downloader ---
         async function extractLuaFromZip(zipUrl, number) {
             try {
+                // لا حاجة لـ await loadZipLibrary() هنا لأنها ستكون محملة بالفعل عند التشغيل
+                if (!window.fflate || !window.fflate.unzipSync) {
+                    // إذا لم يتم تحميل المكتبة، نطلق خطأ بدلاً من المحاولة مرة أخرى
+                    throw new Error('مكتبة الضغط (fflate) غير محملة أو غير متاحة.');
+                }
+                
                 const response = await fetch(zipUrl);
                 if (!response.ok) {
-                    throw new Error('فشل في تحميل الأرشيف');
+                    throw new Error(`فشل في تحميل الأرشيف، حالة: ${response.status}`);
                 }
                 
                 const zipData = await response.arrayBuffer();
                 const zip = new Uint8Array(zipData);
                 
-                if (!window.fflate || !window.fflate.unzipSync) {
-                    throw new Error('مكتبة الضغط غير محملة.');
-                }
-
                 const files = fflate.unzipSync(zip);
                 
                 const luaFilename = `${number}.lua`;
@@ -542,13 +543,11 @@
             if (mode === 'main') {
                 // مصادر Lua 1: المصادر المباشرة + مصادر ZIP البديلة
                 possibleSources = [
-                    { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/${number}/${number}.lua` },
-                    { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/main/${number}/${number}.lua` },
-                    { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/master/${number}/${number}.lua` },
+                    { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/${number}/${number}.lua`, name: 'ManifestHub (Direct 1)' },
+                    { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/main/${number}/${number}.lua`, name: 'ManifestHub (Direct 2)' },
                     
-                    { type: 'zip', url: `https://raw.githubusercontent.com/ABAID-CODER/crackworld-manifest/main/${number}.zip` },
-                    { type: 'zip', url: `https://pub-5b6d3b7c03fd4ac1afb5bd3017850e20.r2.dev/${number}.zip` },
-                    { type: 'zip', url: `https://codeload.github.com/SteamAutoCracks/ManifestHub/zip/refs/heads/${number}` }
+                    { type: 'zip', url: `https://raw.githubusercontent.com/ABAID-CODER/crackworld-manifest/main/${number}.zip`, name: 'ABAID-CODER (ZIP)' },
+                    { type: 'zip', url: `https://pub-5b6d3b7c03fd4ac1afb5bd3017850e20.r2.dev/${number}.zip`, name: 'R2 Dev (ZIP)' },
                 ];
             } else if (mode === 'alternative') {
                 // مصادر Lua 2: التركيز على المصدر المفضل بثلاث محاولات مختلفة
@@ -565,7 +564,7 @@
                         url: `https://corsproxy.io/?${encodeURIComponent(preferredZipUrl)}`,
                         name: 'المصدر المفضل (Proxy 2)'
                     },
-                    // 3. المصدر المفضل (مباشر) - في حال كان المستخدم لا يحتاج لبروكسي
+                    // 3. المصدر المفضل (مباشر) 
                     { 
                         type: 'zip', 
                         url: preferredZipUrl,
@@ -578,18 +577,19 @@
                 try {
                     const sourceName = source.name || source.type;
                     logToTerminal(`جاري محاولة التحميل من ${sourceName}...`);
+                    
                     if (source.type === 'direct') {
                         const response = await fetch(source.url);
                         if (response.ok) {
                             return await response.blob();
                         }
                     } else if (source.type === 'zip') {
-                        await loadZipLibrary();
+                        // هنا نعتمد على أن المكتبة محملة مسبقاً
                         const luaData = await extractLuaFromZip(source.url, number);
                         return new Blob([luaData]);
                     }
                 } catch (e) {
-                    logToTerminal(`فشل في التحميل من المصدر. سبب: ${e.message}`, 'error');
+                    logToTerminal(`فشل في التحميل من المصدر (${source.name}). سبب: ${e.message}`, 'error');
                     continue;
                 }
                 await new Promise(resolve => setTimeout(resolve, 500)); 
@@ -607,6 +607,14 @@
                 showToast('الرجاء إدخال AppID أولاً.', 'error');
                 return;
             }
+
+            // ******* فحص جاهزية المكتبة *******
+            if (!zipLibraryLoaded) {
+                 showToast('جاري تهيئة مكتبة الضغط. يرجى الانتظار للحظة وإعادة المحاولة.', 'info');
+                 logToTerminal('المكتبة غير جاهزة. فشل التحميل الأولي.', 'error');
+                 return;
+            }
+            // **********************************
             
             const btn = (mode === 'main') ? luaDownloadBtn : luaAlternativeBtn;
             const originalText = btn.innerHTML;
@@ -743,8 +751,15 @@ Please use this file in your downloader tool.
             showToast('تم فتح صفحة Online Fix. يرجى التحقق من النتيجة.', 'info');
         }
 
-        // --- ربط الأحداث (لم يتغير) ---
+        // --- ربط الأحداث والتحميل الأولي ---
         document.addEventListener('DOMContentLoaded', function() {
+            // ** الإصلاح: تحميل المكتبة بمجرد تحميل الصفحة **
+            loadZipLibrary().catch(e => {
+                // قد تفشل المكتبة في التحميل، لكن يجب أن تستمر بقية الوظائف
+                logToTerminal(`تحذير: فشل التحميل الأولي لمكتبة الضغط. ${e.message}`, 'warning');
+            });
+
+
             generateBtn.addEventListener('click', generateManifest);
             appIdInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') { generateManifest(); }
