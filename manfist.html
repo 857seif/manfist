@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -12,13 +13,14 @@
             --secondary: #1b263b;
             --accent: #415a77;
             --text: #e0e1dd;
-            --background: #0a0f1c; /* خلفية داكنة موحدة للصفحة */
+            --background: #0a0f1c; 
             --card-bg: #1a2332;
             --success: #4cc9f0;
             --warning: #f72585;
             --error: #e63946;
             --terminal-bg: #0d1322;
             --source1-bg: #4cc9f0; 
+            --source2-bg: #9d4edd; 
             --online-fix-bg: #108a00;
             --custom-link-bg: #9d4edd;
             --glow-color: rgba(76, 201, 240, 0.5);
@@ -72,7 +74,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-            display: none; /* يتم إظهاره بالـ JavaScript */
+            display: none; 
             border: 1px solid var(--accent);
         }
         #gameHeaderImage {
@@ -157,6 +159,10 @@
         .online-fix-btn { background: linear-gradient(135deg, var(--online-fix-bg), #0f6e00); min-width: 200px !important; }
         .lua-download-btn { 
             background: linear-gradient(135deg, var(--source1-bg), #2a9d8f); 
+            min-width: 200px !important;
+        }
+        .lua-alternative-btn { 
+            background: linear-gradient(135deg, var(--source2-bg), #6c469f); 
             min-width: 200px !important;
         }
         .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3);
@@ -248,9 +254,13 @@
             
             <div class="btn-group" id="downloadButtonsGroup">
                 <button class="btn lua-download-btn" id="luaDownloadBtn">
-                    <i class="fas fa-file-archive"></i> تحميل ملف Lua (بصيغة ZIP)
+                    <i class="fas fa-file-archive"></i> تحميل ملف Lua (المصادر الرئيسية)
                 </button>
                 
+                <button class="btn lua-alternative-btn" id="luaAlternativeBtn">
+                    <i class="fas fa-file-export"></i> تحميل ملف Lua (المصدر البديل)
+                </button>
+
                 <button class="btn online-fix-btn" id="onlineFixBtn">
                     <i class="fas fa-globe"></i> بحث في Online Fix
                 </button>
@@ -282,13 +292,14 @@
         let currentAppId = null;
         let currentGameName = null;
         let gameNamesCache = {};
-        let zipLibraryLoaded = false; // متغير جديد لتتبع حالة تحميل المكتبة
+        let zipLibraryLoaded = false; 
         
         const appIdInput = document.getElementById('appId');
         const generateBtn = document.getElementById('generateBtn');
         const resultsSection = document.getElementById('resultsSection');
         const terminal = document.getElementById('terminal');
         const luaDownloadBtn = document.getElementById('luaDownloadBtn');
+        const luaAlternativeBtn = document.getElementById('luaAlternativeBtn'); 
         const onlineFixBtn = document.getElementById('onlineFixBtn');
         const onlineFixInputGroup = document.getElementById('onlineFixInputGroup');
         const gameNameInput = document.getElementById('gameName');
@@ -305,13 +316,50 @@
         const gameHeaderImageContainer = document.getElementById('gameHeaderImageContainer');
         const gameHeaderImage = document.getElementById('gameHeaderImage');
 
-
         // --- وظائف مساعدة ---
         function showToast(message, type = 'info', duration = 4000) {
             const toastContainer = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast ${type}-toast`;
             toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i> <span>${message}</span>`;
+            
+            // إضافة Toast Styles (للتأكد من وجودها)
+            const style = document.createElement('style');
+            style.textContent = `
+                #toastContainer {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    z-index: 1000;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                .toast {
+                    background-color: var(--card-bg);
+                    color: var(--text);
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    opacity: 0;
+                    transform: translateX(100%);
+                    transition: all 0.3s ease-in-out;
+                    border-right: 5px solid;
+                    min-width: 250px;
+                }
+                .toast i { font-size: 1.2rem; }
+                .success-toast { border-color: var(--success); }
+                .error-toast { border-color: var(--error); }
+                .info-toast { border-color: var(--accent); }
+            `;
+            if (!document.getElementById('toast-styles')) {
+                style.id = 'toast-styles';
+                document.head.appendChild(style);
+            }
+            
             toastContainer.appendChild(toast);
             
             setTimeout(() => {
@@ -353,9 +401,7 @@
                 .substring(0, 100);
         }
 
-        // -----------------------------------------------------------------
-        // --- الحل: تحميل مكتبة fflate ديناميكياً مع فرض الانتظار (Promise) ---
-        // -----------------------------------------------------------------
+        // --- تحميل مكتبة fflate ديناميكياً مع فرض الانتظار (Promise) ---
         async function loadZipLibrary() {
             if (zipLibraryLoaded) return;
             
@@ -452,7 +498,6 @@
         
         // --- وظائف Lua Downloader ---
         async function extractLuaFromZip(zipUrl, number) {
-            // لم يعد هناك حاجة للتحقق من fflate هنا
             try {
                 const response = await fetch(zipUrl);
                 if (!response.ok) {
@@ -461,6 +506,11 @@
                 
                 const zipData = await response.arrayBuffer();
                 const zip = new Uint8Array(zipData);
+                
+                if (!window.fflate || !window.fflate.unzipSync) {
+                    throw new Error('مكتبة الضغط غير محملة.');
+                }
+
                 const files = fflate.unzipSync(zip);
                 
                 const luaFilename = `${number}.lua`;
@@ -480,27 +530,61 @@
             }
         }
         
-        async function downloadSingleFile(number) {
-            const possibleSources = [
-                { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/${number}/${number}.lua` },
-                { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/main/${number}/${number}.lua` },
-                { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/master/${number}/${number}.lua` },
-                { type: 'zip', url: `https://raw.githubusercontent.com/ABAID-CODER/crackworld-manifest/main/${number}.zip` },
-                { type: 'zip', url: `https://pub-5b6d3b7c03fd4ac1afb5bd3017850e20.r2.dev/${number}.zip` },
-                { type: 'zip', url: `https://walftech.com/proxy.php?url=https%3A%2F%2Fsteamgames554.s3.us-east-1.amazonaws.com%2F${number}.zip` },
-                { type: 'zip', url: `https://codeload.github.com/SteamAutoCracks/ManifestHub/zip/refs/heads/${number}` }
-            ];
+        /**
+         * محاولة تحميل ملف Lua من مجموعة مصادر محددة.
+         * @param {string} number - الـ AppID.
+         * @param {'main'|'alternative'} mode - وضع التحميل لتحديد المصادر.
+         */
+        async function downloadSingleFile(number, mode) {
+            let possibleSources = [];
+            const preferredZipUrl = `https://steamgames554.s3.us-east-1.amazonaws.com/${number}.zip`;
+
+            if (mode === 'main') {
+                // مصادر Lua 1: المصادر المباشرة + مصادر ZIP البديلة
+                possibleSources = [
+                    { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/${number}/${number}.lua` },
+                    { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/main/${number}/${number}.lua` },
+                    { type: 'direct', url: `https://raw.githubusercontent.com/SteamAutoCracks/ManifestHub/master/${number}/${number}.lua` },
+                    
+                    { type: 'zip', url: `https://raw.githubusercontent.com/ABAID-CODER/crackworld-manifest/main/${number}.zip` },
+                    { type: 'zip', url: `https://pub-5b6d3b7c03fd4ac1afb5bd3017850e20.r2.dev/${number}.zip` },
+                    { type: 'zip', url: `https://codeload.github.com/SteamAutoCracks/ManifestHub/zip/refs/heads/${number}` }
+                ];
+            } else if (mode === 'alternative') {
+                // مصادر Lua 2: التركيز على المصدر المفضل بثلاث محاولات مختلفة
+                possibleSources = [
+                    // 1. المصدر المفضل (باستخدام البروكسي المدمج)
+                    { 
+                        type: 'zip', 
+                        url: `https://walftech.com/proxy.php?url=${encodeURIComponent(preferredZipUrl)}`,
+                        name: 'المصدر المفضل (Proxy 1)'
+                    },
+                    // 2. المصدر المفضل (باستخدام بروكسي آخر)
+                    { 
+                        type: 'zip', 
+                        url: `https://corsproxy.io/?${encodeURIComponent(preferredZipUrl)}`,
+                        name: 'المصدر المفضل (Proxy 2)'
+                    },
+                    // 3. المصدر المفضل (مباشر) - في حال كان المستخدم لا يحتاج لبروكسي
+                    { 
+                        type: 'zip', 
+                        url: preferredZipUrl,
+                        name: 'المصدر المفضل (مباشر)'
+                    }
+                ];
+            }
             
             for (const source of possibleSources) {
                 try {
-                    logToTerminal(`جاري محاولة التحميل من المصدر (${source.type})...`);
+                    const sourceName = source.name || source.type;
+                    logToTerminal(`جاري محاولة التحميل من ${sourceName}...`);
                     if (source.type === 'direct') {
                         const response = await fetch(source.url);
                         if (response.ok) {
                             return await response.blob();
                         }
                     } else if (source.type === 'zip') {
-                        // هنا يتم التأكد من أن fflate جاهزة قبل الدخول لـ extractLuaFromZip
+                        await loadZipLibrary();
                         const luaData = await extractLuaFromZip(source.url, number);
                         return new Blob([luaData]);
                     }
@@ -511,10 +595,83 @@
                 await new Promise(resolve => setTimeout(resolve, 500)); 
             }
             
-            throw new Error(`لم يتم العثور على ملف ${number}.lua في أي مصدر`);
+            throw new Error(`لم يتم العثور على ملف ${number}.lua في المصادر المخصصة لـ ${mode === 'main' ? 'Lua 1' : 'Lua 2'}`);
         }
         
-        // --- وظائف التحكم بالواجهة المُعدلة للتحزيم ---
+        /**
+         * دالة موحدة لبدء عملية التحميل والضغط لملف Lua
+         * @param {'main'|'alternative'} mode - وضع التحميل
+         */
+        async function startLuaDownload(mode) {
+            if (!currentAppId || isNaN(currentAppId)) {
+                showToast('الرجاء إدخال AppID أولاً.', 'error');
+                return;
+            }
+            
+            const btn = (mode === 'main') ? luaDownloadBtn : luaAlternativeBtn;
+            const originalText = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري التحميل...`;
+            
+            if (!currentGameName || currentGameName.startsWith('Game_')) {
+                currentGameName = gameNamesCache[currentAppId] || `Game_${currentAppId}`;
+            }
+
+            try {
+                // 1. تحميل ملف Lua كـ Blob
+                logToTerminal(`بدء تحميل ملف Lua لـ AppID: ${currentAppId} باستخدام وضع: ${mode}...`);
+                const luaFileBlob = await downloadSingleFile(currentAppId, mode);
+                
+                // 2. قراءة محتوى Lua
+                const luaArrayBuffer = await luaFileBlob.arrayBuffer();
+                const luaUint8Array = new Uint8Array(luaArrayBuffer);
+
+                // 3. إعداد محتوى ملف Seif Afandi.txt
+                const txtContent = `تم إنشاء هذا الملف المضغوط (.zip) بواسطة ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨.
+ملف Lua (المسمى ${currentAppId}.lua) يخص اللعبة: ${currentGameName} (AppID: ${currentAppId}).
+تم تحميله باستخدام خيار: ${mode === 'main' ? 'المصادر الرئيسية' : 'المصدر البديل'}
+يرجى استخدام هذا الملف في أداة التنزيل الخاصة بك.
+---
+This ZIP file was created by Seif Afandi.
+The Lua file (${currentAppId}.lua) is for the game: ${currentGameName} (AppID: ${currentAppId}).
+Downloaded using option: ${mode === 'main' ? 'Main Sources' : 'Alternative Source'}
+Please use this file in your downloader tool.
+`;
+                const txtUint8Array = new TextEncoder().encode(txtContent); 
+
+                // 4. إنشاء هيكل الملفات لملف ZIP
+                const filesToZip = {
+                    [`${currentAppId}.lua`]: luaUint8Array,
+                    'Seif Afandi.txt': txtUint8Array
+                };
+
+                // 5. ضغط الملفات
+                logToTerminal('جاري ضغط الملفات في أرشيف ZIP...');
+                const zipData = fflate.zipSync(filesToZip);
+
+                // 6. إنشاء Blob لملف ZIP
+                const zipBlob = new Blob([zipData], { type: 'application/zip' });
+                
+                // 7. تحديد اسم الملف النهائي
+                const filename = `${currentGameName}_${mode === 'alternative' ? 'Alt' : 'Main'}.zip`; 
+                
+                // 8. الحفظ
+                saveAs(zipBlob, filename);
+
+                logToTerminal(`تم تحميل الملف المضغوط (${filename}) بنجاح!`, 'success');
+                showToast(`تم تحميل ملف ${filename} بنجاح.`, 'success');
+
+            } catch (error) {
+                logToTerminal(`فشل التحميل والتحزيم: ${error.message}`, 'error');
+                showToast(`فشل في تحميل ملف Lua. سبب: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+        
+        // --- وظائف التحكم بالواجهة المُعدلة للتحزيم (لم تتغير) ---
         async function generateManifest() {
             const appIdValue = appIdInput.value.trim();
             if (!appIdValue || isNaN(appIdValue) || appIdValue <= 0) {
@@ -525,10 +682,8 @@
             currentAppId = appIdValue;
             resultsSection.style.display = 'block';
             terminal.innerHTML = '';
-            // إخفاء الصورة أثناء البحث الجديد
             gameHeaderImageContainer.style.display = 'none'; 
 
-            // إعادة تعيين بيانات API للعرض أثناء التحميل
             apiGameName.textContent = 'جاري البحث...';
             apiAppId.textContent = `AppID: ${currentAppId}`;
             apiPrice.textContent = '...';
@@ -542,25 +697,20 @@
             generateBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري البحث...`;
 
             try {
-                // 1. جلب بيانات اللعبة المُحسَّنة
                 const gameData = await getGameData(currentAppId);
                 currentGameName = gameData.name;
                 gameNamesCache[currentAppId] = gameData.name;
 
-                // تحديث واجهة API Game Info
                 apiGameName.textContent = gameData.name;
                 apiPrice.textContent = gameData.price;
                 apiDeveloper.textContent = gameData.developer;
                 apiPublisher.textContent = gameData.publisher;
                 apiReleaseDate.textContent = gameData.release_date;
 
-                // ********** تحديث وعرض صورة الرأس **********
                 const imageUrl = `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${currentAppId}/header.jpg`;
                 gameHeaderImage.src = imageUrl;
                 gameHeaderImageContainer.style.display = 'block'; 
-                // *******************************************
 
-                // تحديث حقل اسم اللعبة للبحث في Online Fix
                 gameNameInput.value = gameData.name;
                 
                 logToTerminal(`تم تحديد اسم اللعبة: ${currentGameName}`);
@@ -570,7 +720,6 @@
                 logToTerminal(`حدث خطأ في جلب البيانات: ${error.message}`, 'error');
                 showToast(`حدث خطأ في جلب البيانات: ${error.message}`, 'error');
                 
-                // fallback name
                 currentGameName = `Game_${currentAppId}`;
                 gameNameInput.value = currentGameName;
                 apiGameName.textContent = currentGameName;
@@ -580,78 +729,8 @@
                 onlineFixInputGroup.style.display = 'none'; 
             }
         }
-        
-        async function startLuaDownload() {
-            if (!currentAppId || isNaN(currentAppId)) {
-                showToast('الرجاء إدخال AppID أولاً.', 'error');
-                return;
-            }
-            
-            luaDownloadBtn.disabled = true;
-            luaDownloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري التحميل...`;
-            
-            // إذا كان الاسم لا يزال افتراضياً، قم بتغييره للعرض
-            if (!currentGameName || currentGameName.startsWith('Game_')) {
-                currentGameName = gameNamesCache[currentAppId] || `Game_${currentAppId}`;
-            }
 
-            try {
-                // 1. فرض انتظار تحميل مكتبة fflate
-                await loadZipLibrary(); 
-
-                // 2. تحميل ملف Lua كـ Blob
-                logToTerminal(`بدء تحميل ملف Lua لـ AppID: ${currentAppId}...`);
-                const luaFileBlob = await downloadSingleFile(currentAppId);
-                
-                // 3. قراءة محتوى Lua
-                const luaArrayBuffer = await luaFileBlob.arrayBuffer();
-                const luaUint8Array = new Uint8Array(luaArrayBuffer);
-
-                // 4. إعداد محتوى ملف Seif Afandi.txt
-                const txtContent = `تم إنشاء هذا الملف المضغوط (.zip) بواسطة ☄Ṡ̸̚̕͝EI̵͎͎̝͐F̴̅ افندي✨.
-ملف Lua (المسمى ${currentAppId}.lua) يخص اللعبة: ${currentGameName} (AppID: ${currentAppId}).
-يرجى استخدام هذا الملف في أداة التنزيل الخاصة بك.
----
-This ZIP file was created by Seif Afandi.
-The Lua file (${currentAppId}.lua) is for the game: ${currentGameName} (AppID: ${currentAppId}).
-Please use this file in your downloader tool.
-`;
-                // استخدام TextEncoder لتحويل النص إلى Uint8Array (ضروري لـ fflate)
-                const txtUint8Array = new TextEncoder().encode(txtContent); 
-
-                // 5. إنشاء هيكل الملفات لملف ZIP
-                const filesToZip = {
-                    [`${currentAppId}.lua`]: luaUint8Array, // [AppID].lua
-                    'Seif Afandi.txt': txtUint8Array       // Seif Afandi.txt
-                };
-
-                // 6. ضغط الملفات
-                logToTerminal('جاري ضغط الملفات في أرشيف ZIP...');
-                // استخدام fflate مضمون هنا لأنه تم انتظار تحميله
-                const zipData = fflate.zipSync(filesToZip);
-
-                // 7. إنشاء Blob لملف ZIP
-                const zipBlob = new Blob([zipData], { type: 'application/zip' });
-                
-                // 8. تحديد اسم الملف النهائي (اسم_اللعبة.zip)
-                const filename = `${currentGameName}.zip`; 
-                
-                // 9. الحفظ
-                saveAs(zipBlob, filename);
-
-                logToTerminal(`تم تحميل الملف المضغوط (${filename}) بنجاح!`, 'success');
-                showToast(`تم تحميل ملف ${filename} بنجاح.`, 'success');
-
-            } catch (error) {
-                logToTerminal(`فشل التحميل والتحزيم: ${error.message}`, 'error');
-                showToast(`فشل في تحميل ملف Lua. سبب: ${error.message}`, 'error');
-            } finally {
-                luaDownloadBtn.disabled = false;
-                luaDownloadBtn.innerHTML = `<i class="fas fa-file-archive"></i> تحميل ملف Lua (بصيغة ZIP)`;
-            }
-        }
-
-        // وظائف Online Fix
+        // وظائف Online Fix (لم تتغير)
         function searchOnlineFix() {
             const name = gameNameInput.value.trim();
             if (!name) {
@@ -664,14 +743,15 @@ Please use this file in your downloader tool.
             showToast('تم فتح صفحة Online Fix. يرجى التحقق من النتيجة.', 'info');
         }
 
-        // --- ربط الأحداث ---
+        // --- ربط الأحداث (لم يتغير) ---
         document.addEventListener('DOMContentLoaded', function() {
             generateBtn.addEventListener('click', generateManifest);
             appIdInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') { generateManifest(); }
             });
 
-            luaDownloadBtn.addEventListener('click', startLuaDownload);
+            luaDownloadBtn.addEventListener('click', () => startLuaDownload('main'));
+            luaAlternativeBtn.addEventListener('click', () => startLuaDownload('alternative'));
 
             onlineFixBtn.addEventListener('click', () => {
                 if (!currentAppId || isNaN(currentAppId)) {
