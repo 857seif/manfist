@@ -372,26 +372,6 @@
                 </button>
             </div>
             
-            <div class="btn-group" style="justify-content: center; margin-bottom: 25px;">
-                <button class="btn online-fix-btn" id="onlineFixBtn" style="flex-grow: 0; min-width: 250px;">
-                    <i class="fas fa-globe"></i> بحث في Online Fix (لفرد واحد)
-                </button>
-            </div>
-
-            <div id="onlineFixInputGroup" style="display: none; margin-top: 25px; padding-top: 15px; border-top: 1px dashed var(--secondary);">
-                <button class="btn steamdb-name-btn" id="steamDBNameBtn" style="background: linear-gradient(135deg, #1d3557, #1b263b); border: 1px solid #1d3557; color: white;">
-                    <i class="fas fa-copy"></i> استخدم الاسم المُكتشف أو ابحث في SteamDB
-                </button>
-                <div class="input-group" style="margin-top: 15px;">
-                    <label for="gameName">اسم اللعبة للبحث في Online Fix (تعبئة تلقائية):</label>
-                    <input type="text" id="gameName" placeholder="مثال: Grand Theft Auto V" autocomplete="off">
-                    <div class="example">سيتم استخدام الاسم للبحث في موقع Online Fix.</div>
-                </div>
-                <button class="btn fix-search-btn" id="fixSearchBtn">
-                    <i class="fas fa-search"></i> بحث في Online Fix
-                </button>
-            </div>
-            
             <div class="info-box" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
                 <p style="text-align: center; font-size: 0.9rem; color: var(--text);"></p>
             </div>
@@ -416,10 +396,6 @@
         const terminal = document.getElementById('terminal');
         const luaDownloadBtn = document.getElementById('luaDownloadBtn');
         const luaAlternativeBtn = document.getElementById('luaAlternativeBtn'); 
-        const onlineFixBtn = document.getElementById('onlineFixBtn');
-        const onlineFixInputGroup = document.getElementById('onlineFixInputGroup');
-        const gameNameInput = document.getElementById('gameName');
-        const steamDBNameBtn = document.getElementById('steamDBNameBtn');
         
         const uploadFileBtn = document.getElementById('uploadFileBtn');
         const fileInput = document.getElementById('fileInput');
@@ -872,7 +848,6 @@
                 gameHeaderImage.src = imageUrl;
                 gameHeaderImageContainer.style.display = 'block'; 
 
-                gameNameInput.value = gameData.name;
                 
                 logToTerminal(`تم تحديد اسم اللعبة: ${currentGameName}`);
                 showToast(`تم العثور على معلومات اللعبة الأولى: ${currentGameName}`, 'success');
@@ -882,25 +857,13 @@
                 showToast(`حدث خطأ في جلب البيانات: ${error.message}`, 'error');
                 
                 currentGameName = `Game_${currentAppId}`;
-                gameNameInput.value = currentGameName;
                 apiGameName.textContent = currentGameName;
             } finally {
                 generateBtn.disabled = false;
                 generateBtn.innerHTML = `<i class="fas fa-bolt"></i> توليد معلومات اللعبة (لأول AppID فقط)`;
-                onlineFixInputGroup.style.display = 'none'; 
             }
         }
         
-        function searchOnlineFix() {
-            const name = gameNameInput.value.trim();
-            if (!name) { showToast('الرجاء إدخال اسم اللعبة للبحث في Online Fix.', 'error'); return; }
-            const searchUrl = `https://online-fix.me/index/10-${encodeURIComponent(name)}.html`;
-            window.open(searchUrl, '_blank');
-            logToTerminal(`تم فتح صفحة Online Fix للبحث عن: ${name}`);
-            showToast('تم فتح صفحة Online Fix. يرجى التحقق من النتيجة.', 'info');
-        }
-
-
         // --- ربط الأحداث والتحميل الأولي ---
         document.addEventListener('DOMContentLoaded', function() {
             loadZipLibrary().catch(e => {
@@ -918,30 +881,6 @@
             uploadFileBtn.addEventListener('click', () => fileInput.click());
             fileInput.addEventListener('change', handleFileSelect);
 
-            onlineFixBtn.addEventListener('click', () => {
-                if (!currentAppId || isNaN(currentAppId)) {
-                    showToast('الرجاء إدخال AppID أولاً.', 'error');
-                    return;
-                }
-                onlineFixInputGroup.style.display = 'block';
-                gameNameInput.focus(); 
-                showToast('تم تعبئة الاسم تلقائيًا (لأول AppID). اضغط "بحث في Online Fix" للمتابعة.', 'info', 7000);
-            });
-
-            steamDBNameBtn.addEventListener('click', () => {
-                if (!currentAppId || isNaN(currentAppId)) {
-                    showToast('الرجاء إدخال AppID أولاً.', 'error');
-                    return;
-                }
-                const steamDbUrl = `https://steamdb.info/app/${currentAppId}/`;
-                window.open(steamDbUrl, '_blank');
-                showToast('تم فتح صفحة SteamDB. يرجى نسخ اسم اللعبة ولصقه في المربع إذا كان الاسم التلقائي غير صحيح.', 'info', 7000);
-            });
-
-            document.getElementById('fixSearchBtn').addEventListener('click', searchOnlineFix);
-            gameNameInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') { searchOnlineFix(); }
-            });
         });
     </script>
 </body>
