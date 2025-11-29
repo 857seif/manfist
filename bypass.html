@@ -199,6 +199,27 @@
     </div>
 
     <script>
+        // ----------------------------------------------------
+        //  دالة التحويل الجديدة
+        // ----------------------------------------------------
+        function transformLink(oldLink) {
+            // التحقق مما إذا كان الرابط القديم يبدأ بنطاق pixeldrain.sriflix.my
+            const regex = /^https:\/\/pixeldrain\.sriflix\.my\/(.+)$/;
+            const match = oldLink.match(regex);
+            
+            if (match && match[1]) {
+                // استخراج الـ ID وإنشاء الرابط الجديد
+                const fileId = match[1];
+                return `https://pixeldrain.com/u/${fileId}`;
+            }
+            
+            // إرجاع الرابط الأصلي إذا لم يكن يتبع النمط المطلوب
+            return oldLink;
+        }
+
+        // ----------------------------------------------------
+        //  قوائم الألعاب (الروابط القديمة باقية ليتم تحويلها ديناميكياً)
+        // ----------------------------------------------------
         const ubisoftGames = [
             {
                 name: "Assassin's Creed Liberation",
@@ -581,11 +602,15 @@
                 let linksHTML = '';
                 
                 if (game.bypassLinks) {
+                    // إذا كان هناك أكثر من رابط (كما في Fc 23)، نقوم بتحويل كل رابط في القائمة
                     game.bypassLinks.forEach(link => {
-                        linksHTML += `<a href="${link.link}" class="bypass-link" target="_blank">${link.name}</a>`;
+                        const newLink = transformLink(link.link); // يتم التحويل هنا
+                        linksHTML += `<a href="${newLink}" class="bypass-link" target="_blank">${link.name}</a>`;
                     });
                 } else {
-                    linksHTML = `<a href="${game.bypassLink}" class="bypass-link" target="_blank">تحميل Bypass</a>`;
+                    // إذا كان رابط واحد فقط (الحالة الأكثر شيوعًا)
+                    const newLink = transformLink(game.bypassLink); // يتم التحويل هنا
+                    linksHTML = `<a href="${newLink}" class="bypass-link" target="_blank">تحميل Bypass</a>`;
                 }
                 
                 gameCard.innerHTML = `
