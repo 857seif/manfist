@@ -28,54 +28,15 @@
 </style>
 </head>
 <body>
-<h1 style="text-align:center;color:#f472b6;font-size:1.875rem;font-weight:bold;margin-bottom:1.5rem;">🎮 denovogames</h1>
-    <!-- شريط البحث المضاف -->
-    <div id="searchContainer" style="margin: 20px 0; text-align: center;">
-        <input type="text" id="gameSearch" placeholder="ابحث عن لعبة..." 
-               style="padding: 10px; width: 80%; max-width: 400px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;">
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('gameSearch');
-            const gameCards = document.querySelectorAll('.game-card');
-            
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                
-                gameCards.forEach(card => {
-                    const title = card.querySelector('h2').textContent.toLowerCase();
-                    if (title.includes(searchTerm)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
-                
+<h1 style="text-align:center;color:#f472b6;font-size:1.875rem;font-weight:bold;margin-bottom:1.5rem;">🎮 مكتبة الألعاب الخاصة بك</h1>
 <div class="games-grid">
 
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
-          <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Pixeldrain bypass the dawnload limit</h2>
-          <img src="https://imgs.search.brave.com/AnPfzdAO0ANYlahLzwVxyhBiT_GPV5bGNh4xqNIJlCo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kNC5h/bHRlcm5hdGl2ZXRv/Lm5ldC9USWtIVWF5/NE1VY3ZvZWFkbzZo/dEl6MFd0NTl6ektZ/R1B1eWpFa0RqWC1z/L3JzOmZpdDo0MDo0/MDowL2c6Y2U6MDow/L2V4YXI6MS9ZV0p6/T2k4dlpHbHpkQzlw/WTI5dWN5OXdhWGhs/YkdSeVlXbHVYekU1/T0RVNE15NXdibWMu/cG5n" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(0)">
+          <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Stellar Blade</h2>
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3489700/header.jpg?t=1760065361" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(0)">
           
           <button class="show-download-btn" onclick="toggleDownloadLinksExported(0)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
           <div class="download-links" id="downloadLinksExported0" style="display:none;margin-top:10px;">
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://htmlpreview.github.io/?https://github.com/857seif/Pixeldrain-bypass-/blob/main/Pixeldrain%20bypass%20dawnload%20limet.html" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
-                <button onclick="copyLinkExported('https://htmlpreview.github.io/?https://github.com/857seif/Pixeldrain-bypass-/blob/main/Pixeldrain%20bypass%20dawnload%20limet.html')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-          </div>
-        </div>
-        <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
-          <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Stellar Blade</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3489700/header.jpg?t=1760065361" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(1)">
-          
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(1)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported1" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://1cloudfile.com/4bEhf" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -161,10 +122,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Lost in Random</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1462570/header.jpg?t=1662047426" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(2)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1462570/header.jpg?t=1662047426" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(1)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(2)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported2" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(1)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported1" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/h6z73bo40mr5csg/Lost+in+Random+1.0.0.3+-TechnoRepack.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -175,10 +136,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">​Need for Speed Heat</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222680/header.jpg?t=1716831270" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(3)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222680/header.jpg?t=1716831270" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(2)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(3)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported3" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(2)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported2" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/5irjsv6cc6t9xvy/NFS+Heat+1.0.60.7041+[TechnoRepack].part1.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -199,10 +160,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">​Need for Speed Unbound</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1846380/eacea0635efb7af9054f6b299060fee32404ace7/header.jpg?t=1761146151" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(4)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1846380/eacea0635efb7af9054f6b299060fee32404ace7/header.jpg?t=1761146151" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(3)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(4)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported4" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(3)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported3" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/nlthb8g6tr5zo48/NFS+Unbound+v.1.0.8.2541+[TechnoRepack].part1.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -223,10 +184,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">​Dead Space Remake</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1693980/header.jpg?t=1749125590" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(5)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1693980/header.jpg?t=1749125590" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(4)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(5)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported5" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(4)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported4" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/lkdo6yxiiwjd8q4/Dead+Space+Remake+v.1.1.14.17871+[TechnoRepack].part1.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -247,10 +208,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">FC 24</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2195250/header.jpg?t=1752167366" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(6)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2195250/header.jpg?t=1752167366" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(5)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(6)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported6" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(5)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported5" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://gofile.io/d/or3xD6" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -261,10 +222,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">FC 26</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3405690/2d96aa1b06e453cd62dae9029d412f19e61932c3/header.jpg?t=1759332156" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(7)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3405690/2d96aa1b06e453cd62dae9029d412f19e61932c3/header.jpg?t=1759332156" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(6)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(7)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported7" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(6)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported6" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://gofile.io/d/jtrjiu" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -300,10 +261,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">F1 24</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2488620/header.jpg?t=1748912330" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(8)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2488620/header.jpg?t=1748912330" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(7)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(8)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported8" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(7)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported7" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://1fichier.com/?6jvy9g1s0heswkjnoly7&af=62851" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -314,10 +275,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">MAFIA THE OLD COUNTRY</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1941540/d06980bb8f41737ca68da8eed40079347db09c84/header.jpg?t=1756416460" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(9)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1941540/d06980bb8f41737ca68da8eed40079347db09c84/header.jpg?t=1756416460" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(8)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(9)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported9" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(8)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported8" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/roe9omwyju8t0bf/Mafia+the+Old+Country+-+TechnoRepack+b19489104.part1.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -343,10 +304,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Star Wars Outlaws</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2842040/header.jpg?t=1748385237" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(10)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2842040/header.jpg?t=1748385237" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(9)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(10)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported10" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(9)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported9" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/tso6r3hfi9tvu9x/Starwar+Outlaws+TechnoRepack+b18870567.part1.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -377,10 +338,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Lost Judgment</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2058190/header.jpg?t=1704379998" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(11)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2058190/header.jpg?t=1704379998" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(10)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(11)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported11" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(10)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported10" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/92nvv5csqdf164h/Lost+Judgment+-+TechnoRepack+b10792513.part4.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -406,10 +367,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Sniper Elite 5</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1029690/header.jpg?t=1753950203" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(12)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1029690/header.jpg?t=1753950203" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(11)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(12)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported12" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(11)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported11" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/ehcrf62bvtuevp6/Sniper+Elite+5+TechnoRepack.part1.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -450,10 +411,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">StarWars Squadrons</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222730/header.jpg?t=1748950120" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(13)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222730/header.jpg?t=1748950120" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(12)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(13)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported13" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(12)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported12" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/4diunjdyc940d75/StarWars+Squadrons+[TechnoRepack].part1.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -474,10 +435,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Avatar Frontiers of Pandora</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2840770/header.jpg?t=1742490068" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(14)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2840770/header.jpg?t=1742490068" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(13)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(14)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported14" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(13)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported13" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/s8to2i2pir2kqi7/Avatar+Frontiers+of+Pandora+1.4+ubi+%5BTechnoRepack%5D.part01.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -568,10 +529,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">The First Berserker Khazan</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2680010/header.jpg?t=1757481907" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(15)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2680010/header.jpg?t=1757481907" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(14)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(15)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported15" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(14)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported14" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/pw2zjyv7rjtmb77/The+First+Berserker+Khazan+1.1.10.3+TechnoRepack.part1.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -597,39 +558,54 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Resident Evil 4 - Separate Ways</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2109300/header.jpg?t=1728442580" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(16)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2109300/header.jpg?t=1728442580" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(15)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(16)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported16" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(15)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported15" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://www.mediafire.com/file/c0ncvxha2vu2jbg/RE4_Separate_Ways_V2_-_TechnoRepack.part1.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
-                <button onclick="copyLinkExported('https://www.mediafire.com/file/c0ncvxha2vu2jbg/RE4_Separate_Ways_V2_-_TechnoRepack.part1.rar/file')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold8.gofile.io/download/direct/cf647856-50ff-4ceb-916d-89191b608442/RE4-GU.part1.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
+                <button onclick="copyLinkExported('https://cold8.gofile.io/download/direct/cf647856-50ff-4ceb-916d-89191b608442/RE4-GU.part1.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://www.mediafire.com/file/mrwhmn62fhf0e3z/RE4+Separate+Ways+V2+-+TechnoRepack.part2.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 2</a>
-                <button onclick="copyLinkExported('https://www.mediafire.com/file/mrwhmn62fhf0e3z/RE4+Separate+Ways+V2+-+TechnoRepack.part2.rar/file')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold8.gofile.io/download/direct/5ae3ce9f-b8a5-4e64-b7ea-0e6f9521663d/RE4-GU.part2.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 2</a>
+                <button onclick="copyLinkExported('https://cold8.gofile.io/download/direct/5ae3ce9f-b8a5-4e64-b7ea-0e6f9521663d/RE4-GU.part2.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://www.mediafire.com/file/qq7ykugrh1z9wkm/RE4+Separate+Ways+V2+-+TechnoRepack.part3.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 3</a>
-                <button onclick="copyLinkExported('https://www.mediafire.com/file/qq7ykugrh1z9wkm/RE4+Separate+Ways+V2+-+TechnoRepack.part3.rar/file')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold7.gofile.io/download/direct/3f396906-2eec-48ec-847d-501a542c9a76/RE4-GU.part3.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 3</a>
+                <button onclick="copyLinkExported('https://cold7.gofile.io/download/direct/3f396906-2eec-48ec-847d-501a542c9a76/RE4-GU.part3.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://www.mediafire.com/file/7wcqu656vd9lyq1/RE4_Separate_Ways_V2_-_TechnoRepack.part4.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 4</a>
-                <button onclick="copyLinkExported('https://www.mediafire.com/file/7wcqu656vd9lyq1/RE4_Separate_Ways_V2_-_TechnoRepack.part4.rar/file')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold7.gofile.io/download/direct/3a5e3cd7-273e-45fa-96ac-9720cd3f0c3a/RE4-GU.part4.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 4</a>
+                <button onclick="copyLinkExported('https://cold7.gofile.io/download/direct/3a5e3cd7-273e-45fa-96ac-9720cd3f0c3a/RE4-GU.part4.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold1.gofile.io/download/direct/ac42c95b-18ec-4d2f-9509-6c1e8d853ea4/RE4-GU.part5.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 5</a>
+                <button onclick="copyLinkExported('https://cold1.gofile.io/download/direct/ac42c95b-18ec-4d2f-9509-6c1e8d853ea4/RE4-GU.part5.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-9.gofile.io/download/direct/e701d1ec-a692-43d5-8725-7082cdc9bd40/RE4-GU.part6.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 6</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-9.gofile.io/download/direct/e701d1ec-a692-43d5-8725-7082cdc9bd40/RE4-GU.part6.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold7.gofile.io/download/direct/8a207d77-b7d9-47ef-8d90-2685dca95155/RE4-GU.part7.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 7</a>
+                <button onclick="copyLinkExported('https://cold7.gofile.io/download/direct/8a207d77-b7d9-47ef-8d90-2685dca95155/RE4-GU.part7.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
           </div>
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Black Myth WuKong</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg?t=1760601605" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(17)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg?t=1760601605" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(16)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(17)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported17" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(16)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported16" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/ao91zegpsaybom7/BlackMyth_Wukong_%5BTechnoRepack%5D.part01.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -690,154 +666,64 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Assassins Creed Shadows</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3159330/header.jpg?t=1758300932" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(18)">
+          <img src="https://gamers-ultd.com/wp-content/uploads/2025/11/660e6185fbff4e2940488bdb-2.png" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(17)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(18)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported18" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(17)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported17" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG4q" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG4q')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold-na-phx-3.gofile.io/download/direct/8ffdc2b4-40d3-4e0f-b4a5-6c23058a70f2/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part01.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-3.gofile.io/download/direct/8ffdc2b4-40d3-4e0f-b4a5-6c23058a70f2/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part01.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG4i" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 2</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG4i')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold-na-phx-10.gofile.io/download/direct/a2779223-c8be-4b3a-b8ef-98a3540058e6/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part02.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 2</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-10.gofile.io/download/direct/a2779223-c8be-4b3a-b8ef-98a3540058e6/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part02.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG4l" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 3</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG4l')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold-na-phx-3.gofile.io/download/direct/ecceff60-509a-44d1-9696-12f4d0a9752d/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part03.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 3</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-3.gofile.io/download/direct/ecceff60-509a-44d1-9696-12f4d0a9752d/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part03.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG40" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 4</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG40')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold2.gofile.io/download/direct/94783bd3-dfb8-4fd0-9da7-a6891352c0d4/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part04.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 4</a>
+                <button onclick="copyLinkExported('https://cold2.gofile.io/download/direct/94783bd3-dfb8-4fd0-9da7-a6891352c0d4/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part04.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDx1" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 5</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDx1')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold-na-phx-7.gofile.io/download/direct/4868f2b4-f11e-45b3-ab5c-3306734f0c85/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part05.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 5</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-7.gofile.io/download/direct/4868f2b4-f11e-45b3-ab5c-3306734f0c85/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part05.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDx3" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 6</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDx3')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold-na-phx-4.gofile.io/download/direct/58e7155b-1c3e-4e60-b8b4-3a0ee5a7a30f/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part06.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 6</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-4.gofile.io/download/direct/58e7155b-1c3e-4e60-b8b4-3a0ee5a7a30f/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part06.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDxf" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 7</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDxf')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold-na-phx-7.gofile.io/download/direct/c7307f77-140e-4b69-a73f-2b6e2dba1efb/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part07.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 7</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-7.gofile.io/download/direct/c7307f77-140e-4b69-a73f-2b6e2dba1efb/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part07.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG4z" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 8</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG4z')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold-na-phx-10.gofile.io/download/direct/2350de3f-cebd-4bc5-89e4-0c125f02dbb0/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part08.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 8</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-10.gofile.io/download/direct/2350de3f-cebd-4bc5-89e4-0c125f02dbb0/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part08.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDx4" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 9</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDx4')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4QB6e" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 10</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4QB6e')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDx5" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 11</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDx5')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDx6" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 12</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDx6')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4QB6f" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 13</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4QB6f')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDx2" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 14</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDx2')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDx8" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 15</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDx8')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDxb" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 16</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDxb')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDxi" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 17</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDxi')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG5a" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 18</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG5a')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDx7" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 19</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDx7')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG54" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 20</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG54')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG57" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 21</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG57')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG58" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 22</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG58')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG59" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 23</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG59')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG51" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 24</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG51')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/4aDxj" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 25</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/4aDxj')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG5h" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 26</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG5h')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
-              </div>
-            
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://1cloudfile.com/3uG55" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 27</a>
-                <button onclick="copyLinkExported('https://1cloudfile.com/3uG55')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold-eu-agl-1.gofile.io/download/direct/4b024ff1-8fed-4e8a-9dfa-91fd0c84967c/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part09.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 9</a>
+                <button onclick="copyLinkExported('https://cold-eu-agl-1.gofile.io/download/direct/4b024ff1-8fed-4e8a-9dfa-91fd0c84967c/ACS%20-%20Claws%20of%20Awaj%20%7BGU%7D.part09.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
           </div>
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Street Fighter 6</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1364780/header.jpg?t=1761116384" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(19)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1364780/header.jpg?t=1761116384" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(18)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(19)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported19" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(18)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported18" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/44c3fsmpaod73px/Street+Fighter+6+b18397329+TechnoRepack.part1.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -873,10 +759,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">FAR Changing Tides</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1570010/header.jpg?t=1755781645" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(20)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1570010/header.jpg?t=1755781645" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(19)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(20)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported20" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(19)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported19" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/o2z2vmeyurjm52l/FAR_Changing_Tides_TechnoRepack.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -887,10 +773,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">TopSpin 2k25</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1785650/header.jpg?t=1739858016" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(21)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1785650/header.jpg?t=1739858016" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(20)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(21)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported21" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(20)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported20" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://www.mediafire.com/file/gwugoawq96j39w7/TopSpin+2K25+TechnoAfandi.part3.rar/file" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -911,24 +797,49 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Assassin's Creed Mirage</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3035570/header.jpg?t=1753294133" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(22)">
+          <img src="https://gamers-ultd.com/wp-content/uploads/2025/11/EGS0be2e9dfa45.jpg-Recovered.png" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(21)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(22)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported22" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(21)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported21" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <a href="https://gofile.io/d/yyPBFQ" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
-                <button onclick="copyLinkExported('https://gofile.io/d/yyPBFQ')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+                <a href="https://cold-na-phx-6.gofile.io/download/direct/a4f8c0a8-32d4-4718-b147-dc8ebc4d80ba/DataPackage_ACM_V110%7BGU%7D.part1.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-6.gofile.io/download/direct/a4f8c0a8-32d4-4718-b147-dc8ebc4d80ba/DataPackage_ACM_V110%7BGU%7D.part1.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-3.gofile.io/download/direct/02f973fe-13ad-46a5-8948-cb27107bb44c/DataPackage_ACM_V110%7BGU%7D.part2.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 2</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-3.gofile.io/download/direct/02f973fe-13ad-46a5-8948-cb27107bb44c/DataPackage_ACM_V110%7BGU%7D.part2.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold7.gofile.io/download/direct/076751fb-ebf0-4424-b547-d83c54c2d21d/DataPackage_ACM_V110%7BGU%7D.part3.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 3</a>
+                <button onclick="copyLinkExported('https://cold7.gofile.io/download/direct/076751fb-ebf0-4424-b547-d83c54c2d21d/DataPackage_ACM_V110%7BGU%7D.part3.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold2.gofile.io/download/direct/a5aec3bf-c662-4142-8974-3a116174c696/DataPackage_ACM_V110%7BGU%7D.part4.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 4</a>
+                <button onclick="copyLinkExported('https://cold2.gofile.io/download/direct/a5aec3bf-c662-4142-8974-3a116174c696/DataPackage_ACM_V110%7BGU%7D.part4.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold2.gofile.io/download/direct/88be8b46-0689-423a-8cea-da0f7ffdfc84/DataPackage_ACM_V110%7BGU%7D.part5.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 5</a>
+                <button onclick="copyLinkExported('https://cold2.gofile.io/download/direct/88be8b46-0689-423a-8cea-da0f7ffdfc84/DataPackage_ACM_V110%7BGU%7D.part5.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-4.gofile.io/download/direct/837e2db6-bae3-4751-afbb-10385038a3a0/DataPackage_ACM_V110%7BGU%7D.part6.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 6</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-4.gofile.io/download/direct/837e2db6-bae3-4751-afbb-10385038a3a0/DataPackage_ACM_V110%7BGU%7D.part6.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
           </div>
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">​Prince of Persia The Lost Crown</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2751000/header.jpg?t=1736259456" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(23)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2751000/header.jpg?t=1736259456" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(22)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(23)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported23" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(22)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported22" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://bowfile.com/1qf9c" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -974,10 +885,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">NBA 2K26</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3472040/c3c09a28c455c275d05e6b8c763ff78626f7cdaf/header_alt_assets_0.jpg?t=1761580807" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(24)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3472040/c3c09a28c455c275d05e6b8c763ff78626f7cdaf/header_alt_assets_0.jpg?t=1761580807" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(23)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(24)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported24" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(23)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported23" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://1cloudfile.com/3vE9p" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -1073,10 +984,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">F1 25</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3059520/37f833ca5bd3d5c3eec2b411131f3e00f580bbe7/header.jpg?t=1760633810" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(25)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3059520/37f833ca5bd3d5c3eec2b411131f3e00f580bbe7/header.jpg?t=1760633810" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(24)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(25)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported25" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(24)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported24" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://1cloudfile.com/2PfQe" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -1187,10 +1098,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">​Dragon's Dogma 2</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2054970/header.jpg?t=1732148252" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(26)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2054970/header.jpg?t=1732148252" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(25)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(26)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported26" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(25)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported25" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://bowfile.com/g9ff" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -1281,10 +1192,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">NBA 2K26</h2>
-          <img src="https://i0.wp.com/gamedrive.org/wp-content/uploads/2025/09/NBA-2K26.webp?w=270&ssl=1" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(27)">
+          <img src="https://i0.wp.com/gamedrive.org/wp-content/uploads/2025/09/NBA-2K26.webp?w=270&ssl=1" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(26)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(27)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported27" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(26)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported26" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://1cloudfile.com/3vE9p" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -1380,10 +1291,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Sniper Elite Resistance</h2>
-          <img src="https://i0.wp.com/gamedrive.org/wp-content/uploads/2025/02/Sniper-Elite-Resistance.webp?w=270&ssl=1" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(28)">
+          <img src="https://i0.wp.com/gamedrive.org/wp-content/uploads/2025/02/Sniper-Elite-Resistance.webp?w=270&ssl=1" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(27)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(28)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported28" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(27)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported27" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://pixeldrain.com/u/HPV2LFDe" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -1509,10 +1420,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">SONIC X SHADOW GENERATIONS</h2>
-          <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2513280/header.jpg?t=1741795411" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(29)">
+          <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2513280/header.jpg?t=1741795411" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(28)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(29)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported29" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(28)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported28" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://bowfile.com/ga63" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -1568,10 +1479,10 @@
         </div>
         <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
           <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Borderlands 4</h2>
-          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1285190/986a88d1b0e1420b00183def2a7034508353afa3/header.jpg?t=1761055619" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(30)">
+          <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1285190/986a88d1b0e1420b00183def2a7034508353afa3/header.jpg?t=1761055619" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(29)">
           
-          <button class="show-download-btn" onclick="toggleDownloadLinksExported(30)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
-          <div class="download-links" id="downloadLinksExported30" style="display:none;margin-top:10px;">
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(29)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported29" style="display:none;margin-top:10px;">
             
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://1cloudfile.com/4bEgt" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
@@ -1656,6 +1567,211 @@
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
                 <a href="https://1cloudfile.com/2PJm3" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 17</a>
                 <button onclick="copyLinkExported('https://1cloudfile.com/2PJm3')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+          </div>
+        </div>
+        <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
+          <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Assassin's Creed Shadows x Attack on Titan</h2>
+          <img src="https://gamers-ultd.com/wp-content/uploads/2025/11/AC-SHADOWS-DOWNLOAD-FREE.png" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(30)">
+          
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(30)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported30" style="display:none;margin-top:10px;">
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-eu-agl-1.gofile.io/download/direct/ca0c1e9f-d5c9-47e2-9a86-fa36de988ddb/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part01.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
+                <button onclick="copyLinkExported('https://cold-eu-agl-1.gofile.io/download/direct/ca0c1e9f-d5c9-47e2-9a86-fa36de988ddb/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part01.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold2.gofile.io/download/direct/475d6ed2-b627-4921-9564-c701bb37ff17/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part02.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 2</a>
+                <button onclick="copyLinkExported('https://cold2.gofile.io/download/direct/475d6ed2-b627-4921-9564-c701bb37ff17/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part02.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-1.gofile.io/download/direct/61c2f74d-c5f2-47d0-bff6-d019359513ff/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part03.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 3</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-1.gofile.io/download/direct/61c2f74d-c5f2-47d0-bff6-d019359513ff/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part03.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-2.gofile.io/download/direct/4ab7393e-2939-4292-9acb-ddde33b254f0/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part04.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 4</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-2.gofile.io/download/direct/4ab7393e-2939-4292-9acb-ddde33b254f0/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part04.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold1.gofile.io/download/direct/c8b94024-c39f-4b92-a256-fa202d9deffa/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part05.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 5</a>
+                <button onclick="copyLinkExported('https://cold1.gofile.io/download/direct/c8b94024-c39f-4b92-a256-fa202d9deffa/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part05.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold1.gofile.io/download/direct/bf70196c-2c65-45d6-940d-1133a17c11f3/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part06.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 6</a>
+                <button onclick="copyLinkExported('https://cold1.gofile.io/download/direct/bf70196c-2c65-45d6-940d-1133a17c11f3/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part06.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-9.gofile.io/download/direct/1dc4b113-cb53-4f9c-a27e-665131d904a6/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part07.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 7</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-9.gofile.io/download/direct/1dc4b113-cb53-4f9c-a27e-665131d904a6/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part07.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-2.gofile.io/download/direct/c85edc2a-a4b9-4981-bab4-a0e639b94ded/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part08.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 8</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-2.gofile.io/download/direct/c85edc2a-a4b9-4981-bab4-a0e639b94ded/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part08.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-2.gofile.io/download/direct/8451dc42-aab1-45c5-b543-1424bce43936/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part09.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 9</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-2.gofile.io/download/direct/8451dc42-aab1-45c5-b543-1424bce43936/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part09.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-8.gofile.io/download/direct/b635e223-9431-4705-921e-551c074c5ed4/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part10.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 10</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-8.gofile.io/download/direct/b635e223-9431-4705-921e-551c074c5ed4/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part10.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold3.gofile.io/download/direct/4ff9b715-1d68-428b-ac73-dd5a5901fb06/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part11.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 11</a>
+                <button onclick="copyLinkExported('https://cold3.gofile.io/download/direct/4ff9b715-1d68-428b-ac73-dd5a5901fb06/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part11.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-eu-agl-1.gofile.io/download/direct/d4f14d2e-830f-4da6-914a-59eeab308854/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part12.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 12</a>
+                <button onclick="copyLinkExported('https://cold-eu-agl-1.gofile.io/download/direct/d4f14d2e-830f-4da6-914a-59eeab308854/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part12.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold5.gofile.io/download/direct/475fe449-5bcd-4350-b3d0-5e7fa0cbba5d/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part13.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 13</a>
+                <button onclick="copyLinkExported('https://cold5.gofile.io/download/direct/475fe449-5bcd-4350-b3d0-5e7fa0cbba5d/DataPackage_ACS_COA_V.1.1.6%20%7BGU%7D.part13.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+          </div>
+        </div>
+        <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
+          <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Football Manager 26</h2>
+          <img src="https://gamers-ultd.com/wp-content/uploads/2025/11/660e6185fbff4e2940488bdb-2-1.png" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(31)">
+          
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(31)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported31" style="display:none;margin-top:10px;">
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-8.gofile.io/download/direct/458386d8-da55-46c0-b6a9-63503237c18c/DataPackage_FB26%20%7BGU%7D.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-8.gofile.io/download/direct/458386d8-da55-46c0-b6a9-63503237c18c/DataPackage_FB26%20%7BGU%7D.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+          </div>
+        </div>
+        <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
+          <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Sonic Frontiers</h2>
+          <img src="https://gamers-ultd.com/wp-content/uploads/2025/11/تحميل-لعبة-Sonic-Frontiers-كراك-للكمبيوتر.png" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(32)">
+          
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(32)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported32" style="display:none;margin-top:10px;">
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-3.gofile.io/download/direct/78b6d465-0645-493d-b0b9-ab2d5cb766ab/DataPackage_SF%20%7BGU%7D.part1.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-3.gofile.io/download/direct/78b6d465-0645-493d-b0b9-ab2d5cb766ab/DataPackage_SF%20%7BGU%7D.part1.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-7.gofile.io/download/direct/837e5ea5-2c3c-458a-b067-c38edaa5ae1f/DataPackage_SF%20%7BGU%7D.part2.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 2</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-7.gofile.io/download/direct/837e5ea5-2c3c-458a-b067-c38edaa5ae1f/DataPackage_SF%20%7BGU%7D.part2.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-8.gofile.io/download/direct/f237ec5b-0e34-49a9-97d3-78e7e2b4d9f8/DataPackage_SF%20%7BGU%7D.part3.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 3</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-8.gofile.io/download/direct/f237ec5b-0e34-49a9-97d3-78e7e2b4d9f8/DataPackage_SF%20%7BGU%7D.part3.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-7.gofile.io/download/direct/676d240c-c12d-4448-8c01-a7f8f6894639/DataPackage_SF%20%7BGU%7D.part4.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 4</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-7.gofile.io/download/direct/676d240c-c12d-4448-8c01-a7f8f6894639/DataPackage_SF%20%7BGU%7D.part4.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+          </div>
+        </div>
+        <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
+          <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Doom dark edgas</h2>
+          <img src="https://gamers-ultd.com/wp-content/uploads/2025/11/Untitled-4-1.png" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(33)">
+          
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(33)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported33" style="display:none;margin-top:10px;">
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-eu-agl-1.gofile.io/download/direct/0959dc5b-b19c-4c2b-b818-aae853bfc41c/DTDA%20%7BGU%7D.part01.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
+                <button onclick="copyLinkExported('https://cold-eu-agl-1.gofile.io/download/direct/0959dc5b-b19c-4c2b-b818-aae853bfc41c/DTDA%20%7BGU%7D.part01.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-9.gofile.io/download/direct/f069942c-2b70-487e-bb9f-3043f683eb96/DTDA%20%7BGU%7D.part02.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 2</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-9.gofile.io/download/direct/f069942c-2b70-487e-bb9f-3043f683eb96/DTDA%20%7BGU%7D.part02.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-4.gofile.io/download/direct/9b7510a6-f0ac-4f8b-b2dd-86998af64556/DTDA%20%7BGU%7D.part03.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 3</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-4.gofile.io/download/direct/9b7510a6-f0ac-4f8b-b2dd-86998af64556/DTDA%20%7BGU%7D.part03.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-4.gofile.io/download/direct/fdd0a460-bff4-44d6-9ce1-f1c1aa74a4c3/DTDA%20%7BGU%7D.part04.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 4</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-4.gofile.io/download/direct/fdd0a460-bff4-44d6-9ce1-f1c1aa74a4c3/DTDA%20%7BGU%7D.part04.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-6.gofile.io/download/direct/b5d1ad77-bfb7-4475-b48a-24b421dae97c/DTDA%20%7BGU%7D.part05.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 5</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-6.gofile.io/download/direct/b5d1ad77-bfb7-4475-b48a-24b421dae97c/DTDA%20%7BGU%7D.part05.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold1.gofile.io/download/direct/aa09974b-908c-4756-ad91-4efdc28fbd9a/DTDA%20%7BGU%7D.part06.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 6</a>
+                <button onclick="copyLinkExported('https://cold1.gofile.io/download/direct/aa09974b-908c-4756-ad91-4efdc28fbd9a/DTDA%20%7BGU%7D.part06.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold1.gofile.io/download/direct/8cb26279-b593-43b3-9ece-ad5c9af395ba/DTDA%20%7BGU%7D.part07.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 7</a>
+                <button onclick="copyLinkExported('https://cold1.gofile.io/download/direct/8cb26279-b593-43b3-9ece-ad5c9af395ba/DTDA%20%7BGU%7D.part07.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-eu-agl-1.gofile.io/download/direct/d7dc78c8-c7db-4b7f-86c3-71718930f57c/DTDA%20%7BGU%7D.part08.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 8</a>
+                <button onclick="copyLinkExported('https://cold-eu-agl-1.gofile.io/download/direct/d7dc78c8-c7db-4b7f-86c3-71718930f57c/DTDA%20%7BGU%7D.part08.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-4.gofile.io/download/direct/351cfcc5-50bb-4321-a997-5772968f3bfa/DTDA%20%7BGU%7D.part09.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 9</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-4.gofile.io/download/direct/351cfcc5-50bb-4321-a997-5772968f3bfa/DTDA%20%7BGU%7D.part09.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+          </div>
+        </div>
+        <div class="game-card" style="background:#141b2d;border-radius:1rem;padding:1rem;color:white;border:1px solid #334155;">
+          <h2 style="color:#f472b6;font-size:1.25rem;font-weight:bold;margin-bottom:0.5rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Like a Dragon: Pirate Yakuza in Hawaii</h2>
+          <img src="https://gamers-ultd.com/wp-content/uploads/2025/11/تحميل-لعبة-Like-a-Dragon-Pirate-Yakuza-in-Hawaii-كراك-للكمبيوتر.png" style="width:100%;border-radius:0.75rem;cursor:pointer;max-height:250px;object-fit:cover;" onclick="toggleDownloadLinksExported(34)">
+          
+          <button class="show-download-btn" onclick="toggleDownloadLinksExported(34)" style="background-color:#10b981;border-radius:0.5rem;padding:0.5rem 1rem;margin:10px 0;cursor:pointer;display:inline-block;width:100%;font-size:0.875rem;">اظهار روابط التحميل</button>
+          <div class="download-links" id="downloadLinksExported34" style="display:none;margin-top:10px;">
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-7.gofile.io/download/direct/adc80510-385b-4f3c-a98f-891da139cd45/DataPackage_PYIH%20%7BGU%7D.part1.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 1</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-7.gofile.io/download/direct/adc80510-385b-4f3c-a98f-891da139cd45/DataPackage_PYIH%20%7BGU%7D.part1.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-3.gofile.io/download/direct/f3e74fa8-b222-4c07-9a9d-27a6c17fd7b5/DataPackage_PYIH%20%7BGU%7D.part2.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 2</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-3.gofile.io/download/direct/f3e74fa8-b222-4c07-9a9d-27a6c17fd7b5/DataPackage_PYIH%20%7BGU%7D.part2.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-7.gofile.io/download/direct/5576de05-3204-4cfd-b57f-882d5afc88de/DataPackage_PYIH%20%7BGU%7D.part3.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 3</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-7.gofile.io/download/direct/5576de05-3204-4cfd-b57f-882d5afc88de/DataPackage_PYIH%20%7BGU%7D.part3.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-eu-agl-1.gofile.io/download/direct/15307eee-a4d3-488e-bdd5-30c267449d85/DataPackage_PYIH%20%7BGU%7D.part4.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 4</a>
+                <button onclick="copyLinkExported('https://cold-eu-agl-1.gofile.io/download/direct/15307eee-a4d3-488e-bdd5-30c267449d85/DataPackage_PYIH%20%7BGU%7D.part4.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
+              </div>
+            
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+                <a href="https://cold-na-phx-6.gofile.io/download/direct/37225040-4470-4bd9-bc0e-11bf87a4f0e6/DataPackage_PYIH%20%7BGU%7D.part5.rar" target="_blank" style="display:inline-block;margin:4px;padding:6px 12px;background:#1d4ed8;color:white;border-radius:6px;text-decoration:none;font-size:0.875rem;flex:1;">تحميل 5</a>
+                <button onclick="copyLinkExported('https://cold-na-phx-6.gofile.io/download/direct/37225040-4470-4bd9-bc0e-11bf87a4f0e6/DataPackage_PYIH%20%7BGU%7D.part5.rar')" style="background:transparent;border:none;color:white;cursor:pointer;padding:0.2rem;border-radius:0.3rem;" title="نسخ الرابط">📋</button>
               </div>
             
           </div>
